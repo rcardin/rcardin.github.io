@@ -34,7 +34,7 @@ For example, let’s analyze a classic software problem: a repository class (`Us
 enables access to information stored on database, and a service class (`UserService`) that allows the
 use of this information to other components.
 
-![Class diagram showing a direct dependency between two classes](http://localhost:4000/assets/cp_1.png)
+![Class diagram showing a direct dependency between two classes](http://rcardin.github.io/assets/cp_1.png)
 
 Clearly, the direct association between these two elements creates a high level of coupling between them.
 In particular `UserService` is responsible for creating an instance of `UserRepository`, tying the evolution
@@ -44,7 +44,7 @@ unit tests, which would require the replacement of a `UserRepository` with a moc
 You can improve the situation by abstracting the `UserRepository` component in an interface and changing
 the dependency in the `UserService` towards this interface.
 
-![Class diagram showing a better solution using an interface](http://localhost:4000/assets/cp_2.png)
+![Class diagram showing a better solution using an interface](http://rcardin.github.io/assets/cp_2.png)
 
 This new configuration enables the use of **dependency injection** (DI) pattern. DI is a design pattern
 that helps to separate the behavior of a component from the responsibility for resolution of its
@@ -72,7 +72,7 @@ A trait also has a key feature for the cake pattern: can be "added" to any compo
 the attributes and methods of the trait are added to those of the component. This makes it possible to
 implement some kind of multiple inheritance, that is not allowed in other programming languages.
 
-![Class diagram showing the meaning of traits](http://localhost:4000/assets/cp_3.png)
+![Class diagram showing the meaning of traits](http://rcardin.github.io/assets/cp_3.png)
 
 #### Self-type annotation
 
@@ -114,7 +114,7 @@ to the problem must not modify these two classes, maintaining isolated and disti
 more technical aspects. For this reason, we define two traits whose aim is to enclose the original classes
 in components more malleable, like layers of a cake.
 
-![A visual representation of the cake pattern](http://localhost:4000/assets/cp_4.jpg)
+![A visual representation of the cake pattern](http://rcardin.github.io/assets/cp_4.jpg)
 
 {% highlight scala %}
 trait UserRepositoryComponent {
