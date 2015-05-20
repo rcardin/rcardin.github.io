@@ -9,8 +9,19 @@ layout: default
   <ul class="post-list">
     {% for post in site.posts %}
       <li>
+        {% capture read_time %}
+          {{ post.content | number_of_words | divided_by: 180 }}
+        {% endcapture %}
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
+        <span class="post-meta">
+          &nbsp;&nbsp;
+          <i class="fa fa-clock-o"></i>
+          {% if read_time != '0' %}
+            {{ read_time }}
+          {% else %}
+            1
+          {% endif %} min. to read
+        </span>
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
