@@ -21,8 +21,8 @@ is mainly represented by an automatic navigation inside a UI that checks some pr
 growth is probably due to the continuous increasing of the complexity of the UIs. 
 
 If you are planning to develop an application nowadays, you will probably choose to develop a single page application 
-base on HTML5 and some Javascript framework. So, testing automatically (or *automagically*) a UI of this kind means to
-use some tool that lets you navigate over the application pages inside a browser.
+based on HTML5 and some Javascript framework. So, testing automatically (or *automagically*) a UI of this kind means to
+use some tool that lets you navigate through the application pages inside a browser.
 
 There are three main tools to develop and to execute functional testing, which are:
 
@@ -30,41 +30,41 @@ There are three main tools to develop and to execute functional testing, which a
  * [Rational Functional Tester (RFT)](http://www-03.ibm.com/software/products/it/functional)
  * [HP Unified Functional Testing (previously call QTP)](http://www8.hp.com/us/en/software-solutions/unified-functional-automated-testing/)
 
-In this article we will focus on Rational Functional Tester and on a problem that affects it: *recognition of HTML
+In this article we will focus on Rational Functional Tester and on a problem that affects it: the *recognition of HTML
 objects with a dynamic id*.
  
 # Rational funtional tester
-I don't want to have a full dissertation about RFT and its pros and cons. As previously stated, my aim is to focus on 
-a very specific problem, i.e. let RFT to recognize HTML object with a dynamic-id.
+I don’t want to have a full dissertation about RFT and its pros and cons. As previously stated, my aim is to focus on a 
+very specific problem, i.e. the recognition of HTML object with a dynamic-id.
 
 #### How RFT works (sucks...)
 In short, RFT gives you a "Studio" application based on top of Eclipse by which a developer can record elements of an
 HTML page and can record some actions on them, such as clicks, text editing, and so on. All this stuff is recorded
-inside a script, which is a Java class extending a class of the RFT API, ---- TODO ----, using other classes  of the 
-RFT API, such as `SelectGuiSubitemTestObject` which represents a drop down menu, or `GuiTestObject`, which represents
+inside a script, which is a Java class extending a class of the RFT API. Recorded object are represented using other 
+classes of the RFT API, such as `SelectGuiSubitemTestObject` which represents a drop down menu, or `GuiTestObject`, which represents
 a simple clickable element. The base class of all the recordable object is `TestObject`.
 
 Then, the script can be executed and all the action previously recorded are simulated on the HTML page. This lets you
 to reproduce a user navigation and to test some application properties in the so called *functional tests*. Differently
-from *Selenium*, HTML object are not managed using directly the *Domain Object Model*, or DOM. IBM build a structure
+from *Selenium*, HTML objects are not managed using directly the *Domain Object Model*, or DOM. IBM build a structure
 over the DOM, which is called the *Object Map*.
 
 ![Rational Functional Tester Object Map](http://rcardin.github.io/assets/2015-05-26/rft_object_map.png)
 
-As you can see, every attribute of a recorded HTML element is converted into its twin inside RFT. So, the attribute 
-`id` becomes `.id`, the attribute `class` becomes `.className`, and so on. RFT gives a weights to every property
- and then uses these weights to associate every element found during execution of a test to the previously recorded
+As you can see, every attribute of a recorded HTML element is converted into a twin inside RFT. So, the attribute 
+`id` becomes `.id`, the attribute `class` becomes `.className`, and so on. RFT gives weights to every property
+ and then uses these weights to associate every element, found during execution of a test, to the previously recorded
  objects.
  
 #### Dynamic-id objects: where the plot thickens
 
 So a nice approach, isn't it? No, it is not. It is a f*****g damned approach. Why? Because, as every programmer know, 
-there a lot of framework out of there, that during UI compilation process generate dynamically the ids associated to 
+there are a lot of framework out of there, that during UI compilation process generate dynamically the ids associated to 
 HTML elements. And what is even worse, every time the page is regenerated or deployed, the *ids are recalculated*.
 
 ![Rational Functional Tester Object Map](http://rcardin.github.io/assets/2015-05-26/rft_object_map_id.png)
 
-You do understand that if your functional testing tool based its object recognition algorithm entirely to the id 
+You do understand that if your functional testing tool bases its object recognition algorithm entirely to the id 
 attribute of an element, you will have a problem. A big problem. Changing the value of the `.id` property in the object map
 does not help: the id could vary so much that it was impossible to express its value with a regular expression. 
 
@@ -79,9 +79,9 @@ method `find`, that lets us to search for a particular object that satisfies som
 doc.find(atDescendant(".class", "Html.SELECT"), false);
 {% endhighlight %}
 
-For example, the above code snippet allow you to find every drop down menu object (`Html.SELECT`) that is contained 
-inside the object `doc`. Using the `false` argument, you allow RFT to search among all page elements, and not only among 
-the ones that you've previously recorded. Then, if the page contains only one element of type `Html.SELECT` you are 
+For example, the above code snippet allows you to find every drop down menu object (`Html.SELECT`) that is contained 
+inside the object `doc`. Using the `false` argument, you are telling to RFT to search among all page elements, and not only among 
+the ones that you've previously recorded. Then, if the page contains only one element of type `Html.SELECT`, we have 
 done. Otherwise, you have to refine your search.
  
 {% highlight java %} 
@@ -102,7 +102,7 @@ public static void clickDropdown(DocumentTestObject doc, String name) {
 }
 {% endhighlight %}
 
-In this case you cannot use directly the `.text` in the find method, because the value of the `.text` property of a 
+In this case you cannot use directly the `.text` property in the find method, because the value of the `.text` property of a 
 select equals to a concatenation of all its values. So, you have to use a `RegularExpression`.
 
 Summarizing, once you have found a set of properties that univocally identifies an object, you can use the `find` method
