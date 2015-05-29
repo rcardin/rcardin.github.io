@@ -34,11 +34,11 @@ In this article we will focus on Rational Functional Tester and on a problem tha
 objects with a dynamic id*.
  
 # Rational funtional tester
-I don’t want to have a full dissertation about RFT and its pros and cons. As previously stated, my aim is to focus on a 
+I donâ€™t want to have a full dissertation about RFT and its pros and cons. As previously stated, my aim is to focus on a 
 very specific problem, i.e. the recognition of HTML object with a dynamic-id.
 
 #### How RFT works (sucks...)
-In short, RFT gives you a "Studio" application based on top of Eclipse by which a developer can record elements of an
+In short, RFT gives you a &quot;Studio&quot; application based on top of Eclipse by which a developer can record elements of an
 HTML page and can record some actions on them, such as clicks, text editing, and so on. All this stuff is recorded
 inside a script, which is a Java class extending a class of the RFT API. Recorded object are represented using other 
 classes of the RFT API, such as `SelectGuiSubitemTestObject` which represents a drop down menu, or `GuiTestObject`, which represents
@@ -58,7 +58,7 @@ As you can see, every attribute of a recorded HTML element is converted into a t
  
 #### Dynamic-id objects: where the plot thickens
 
-So a nice approach, isn't it? No, it is not. It is a f*****g damned approach. Why? Because, as every programmer know, 
+So a nice approach, isn&#39;t it? No, it is not. It is a f*****g damned approach. Why? Because, as every programmer know, 
 there are a lot of framework out of there, that during UI compilation process generate dynamically the ids associated to 
 HTML elements. And what is even worse, every time the page is regenerated or deployed, the *ids are recalculated*.
 
@@ -81,7 +81,7 @@ doc.find(atDescendant(".class", "Html.SELECT"), false);
 
 For example, the above code snippet allows you to find every drop down menu object (`Html.SELECT`) that is contained 
 inside the object `doc`. Using the `false` argument, you are telling to RFT to search among all page elements, and not only among 
-the ones that you've previously recorded. Then, if the page contains only one element of type `Html.SELECT`, we have 
+the ones that you&#39;ve previously recorded. Then, if the page contains only one element of type `Html.SELECT`, we have 
 done. Otherwise, you have to refine your search.
  
 {% highlight java %} 
