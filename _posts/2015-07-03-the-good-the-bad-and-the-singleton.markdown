@@ -61,7 +61,7 @@ Among the others, the virtues of a Singleton that are reported in GoF's book are
 
 1. *Reduced name space*: the Singleton avoids polluting the namespace with global variables that store sole instances
    (so C++ style...or Javascript anyone?).
-2. *Permits refinement of operations and representation*: a Singleton may be subclasses and it's easy to configure the
+2. *Permits refinement of operations and representation*: a Singleton may be subclassed and it's easy to configure the
    application with an instance of this extended class.
 3. *More flexible than class operations*: has this sentence to be commented?
  
