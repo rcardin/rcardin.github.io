@@ -129,7 +129,7 @@ public class Singleton {
       public static Singleton INSTANCE = new Singleton();
     }
     public static Singleton getInstance() {
-        return LazySingletonHolder.something;
+        return LazySingletonHolder.INSTANCE;
     }
 }
 {% endhighlight %}
