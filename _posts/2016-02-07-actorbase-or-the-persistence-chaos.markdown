@@ -15,7 +15,7 @@ summary: "You know, everybody out there is talking about Big data, NoSQL databas
           someone decide to put some of those buzzword together? What if we couple NoSQL databases and the actor model?
           Actorbase is a NoSQL database that uses the actor model as its internal reference model."
 social-share: true
-social-title: "Actorbase or \"the persistence chaos\""
+social-title: "Actorbase or the persistence chaos"
 social-tags: "database, actormodel, reactive, akka, scala"
 ---
 You know, everybody out there is talking about *Big data*, *NoSQL databases*, *reactive programming* and so on. There
