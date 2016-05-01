@@ -35,7 +35,7 @@ bugs.
 #### Spark distributed data structures
 
 One of the core concepts of Apache Spark is the way it represents distributed data structures. *Resilient Distributed 
-Datasete*, a.k.a. `RDD`, is the type that is used by Spark to work with data in a distributed way. `RDD[T]` is a 
+Dataset*, a.k.a. `RDD`, is the type that is used by Spark to work with data in a distributed way. `RDD[T]` is a 
 invariant *generic* type and in its simplest form can be seen as a distributed implementation of a `List`.
 
 In the book *Learning Spark* `RDD` is defined as follow:
@@ -166,7 +166,7 @@ val tokens = lines.flatMap(_ split " ")
 val transformed = tokens.map {
   t =>
     // Choose a packet from the list using some heuristic
-    val p = packets(/* Heuristic */)
+    val p = packets(...)
     // Increments by one a packet internal int attribute
     if (t == "42") packet.addOne
     (p, t)
@@ -175,7 +175,7 @@ println(transformed.count)
 {% endhighlight %}
 
 Can you see the madness of the above code? How many different `Packet` object will we have in the `RDD` of couples? One?
-Two? One for every token? Probably the more correct answer is "*it depends*". 
+Two? One for every token? Probably the more correct answer is *it depends*. 
 
 It depends from how many worker are configured in the cluster and on how many of them have been used to partition the 
 original `RDD` during the elaboration. Each worker has a different copy of the `packets` list, and it uses the local 
