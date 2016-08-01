@@ -49,6 +49,15 @@
                 </a>
             </li>
             {% endif %}
+
+          {% if site.reddit_username %}
+          <li>
+            <a href="https://www.reddit.com/user/{{ site.reddit_username }}">
+              <i class="icon fa fa-reddit"></i>
+              <span class="username">{{ site.reddit_username }}</span>
+            </a>
+          </li>
+          {% endif %}
         </ul>
       </div>
 
