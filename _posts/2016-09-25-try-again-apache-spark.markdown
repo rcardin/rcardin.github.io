@@ -16,7 +16,7 @@ summary: "It's been more than a year since I've started working on my first Big 
           handling process. Let's explain why."
 social-share: true
 social-title: "Try again, Apache Spark!"
-social-tags: "big-data, apache-spark, Scala, programming"
+social-tags: "bigdata, apachespark, Scala, programming"
 ---
 
 It's been more than a year since I've started working on my first Big Data project. In this project we chose **Apache 
