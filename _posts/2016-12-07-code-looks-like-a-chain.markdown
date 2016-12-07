@@ -115,7 +115,7 @@ class ShoppingCenter {
 }
 {% endhighlight %}
 
-Simply as f**k! Obviously, every dependency injection library has its own ways to configure the injector to resolve
+Simply as f\*\*k! Obviously, every dependency injection library has its own ways to configure the injector to resolve
 such situation. In Spring, using *auto-discovery* feature, you have to provide very little configuration. In Guice the story
 is little more complicated, but the final result is the same.
 
