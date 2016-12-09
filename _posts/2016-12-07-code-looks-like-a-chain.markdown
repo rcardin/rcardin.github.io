@@ -10,24 +10,26 @@ tags:
     - java
     - scala
     - dependency injection
-summary: "Para, para, Code lools like a Chain - the Aerosmith sang many years ago. No? Did not they sing so? May I remember
-          wrong? As you can imagine, in this post we will talk about the Chain of Responsibility design pattern. This pattern is
-          not one of the most popular among the patterns defined by the *Gang of Four*, but modern dependency injection frameworks
-          give us the possibility to implement it in a vey smartly and freshly way. Let's see how."
+summary: "As Aerosmith sang many years ago, “Code looks like a Chain.” No? They didn't say that? Maybe I'm remembering it wrong.
+          Well, as you might have guessed, in this post, we'll talk about the Chain of Responsibility design pattern. This pattern
+          is not one of the more popular ones, at least among the patterns defined by the Gang of Four, but modern dependency
+          injection frameworks give us the possibility to implement it in a smart, and fresh way. Let’s see how."
 social-share: true
 social-title: "Code looks like a Chain"
 social-tags: "Java, Scala, programming, design"
+dzone-link: "https://dzone.com/articles/code-looks-like-a-chain-1"
+medium-link: "https://medium.com/@riccardo_cardin/code-looks-like-a-chain-12889a0f1a8#.3nckgy450"
 ---
 
-"Para, para, Code looks like a Chain" the Aerosmith sang many years ago. No? Did not they sing so? May I remember
-wrong? As you can imagine, in this post we will talk about the Chain of Responsibility design pattern. This pattern is
-not one of the most popular among the patterns defined by the *Gang of Four*, but modern dependency injection frameworks
-give us the possibility to implement it in a vey smartly and freshly way. Let's see how.
+As Aerosmith sang many years ago, “Code looks like a Chain.” No? They didn't say that? Maybe I'm remembering it wrong.
+Well, as you might have guessed, in this post, we'll talk about the Chain of Responsibility design pattern. This pattern
+is not one of the more popular ones, at least among the patterns defined by the *Gang of Four*, but modern dependency
+injection frameworks give us the possibility to implement it in a smart, and fresh way. Let’s see how.
 
 #### Introduction
-Disclaimer: There is nothing new with this pattern. I wrote this post to remember the kind of solution we will analyze 
-in a moment. A colleague of mine used it days ago and, despite I also have used it many time in the past, I did not
-notice immediately that this pattern could be used to solve that problem.
+Disclaimer: There is nothing new with this pattern. A colleague of mine used it days ago, and I've also used it a lot
+in the past. This post was inspired by a solution to a problem I recently encountered, which we'll dive into below, and
+I did not immediately notice that this pattern could be used to solve that problem.
 
 #### The classic pattern
 The Chain of Responsibility pattern is a *behavioural design pattern*. It was firstly defined in the book *Design 

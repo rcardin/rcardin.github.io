@@ -1,11 +1,28 @@
 <div>
     {% if page.social-share %}
-    <nav>
-        <!-- Twitter -->Share the <i class="fa fa-heart-o"></i>:&nbsp;&nbsp;
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-text="{{ page.social-title }}" data-via="{{ site.twitter_username }}" data-hashtags="{{ page.social-tags }}">Tweet</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        <script type="text/javascript" src="//opensharecount.com/bubble.js"></script>
-        <a href="http://leadstories.com/opensharecount" target="_blank" class="osc-counter" data-dir="left" title="Powered by Lead Stories' OpenShareCount">0</a>
+        <table>
+            <tr>
+                <td>
+                    <!-- Twitter -->Share the <i class="fa fa-heart-o"></i>:&nbsp;&nbsp;
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-text="{{ page.social-title }}" data-via="{{ site.twitter_username }}" data-hashtags="{{ page.social-tags }}">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                    <script type="text/javascript" src="//opensharecount.com/bubble.js"></script>
+                    <a href="http://leadstories.com/opensharecount" target="_blank" class="osc-counter" data-dir="left" title="Powered by Lead Stories' OpenShareCount">0</a>
+                </td>
+                <td align="right">
+                    {% if page.dzone-link or page.medium-link %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Knowledge is also spread in:
+                        {% if page.dzone-link %}
+                        <a href="{{ page.dzone-link }}">DZone</a>
+                        {% endif %}
+                        {% if page.medium-link %}
+                         and <a href="{{ page.medium-link }}"><i class="fa fa-medium" aria-hidden="true"></i></a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </nav>
     {% endif %}
 </div>

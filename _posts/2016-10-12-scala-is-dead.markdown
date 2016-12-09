@@ -15,6 +15,8 @@ summary: "Recently I came across yet another post about the adoption of Scala in
 social-share: true
 social-title: "Scala is dead, long live Scala!"
 social-tags: "Scala, java, programming"
+dzone-link: "https://dzone.com/articles/scala-is-dead-long-live-scala"
+medium-link: "https://medium.com/@riccardo_cardin/code-looks-like-a-chain-12889a0f1a8#.soos5r4rj"
 ---
 
 Recently I came across yet another post about the adoption of Scala in the IT world nowadays. The article is 
