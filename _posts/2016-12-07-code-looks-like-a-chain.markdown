@@ -36,7 +36,7 @@ The Chain of Responsibility pattern is a *behavioural design pattern*. It was fi
 Patterns*, wrote by the *Gang of Four*. The intent of the pattern is the following.
 
 > Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request.
-  Chain the receiving objects and pass the reqbubuest along the chain until an object handles it.
+  Chain the receiving objects and pass the request along the chain until an object handles it.
 
 The class diagram relative to the pattern is the following.
 
