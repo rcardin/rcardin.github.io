@@ -9,9 +9,9 @@ tags:
     - mongodb
     - time-series
 summary: "I came recently to design a solution for MongoDB to store information that has time as the
-          main axis of analysis. This information should be stored in a way that was easy enough to
-          query and aggregate using many different time granularity (months, weeks, days, ...). Information
-          should also be stored in a way that does not consume too much disk space and was optimal in performance
+          main axis of analysis. This information should be stored in a way that is easy enough to
+          query and aggregate using many different time granularity (monthly, weekly, daily, ...). Information
+          should also be stored in a way that does not consume too much disk space and is optimal in performance
           for MongoDB to maintain. In a word, I need to transform MongoDB in a Time series database."
 social-share: true
 social-title: "Implementing Time Series in MongoDB"
@@ -19,21 +19,21 @@ social-tags: "database, mongodb"
 ---
 
 I came recently to design a solution for MongoDB to store information that has time as the
-main axis of analysis. This information should be stored in a way that was easy enough to
-query and aggregate using many different time granularity (months, weeks, days, ...). Information
-should also be stored in a way that does not consume too much disk space and was optimal in performance
+main axis of analysis. This information should be stored in a way that is easy enough to
+query and aggregate using many different time granularity (monthly, weekly, daily, ...). Information
+should also be stored in a way that does not consume too much disk space and is optimal in performance
 for MongoDB to maintain. In a word, I need to transform MongoDB in a Time series database.
 
 #### Time series
 
-Let's start from the beginning. What is a *time series*. Citing [Wikipedia](https://en.wikipedia.org/wiki/Time_series):
+Let's start from the beginning. What a *time series* is. Citing [Wikipedia](https://en.wikipedia.org/wiki/Time_series):
 
 > A time series is a series of data points indexed (or listed or graphed) in time order. Most commonly, a time series
   is a sequence taken at successive equally spaced points in time. Thus it is a sequence of discrete-time data.
 
-InfluxDB [Key Concepts page](https://docs.influxdata.com/influxdb/v1.1/concepts/key_concepts/) gives us an extremely
-easy example to understand of what a time series is. Imagine you have two scientists that have to record the number of
-two type of insects in two different locations. Using a tabular view, we come across something like this.
+InfluxDB [Key Concepts page](https://docs.influxdata.com/influxdb/v1.1/concepts/key_concepts/) gives us an example extremely
+easy to understand of what a time series is. Imagine you have two scientists that have to record the number of
+two type of insects in two different locations. Using a tabular view, we come across something like the following.
 
 {% highlight SQL %}
 time                  butterflies  honeybees  location  scientist
@@ -48,26 +48,25 @@ time                  butterflies  honeybees  location  scientist
 2015-08-18T06:12:00Z  7            22         2         perpetua
 {% endhighlight %}
 
-As you can see, the main dimension of this data mart is time. Events stored in it span through time. What we can refer
-to as *basic time granularity* is set to minutes in our example. This means that we cannot produce an analysis of these
+As you can see, the main dimension of this data mart is **time**. Events stored in it span through time. In this example, What we can refer to as *basic time granularity* is set to minutes. This means that we cannot produce an analysis of these
 data that has a granularity less than the basic (minutes).
 
 Columns like `butterflies` and `honeybees` are called *fields*. Fields are made up of field keys and field values. *Field
-keys* (`butterflies` and `honeybees`) are strings and they store *metadata*; the field key `butterflies` tells us that the
+keys* (i.e. `butterflies` and `honeybees`) are strings and they store *metadata*; the field key `butterflies` tells us that the
 field values `12`-`7` refer to butterflies and the field key `honeybees` tells us that the field values `23`-`22` refer
 to, well, honeybees.
 
-*Field values* are the data; a field value, in a time series database is always associated with a timestamp. The collection
-of field-key and field-value pairs make up a *field set*.
+*Field values* are the data; a field value is always associated with a timestamp in a time series database. The collection
+of field-key and field-value pairs makes up a *field set*.
 
 Last, but not least, columns like `location` and `scientist` are called *tags*. Also in this case, a tag is made up of a
 *tag key* and a *tag value*. We can look at tags like *indexes*, that help the access to the time series. They are not
 mandatory, but they helps a lot.
 
-We have time series, now. But, are these database only a bunch of tables that forces the presence of a timestamp? No, the
-main characteristic of a time series database is that it should have **powerful tools** to aggregate data (*fields*) over time.
+We have time series, now. But, are these databases only a bunch of tables that forces the presence of a timestamp? No, the
+main characteristic of a time series database is that it should have some **powerful tools** to aggregate data (*fields*) over time.
 Let's say, if we need to know how much butterflies were counted by scientist "perpetua" in "location 1" during the last year,
-it should be easy to retrieve this information from the database.
+it should be easy to retrieve this information.
 
 #### Time series in MongoDB
 MongoDB is a general purpose document oriented database. This means that information inside the database is stored as document.
@@ -90,8 +89,7 @@ For a number of reasons that will be analyzed later in this document, the best w
 *subdocument* for each level of aggregation we want to manage. Let's convert the above example about scientists and insects to
 MongoDB.
 
-Suppose that you want to maintain minutes as the maximum granularity over time. Then, imagine that you also want to give access
-to a partially aggregate information in hours, days and months. The final optimal document schema you should use is the following.
+Suppose that you want to maintain minutes as the maximum granularity over time (basic granularity). Then, imagine that you also want to give access to a partially aggregate information in hours, days and months. The final optimal document schema you should use is the following.
 
 {% highlight javascript %}
 {
@@ -139,7 +137,7 @@ to a partially aggregate information in hours, days and months. The final optima
 }
 {% endhighlight %}
 
-Such a big document, isn't it? As you can see the trick here is to have a subdocument level for granularity we need in
+Such a big document, isn't it? As you can see the trick here is to have a subdocument level for each granularity we need in
 our analysis. Tags are in the main document, let's say at level 0. Fields are partially aggregated at each level (1, 2, ...).
 The aggregation over time is determined by the value of the `date` property at each level. Documents are always *complete*.
 This means that we will find a subdocument for each minute / hour / day, whether the fields value are 0 or not.
@@ -147,7 +145,7 @@ This means that we will find a subdocument for each minute / hour / day, whether
 **Why this? Why that?**<br/>
 So far so good. Now, the question is: why do we use this complex document schema? Which are the pro and cons?
 
-First of all, if we model our event using an 1:1 approach with respect to the documents we would end up with one document
+First of all, if we model our events using an 1:1 approach with respect to the documents we would end up with one document
 per event.
 
 {% highlight javascript %}
@@ -170,14 +168,13 @@ per event.
 {% endhighlight %}
 
 While this approach is valid in MongoDB, it doesn’t take advantage of the expressive nature of the document model. Moreover,
-to aggregate results that span through an interval, using the subdocument approach, MongoDB needs to access to very few
-documents.
+to aggregate results that span through an interval, MongoDB needs to access to a possibly large number of documents.
 
-Another good question is why we are using arrays to days / hour and minutes information, instead of using dedicated
+Another good question is why we are using arrays to model days, hours and minutes information, instead of using dedicated
 JSON property for each element. Arrays works very well with the [MongoDB Aggregation Framework](https://docs.mongodb.com/manual/aggregation/).
 In detail, using the [`$unwind`](https://docs.mongodb.com/manual/reference/operator/aggregation/unwind/) operator,
-it is possible to flatten the internal structure of each document, turning into an easy job the querying process also
-of information stored inside subdocuments.
+it is possible to flatten the internal structure of each document, turning the querying process into an easy job, also
+for information stored in subdocuments.
 
 For example, using the following aggregation pipeline it is possible to easily retrieve the number of butterflies
 reported by scientist *langstroth*, in location 1, during the days between 2015-08-18 and 2015-08-20.
@@ -193,13 +190,12 @@ db.test.aggregate([
 ])
 {% endhighlight %}
 
-In the example we are using levels of subdocuments, i.e. days, hours and minutes. Clearly, all these levels
-are not mandatory. However, in this way we can increase update performance when updating the document. Any array is
-indeed smaller because it contains only a small piece of the whole information. Then, MongoDB can walk faster through the
-array during update process.
+In the example we are using many levels of subdocuments, i.e. days, hours and minutes. Clearly, all these levels
+are not mandatory. However, in this way we can increase update performance when updating the document. MongoDB can
+walk faster through an array that contains few elements during the update process.
 
 Another important thing is that the main document must be inserted into the collection in its full form, which means
-with all the levels of granularity already filled. Clearly, at the beginning, all the fields values in each subdocument
+with all the levels of granularity already filled. At the beginning, all the fields values in each subdocument
 will be equal to zero. However, this is an important requirement to take into consideration. In this way, *no update will
 cause an existing document to grow or be moved on disk*. This fact allows MongoDB to perform better on the collection.
 
@@ -212,7 +208,7 @@ before we can use and update them.
 
 First attempt: we can develop a process that periodically inserts for us those documents. Nice try, dude. However this
 approach is not possible for those use cases in which the *domain of the tags* is not known *a priori*. Returning to
-out example, imagine that your system is collecting butterflies and honeybees number from the scientists all over the
+our example, imagine that your system is collecting butterflies and honeybees counted by the scientists of all over the
 world. It is impractical to know the name of all these scientists.
 
 Second attempt: try to take some advantage using the [`$setOnInsert`](https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/)
@@ -227,13 +223,12 @@ it not possible use the same property both in the `$setOnInsert` and `$update` c
 
 #### Three step initialization
 Then, do we reach a dead end, a *cul-de-sac*? At first sight it may seem so. Fortunately, me and my colleagues found a
-*workaround*. We can call it *three step initialization*. Just for recap, we want to be able to initialize the main
-document with all the required subdocuments properly set.
+*workaround*. We can call it *three step initialization*. 
 
 Remember that MongoDB guarantees the atomicity of operations on a single document. With this fact in mind we can operate
 in the following way:
 
-1. Try to update the document, incrementing properly the counters at a specified time chunk. Do not do any *upsert*, just
+1. Try to update the document, incrementing properly the counters at a specified time chunk. Do not make an *upsert*, just
    a old-fashioned [update](https://docs.mongodb.com/manual/reference/method/db.collection.update/) operation. Remember
    that the execution of an update statement returns the number of documents written. If the number of documents written
    is greater than zero, you're done.
