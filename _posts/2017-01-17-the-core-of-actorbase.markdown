@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "The Core of Actorbase"
 date:   2017-01-17 12:15:45
 comments: true
