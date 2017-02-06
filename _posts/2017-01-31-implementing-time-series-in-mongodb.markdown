@@ -16,6 +16,8 @@ summary: "I came recently to design a solution for MongoDB to store information 
 social-share: true
 social-title: "Implementing Time Series in MongoDB"
 social-tags: "database, mongodb"
+medium-link: "https://medium.com/@riccardo_cardin/implementing-time-series-in-mongodb-1bd99523f01d#.xuu0js11y"
+dev-link: "https://dev.to/riccardo_cardin/implementing-time-series-in-mongodb"
 ---
 
 I came recently to design a solution for MongoDB to store information that has time as the
