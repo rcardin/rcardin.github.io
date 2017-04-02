@@ -17,6 +17,7 @@ social-share: true
 social-title: "Implementing Time Series in MongoDB"
 social-tags: "database, mongodb"
 medium-link: "https://medium.com/@riccardo_cardin/implementing-time-series-in-mongodb-1bd99523f01d#.xuu0js11y"
+dzone-link: "https://dzone.com/articles/implementing-time-series-in-mongodb"
 dev-link: "https://dev.to/riccardo_cardin/implementing-time-series-in-mongodb"
 ---
 
