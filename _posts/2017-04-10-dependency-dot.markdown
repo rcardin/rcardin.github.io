@@ -10,7 +10,7 @@ tags:
     - software-engineering
 summary: "What is dependency in programming? Is this concept important in modern development?
           Has the concept of dependency a different meaning when we speak about procedural programming,
-          object oriented programming or functional programming? In this post I will try so sum up
+          object oriented programming or functional programming? In this post I will try to sum up
           all the knowledge I gain during my life as a software developer."
 social-share: true
 social-title: "Dependency."
@@ -19,7 +19,7 @@ social-tags: "programming, oop, softwareengineering"
 
 What is _dependency_ in programming? Is this concept important in modern development?
 Has the concept of dependency a different meaning when we speak about procedural programming,
-object oriented programming or functional programming? In this post I will try so sum up
+object oriented programming or functional programming? In this post I will try to sum up
 all the knowledge I gain during my life as a software developer.
 
 #### The very beginning
