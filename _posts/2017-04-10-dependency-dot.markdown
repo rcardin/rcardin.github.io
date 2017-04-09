@@ -120,13 +120,13 @@ In our example, references to `A` inside `B` are allowed in every method of the 
 the scope of possible dependencies from `A`.
 
 **Aggregation and Composition**<br/>
-Aggregation and composition are stronger versions of association, adding additional properties to the latter. Essentially,
-aggregation states that one type *owns* the other, which means that it is responsible of its *creation* and *deletion*.
+Aggregation and composition are stronger versions of the association relationship: They add additional properties to the latter. Essentially,
+an aggregation states that one type *owns* the other, which means that it is responsible of its *creation* and *deletion*.
 
-Composition adds the feature that if `B` is a composition of `A`, than there could be only an instance of the first owning
-the an instance of the second. Instances of `A` *are not shared*.
+The composition adds the feature that if `B` is a composition of `A`, then there can be only an instance of the first that owns
+an instance of the second. Instances of `A` *are not shared* among different instances of `B`.
 
-An example of composition can be the following code.
+An example of composition is represented by the following code.
 
 {% highlight scala %}
 class B() {
@@ -138,8 +138,8 @@ class B() {
 }
 {% endhighlight %}
 
-These relationships generates a stronger dependency between types, because one type has to know how to build an instance of
-the other, which means the construction process.
+These relationships generate a strong dependence between types, because
+one type has to know how to build an instance of the other.
 
 **Inheritance**<br/>
 With *inheritance* we come up to the strongest type of dependency relationship that can be defined between two different
