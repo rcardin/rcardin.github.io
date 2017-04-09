@@ -8,54 +8,53 @@ tags:
     - programming
     - oop
     - software-engineering
-summary: "What is dependency in programming? Is this concept important in modern development?
-          Has the concept of dependency a different meaning when we speak about procedural programming,
-          object oriented programming or functional programming? In this post I will try to sum up
-          all the knowledge I gain during my life as a software developer."
+summary: "What does the concept of dependency mean in programming? Is it important in modern development process?
+          Has the concept of dependency a different meaning when we speak about procedural programming, object
+          oriented programming or functional programming? In this post I will try to sum up all the knowledge
+          I gained during my life as a software developer."
 social-share: true
 social-title: "Dependency."
 social-tags: "programming, oop, softwareengineering"
 ---
 
-What is _dependency_ in programming? Is this concept important in modern development?
-Has the concept of dependency a different meaning when we speak about procedural programming,
-object oriented programming or functional programming? In this post I will try to sum up
-all the knowledge I gain during my life as a software developer.
+What does the concept of dependency mean in programming? Is it important in modern development process?
+Has the concept of dependency a different meaning when we speak about procedural programming, object
+oriented programming or functional programming? In this post I will try to sum up all the knowledge
+I gained during my life as a software developer.
 
 #### The very beginning
-First of all we need to have clear in mind the concept of dependency in every day language. For the
-_Merriam-Webster_ the definition of dependency is the following:
+First of all we need to have clear in mind the concept of dependency in every day language. _Merriam-Webster_
+gives the following definition of dependency:
 
 > The quality or state of being influenced or determined by or subject to another.
 
-Clarifying. Sometimes we simply have to return to our roots to deeply understand a concept. So, a
-component that is dependent by another is influenced by this one. What does this means? If a component
-changes internally (its implementation) or externally (its interface), it is probable that all dependent
-components should change accordingly too.
+Clarifying. Sometimes we simply need to return to our roots for deeply understand a concept. So, a
+component that is dependent by another is influenced by this one. What does this mean? If a component
+changes internally, its implementation, or externally,its interface, it is probable that all dependent
+components should change accordingly.
 
-We have just derive that the _dependency between two components is a measure of the probability that
-changes to one of component should affect also the other_. The stronger the dependency between the
+We have just derived that _dependency between two components is a measure of the probability that
+changes to one component could affect also the other_. The stronger the dependency between the
 components, the higher the above probability.
 
 **Coupling**<br/>
-Coupling between components measures exactly their degree of dependency. Tightly coupled components have
-a high probability to change together; loose coupled components have a low probability that this fact
-happens.
+Coupling between components measures exactly their degree of dependency. Tightly-coupled components
+have a higher probability to change together; loosely-coupled components have a lower probability.
 
 In software engineering we have a *mantra*, that was taught us from the very beginning:
 
 > Dependency between components must be minimized, making components loose coupled.
 
-Why is this principle so important? The main concept that is behind the above sentence is that we should
+Why is this principle so important? The main concept that is behind it is that we should
 be free to change a component to resolve a bug, or to add a new feature, or to do whatever we want, without
 having to worry about changes to other components of the architecture.
 
-Why changing a component is considered so dangerous, that we have to do only if it is strictly necessary?
-Every time we change a component, there is the risk we are introducing a bug. Then, to avoid regressions, we
-need to re-execute all tests associated to the changed components (what if we have not automated test?
+Why are changes considered so dangerous in software development?
+Every time we change a component, there is the risk that we are introducing a bug. To avoid regressions, we
+have to re-execute all tests associated to the changed components (what if we have not automated test?
 Ask [Robert C. Martin](https://8thlight.com/blog/uncle-bob/2014/05/02/ProfessionalismAndTDD.html)...)
 
-Moreover, we should not own directly the dependent components. In such cases, changes must be discussed with
+Moreover, we might not own directly the dependent components. In such cases, changes must be discussed with
 external developers, properly scheduled, and so on. This is one of the main reasons that stops the evolution
 of an architecture.
 
@@ -63,15 +62,15 @@ Finally, this principle is so important because of dynamism of software architec
 product that does not change over it lifetime. Changes happen, changes are part of software world.
 
 #### Object oriented programming and dependency
-In object oriented programming the above concept of component is usually identify with a *type*. Basically,
-in object oriented programming we are interested in dependency among types, which means concrete types, a.k.a. classes,
-and abstract types, a.k.a. abstract classes and interfaces.
+In object oriented programming the above concept of component is usually identified by a *type*. Basically,
+in object oriented programming we are interested in dependencies among types, that are concrete types, a.k.a. classes,
+or abstract types, a.k.a. abstract classes and interfaces.
 
 The different kinds of dependency between types are well summarized in the following figure.
 
 ![Different kinds of dependency between types in Object Oriented Programming](http://rcardin.github.io/assets/2017-04-10/types_dependencies.png)
 
-The figure maps all types of possible dependencies into four kind of type of relation between types.
+The figure maps all possible types dependencies into four equivalence sets.
 The notation used is UML. Let's have a brief look at everyone.
 
 **Dependency**<br/>
@@ -92,9 +91,9 @@ class B {
 }
 {% endhighlight %}
 
-As you can see, the only part of `A` that `B` needs to know is the interface inferred by `A` methods. Then,
-if only if `A` changes its interface, which means the signature of method `methodA`, a change in `B` would
-be also required.
+As you can see, the only part of `A` that `B` needs to know is the interface inferred by `A` methods. So,
+if only if `A` changes its interface, i.e. the signature of method `methodA`, a change in `B` might
+be required.
 
 **Association**<br/>
 Increasing the level of dependency we find *association*.
@@ -113,11 +112,11 @@ class B(val a: A) {
 }
 {% endhighlight %}
 
-Differently from the previous relationship we analyzed, association means that a class in *made of* references to
+Differently from the previous, an association means that a class is *made of* references to
 other classes. Their behaviour start to be more coupled, because the relationship between the types is not
-temporary anymore, but it starts to be something permanent (all the lifetime of an object).
+temporary anymore, but it starts to be something permanent (i.e. all the lifetime of an object).
 
-In our example, uses of references to `A` inside `B` are allowed to be used in every method of the latter, widening
+In our example, references to `A` inside `B` are allowed in every method of the latter, widening
 the scope of possible dependencies from `A`.
 
 **Aggregation and Composition**<br/>
