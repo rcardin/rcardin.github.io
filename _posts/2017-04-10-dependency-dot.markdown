@@ -142,13 +142,11 @@ These relationships generate a strong dependence between types, because
 one type has to know how to build an instance of the other.
 
 **Inheritance**<br/>
-With *inheritance* we come up to the strongest type of dependency relationship that can be defined between two different
+*Inheritance* represents the strongest type of dependency relationship that can be defined between two different
 types.
 
 > If you find yourself saying that the class is a type of another class, then you might want to consider using
 inheritance (or generalization).
-
-From a code point of view, inheritance expresses itself as follows.
 
 {% highlight scala %}
 class A(i: int) {
@@ -165,59 +163,54 @@ class B(i: int) extends A(i) {
 > A child class inherits and reuses all of the attributes and methods that the parent contains and that have public,
 protected, or default visibility.
 
-This is known as *implementation reuse*. The quantity of code that is shared among the two types is huge. It is even
-possible that every change to `A` could result also in a change to `B`. This is the real *tight coupling*! And did you notice
-that, using inheritance, *information hiding* is not respected too?
+Inheritance is also known as *implementation reuse*. The quantity of code that is shared among the two types is huge. It is possible that every change to `A` can result in a change to `B`. This is the real *tight coupling*! And did you notice
+that, using inheritance, the *information hiding* principle is not respected anymore?
 
-Not all the types of inheritance are bad. To inherit from abstract types mitigates the drawbacks of inheritance. Why? Lesser
-the shared code is, smaller the degree of dependency is. *Type inheritance*, which means that a class implements an
-interface, it is not harmful: no code, other than interface's methods, is shared between the two types.
+However, not all the types of inheritance are bad guys. Inheritance from abstract types mitigates the drawbacks of this kind of relationship. Why? The lower the shared code, the lower the degree of dependence. *Type inheritance*, which means that a class implements an
+interface, it is not harmful: Only interface methods' signatures are shared.
 
 #### Calculating the degree of dependency
-You should have noticed that a pattern arose from the above descriptions. The more the code that is shared among the
-two types, the stronger the dependency between them is. It is also true that, the wider the scope of this dependency is
-in terms of time, the stronger the dependency is.
+You should have noticed a pattern from the above descriptions. The more the quantity of shared code between two types, the stronger the dependency. It is also true that, the wider the scope of this dependency
+in terms of time, the stronger the dependency.
 
-It will be delightful if there would exist a formula that manages to tell us the degree of coupling between two classes.
-With the information just given, we can try to formalize a simple formula.
+It would be nice if there were a mathematical formula to calculate the degree of coupling between two classes.
+With the information that we gave, we can try to formalize it.
 
-Given two classes `A` and `B`, then holds that the degree of dependency between them, ![Dependency formula](/assets/2017-04-10/dependency.png),
+Given two classes `A` and `B`, the degree of dependency between them, ![Dependency formula](/assets/2017-04-10/dependency.png),
 can be derived using the following formula.
 
 ![Dependency formula](/assets/2017-04-10/dependency_formula.png)
 
 ![Dependency formula](/assets/2017-04-10/numerator.png) is the quantity of code (i.e., SLOC) that is shared between
-types `A` and `B`. ![Dependency formula](/assets/2017-04-10/denominator.png) is total number of code (i.e. SLOC) of
-`B` class. Finally, ![Dependency formula](/assets/2017-04-10/epsilon_factor.png) is a factor between 0 and 1 and the
-wider the scope is between `A` and `B`, the greater the factor is.
+types `A` and `B`. ![Dependency formula](/assets/2017-04-10/denominator.png) is the total number of code (i.e. SLOC) of
+`B` class. Finally, ![Dependency formula](/assets/2017-04-10/epsilon_factor.png) is a factor between 0 and 1 and the wider
+the scope between `A` and `B`, the greater the factor.
 
-![Dependency formula](/assets/2017-04-10/dependency.png) values ranges between 0 and 1, where a value
-of 0 corresponds to no dependency at all, and a value of 1 corresponds to the maximum degree of dependency.
+![Dependency formula](/assets/2017-04-10/dependency.png) values range between 0 and 1: A value
+of 0 corresponds to no dependency, and a value of 1 corresponds to the maximum degree of dependency.
 
-It is easy to see that ![Dependency formula](/assets/2017-04-10/dependency.png) is near 0 in cases in which between
-`A` and `B` the weakest type of dependency we saw so far holds, whereas it is near 1 when inheritance holds.
+When between `A` and `B` holds the weakest type of dependency we saw so far,
+![Dependency formula](/assets/2017-04-10/dependency.png) is near to 0, whereas it is near to 1 when inheritance holds.
 
-For example, if `B` inherits from `A`, than, using the definition of inheritance we gave above, the shared code
+For example, if `B` inherits from `A`, then, the shared code
 is represented by all the code of `A` that has not a `private` scope. Whereas, if a method of `B` simply refers
-an instance of `A` among its parameters, the shared code will be only the signatures of `public` methods of `A`.
+an instance of `A` among its parameters, the shared code will be represented only by the signatures of `public` methods of `A`.
 
-It is important to note that the degree of dependency between `A` and `B`, as we defined it, it is directly
-proportional to the probability that if `B` is modified, also `A` should be modified accordingly.
+It is important to note that the degree of dependency between `A` and `B` it is directly
+proportional to the probability that if `B` is changed, `A` should be changed accordingly.
 
 ![Dependency formula](/assets/2017-04-10/degree_proportionality.png)
 
-Finally, using the above equation the total degree of dependency for a type `A` inside an architecture can be
-calculated as *the mean* of the dependency degrees that the type has with every other single type in the architecture.
+Finally, the total degree of dependency of a type `A` can be
+calculated as *the mean* of the dependency degrees with respect to every other single type in the architecture.
 
 ![Dependency formula](/assets/2017-04-10/total_dependency_degree.png)
 
 #### Conclusions
-Summing up, we gave a definition of dependency in software engineering. We try to understand why dependency
-among components should be minimize. We revised how in object oriented design, UML helps us to visually manage
-dependencies. With this information, we tried to formalize a formula that can help us to calculate the degree
+Summing up, we gave a definition of dependency in software engineering. We tried to understand why dependency
+among components should be minimize. We revised how UML helps us to visually manage
+the dependencies, in object oriented world. With this information, we tried to formalize a formula to calculate the degree
 of dependency between two class.
-
-Any suggestion to improve the above formula?
 
 #### References
 
