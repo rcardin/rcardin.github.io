@@ -29,8 +29,8 @@ gives the following definition of dependency:
 > The quality or state of being influenced or determined by or subject to another.
 
 Clarifying. Sometimes we simply need to return to our roots for deeply understand a concept. So, a
-component that is dependent by another is influenced by this one. What does this mean? If a component
-changes internally, its implementation, or externally,its interface, it is probable that all dependent
+component that is dependent on another is influenced by this one. What does this mean? If a component
+changes internally, its implementation, or externally, its interface, it is probable that all dependent
 components should change accordingly.
 
 We have just derived that _dependency between two components is a measure of the probability that
@@ -43,7 +43,7 @@ have a higher probability to change together; loosely-coupled components have a 
 
 In software engineering we have a *mantra*, that was taught us from the very beginning:
 
-> Dependency between components must be minimized, making components loose coupled.
+> Dependency between components must be minimized, making components loosely coupled.
 
 Why is this principle so important? The main concept that is behind it is that we should
 be free to change a component to resolve a bug, or to add a new feature, or to do whatever we want, without
@@ -51,15 +51,15 @@ having to worry about changes to other components of the architecture.
 
 Why are changes considered so dangerous in software development?
 Every time we change a component, there is the risk that we are introducing a bug. To avoid regressions, we
-have to re-execute all tests associated to the changed components (what if we have not automated test?
+have to re-execute all tests associated to the changed components (what if we don't have automated test?
 Ask [Robert C. Martin](https://8thlight.com/blog/uncle-bob/2014/05/02/ProfessionalismAndTDD.html)...)
 
 Moreover, we might not own directly the dependent components. In such cases, changes must be discussed with
-external developers, properly scheduled, and so on. This is one of the main reasons that stops the evolution
+external developers, properly scheduled, and so on. This is one of the main reasons that stop the evolution
 of an architecture.
 
 Finally, this principle is so important because of dynamism of software architectures. There is no software
-product that does not change over it lifetime. Changes happen, changes are part of software world.
+product that does not change over its lifetime. Changes happen, changes are part of software world.
 
 #### Object oriented programming and dependency
 In object oriented programming the above concept of component is usually identified by a *type*. Basically,
@@ -113,7 +113,7 @@ class B(val a: A) {
 {% endhighlight %}
 
 Differently from the previous, an association means that a class is *made of* references to
-other classes. Their behaviour start to be more coupled, because the relationship between the types is not
+other classes. Their behaviours start to be more coupled, because the relationship between the types is not
 temporary anymore, but it starts to be something permanent (i.e. all the lifetime of an object).
 
 In our example, references to `A` inside `B` are allowed in every method of the latter, widening
@@ -196,7 +196,7 @@ For example, if `B` inherits from `A`, then, the shared code
 is represented by all the code of `A` that has not a `private` scope. Whereas, if a method of `B` simply refers
 an instance of `A` among its parameters, the shared code will be represented only by the signatures of `public` methods of `A`.
 
-It is important to note that the degree of dependency between `A` and `B` it is directly
+It is important to note that the degree of dependency between `A` and `B` is directly
 proportional to the probability that if `B` is changed, `A` should be changed accordingly.
 
 ![Dependency formula](/assets/2017-04-10/degree_proportionality.png)
@@ -208,7 +208,7 @@ calculated as *the mean* of the dependency degrees with respect to every other s
 
 #### Conclusions
 Summing up, we gave a definition of dependency in software engineering. We tried to understand why dependency
-among components should be minimize. We revised how UML helps us to visually manage
+among components should be minimized. We revised how UML helps us to visually manage
 the dependencies, in object oriented world. With this information, we tried to formalize a formula to calculate the degree
 of dependency between two class.
 
