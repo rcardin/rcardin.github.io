@@ -16,6 +16,7 @@ social-share: true
 social-title: "Dependency."
 social-tags: "programming, oop, softwareengineering"
 medium-link: "https://medium.com/@riccardo_cardin/dependency-ffc118404f0"
+dzone-link: "https://dzone.com/articles/dependency"
 ---
 
 What does the concept of dependency mean in programming? Is it important in modern development process?
