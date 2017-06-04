@@ -18,6 +18,7 @@ social-tags: "programming, oop, softwareengineering"
 medium-link: "https://medium.com/@riccardo_cardin/dependency-ffc118404f0"
 dzone-link: "https://dzone.com/articles/dependency"
 dev-link: "https://dev.to/riccardo_cardin/dependency"
+math: true
 ---
 
 What does the concept of dependency mean in programming? Is it important in modern development process?
@@ -179,21 +180,23 @@ in terms of time, the stronger the dependency.
 It would be nice if there were a mathematical formula to calculate the degree of coupling between two classes.
 With the information that we gave, we can try to formalize it.
 
-Given two classes `A` and `B`, the degree of dependency between them, ![Dependency formula](/assets/2017-04-10/dependency.png),
+Given two classes `A` and `B`, the degree of dependency between them, \\(\delta_{A \to B}\\),
 can be derived using the following formula.
 
-![Dependency formula](/assets/2017-04-10/dependency_formula.png)
+$$
+  \large{\delta_{A \to B} = \frac{\varphi_{S_{A|B}}}{\varphi_{S_{tot_B}}}\varepsilon_{A \to B}}
+$$
 
-![Dependency formula](/assets/2017-04-10/numerator.png) is the quantity of code (i.e., SLOC) that is shared between
-types `A` and `B`. ![Dependency formula](/assets/2017-04-10/denominator.png) is the total number of code (i.e. SLOC) of
-`B` class. Finally, ![Dependency formula](/assets/2017-04-10/epsilon_factor.png) is a factor between 0 and 1 and the wider
+\\(\varphi\_{S\_{A|B}}\\) is the quantity of code (i.e., SLOC) that is shared between
+types `A` and `B`. \\(\varphi\_{S\_{tot_B}}\\) is the total number of code (i.e. SLOC) of
+`B` class. Finally, \\(\varepsilon_{A \to B}\\) is a factor between 0 and 1 and the wider
 the scope between `A` and `B`, the greater the factor.
 
-![Dependency formula](/assets/2017-04-10/dependency.png) values range between 0 and 1: A value
+\\(\delta_{A \to B}\\) values range between 0 and 1: A value
 of 0 corresponds to no dependency, and a value of 1 corresponds to the maximum degree of dependency.
 
 When between `A` and `B` holds the weakest type of dependency we saw so far,
-![Dependency formula](/assets/2017-04-10/dependency.png) is near to 0, whereas it is near to 1 when inheritance holds.
+\\(\delta_{A \to B}\\) is near to 0, whereas it is near to 1 when inheritance holds.
 
 For example, if `B` inherits from `A`, then, the shared code
 is represented by all the code of `A` that has not a `private` scope. Whereas, if a method of `B` simply refers
@@ -202,12 +205,16 @@ an instance of `A` among its parameters, the shared code will be represented onl
 It is important to note that the degree of dependency between `A` and `B` is directly
 proportional to the probability that if `B` is changed, `A` should be changed accordingly.
 
-![Dependency formula](/assets/2017-04-10/degree_proportionality.png)
+$$
+  \large{\delta_{A \to B} \propto P(B_{mod}|A_{mod})}
+$$
 
 Finally, the total degree of dependency of a type `A` can be
 calculated as *the mean* of the dependency degrees with respect to every other single type in the architecture.
 
-![Dependency formula](/assets/2017-04-10/total_dependency_degree.png)
+$$
+  \large{\delta_{tot}^{A} = \frac{1}{n} \displaystyle\sum_{C_j \in {C_1, \dots, C_n}} \delta_{A \to C_j }}
+$$
 
 #### Conclusions
 Summing up, we gave a definition of dependency in software engineering. We tried to understand why dependency
