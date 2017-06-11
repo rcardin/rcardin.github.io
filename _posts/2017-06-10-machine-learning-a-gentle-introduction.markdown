@@ -32,6 +32,16 @@ The types of information used by the algorithms (_learner_) identify the followi
 Given the above definitions, we can now move on. In this post I will focus on _supervised learning_. Let's move on.
 
 #### Supervised learning
-We said that in this king of learning we need a set of couples of inputs and outputs that we called supervisions. Someone has to give us this infomation, otherwise it is not possible to learn anything using this approach. We can call it the _oracle_.
+We said that in this king of learning we need a set of couples of inputs and outputs that we called _supervisions_. Someone has to give us this infomation, otherwise it is not possible to learn anything using this approach. We can call it the _oracle_.
 
+Let's try to define the process of learning now. We need a set of item we want to categorized in some way. Let's call this set \\(X\\) and the item belonging to them \\(x \in X\\). then, we can define a _supervisor_ \\(\mathcal{S}\\), that given a \\(x \in X\\), gives a label \\(\hat{y} \in \mathcal{Y}\\). Finally, we call \\(\mathcal{H}\\) a set of functions \\(h\\) (a.k.a. _hypothesis space_) that maps an \\(x\\) into an \\(y\\), such that
 
+$$
+  y = h(x)
+$$
+
+Then, the learning process can be view as the choice of a \\(h \in \mathcal{H}\\) such that the differences between \\(y = h(x)\\) and the labels choosen by the supervisor \\(\mathcal{S}\\) is minimized. In other words, we want to minimize cases in which \\(y \neq \hat{y}\\).
+
+Just to be a little bit formal, supervisions \\(x\\) belongs to an unknown probability distribution \\(\mathcal{D}(x)\\). Also labels \\(\hat{y}\\) given by the Supervisor belongs to a conditional probability distribution \\(\mathcal{D}(\hat{y} \mid x)\\). If do not undestand these last to sentences, nevermind: there is a world full of white unicorn out of there.
+
+![Nevermind: follow the cat on the white unicorn!!!](/assets/2017-06-10/welcome_to_the_internet__please_follow_me.jpg)
