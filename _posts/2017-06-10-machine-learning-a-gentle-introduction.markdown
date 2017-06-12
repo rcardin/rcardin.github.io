@@ -45,3 +45,14 @@ Then, the learning process can be view as the choice of a \\(h \in \mathcal{H}\\
 Just to be a little bit formal, supervisions \\(x\\) belongs to an unknown probability distribution \\(\mathcal{D}(x)\\). Also labels \\(\hat{y}\\) given by the Supervisor belongs to a conditional probability distribution \\(\mathcal{D}(\hat{y} \mid x)\\). If do not undestand these last to sentences, nevermind: there is a world full of white unicorn out of there.
 
 ![Nevermind: follow the cat on the white unicorn!!!](/assets/2017-06-10/welcome_to_the_internet__please_follow_me.jpg)
+
+**Data representation and feature selection**<br/>
+So far, so good. We came up with a set of examples \\(x \in X\\) that we want to classify in some way. How can we do that? The key concept is how we are going to represent our data, how we are going to explain the computer how to treat this data.
+
+A computer is simply a machine that is able to do some arithmetical operation over a representation of numbers, isn't it? Then, we need to transform examples \\(x \in X\\) in some that a computer is able to understand. This phase is call _feature selection_.
+
+The number of features that characterize example \\(X\\) is clearly infinite. Think to an apple: it has a color, a volume, a radius, a quality, an age...but also a number of molecules, atoms, and so on. Then, the first operation we need to do on \\(X\\) is to choose some of these features, mapping it into a new space \\(\mathcal{X}\\), called the _feature space_.
+
+The best choice of \\(\mathcal{X}\\) is a space in which each feature is represented by a number. Doing so, an example \\(\mathbf{x} \in \mathcal{X}\\) becomes a vector of numbers: each feature is a possible dimension in this space.
+
+Let's call \\(\phi : X \to \mathcal{X}\\) the function that maps examples from the _input space_ to the _feature space_.
