@@ -72,4 +72,18 @@ An email \\(x\\) is then represented in the feature space with something like th
 **Vector similarity and the concept of distance**<br/>
 Given a Supervisor \\(\mathcal{S}\\) that gives us supervisions \\((\mathbf{x}\_1, \hat{y}\_1), \dots, (\mathbf{x}\_m, \hat{y}\_m)\\), the learning process resolve to find the degree of similarity between a new example \\(\mathbf{x}_{m+1}\\) and the previous ones. 
 
-Speaking of vectors in some numeric feature space, the similarity concept is equal to the concept of _distance_ between two vectors.
+Speaking of vectors in some numeric feature space, the similarity concept is equal to the concept of _distance_ between two vectors. Defining as \\(d: \mathcal{X} \times \mathcal{X} \to \mathbb{R}^+\\)the distance between vectors \\(\mathbf{x}\\) and \\(\mathbf{z}\\), a good choice of distance between two vectors is the _dot product_ or _inner product_. The inner product between two vectors \\(\mathbf{x}, \mathbf{z} \in \mathcal{X} \subseteq \mathbb{R}^d\\), \\(\langle \mathbf{x}, \mathbf{z} \rangle\\) is defined as:
+
+$$
+  \langle \mathbf{x}, \mathbf{z} \rangle = \displaystyle\sum_{i=1}^{d} x_i \cdot z_i
+$$
+
+We have just define a good way to understand how vectors are related to eachother inside the feature space. _Eureka!_ Let's try to make a step beyond and to close the first circle of this introductionto machine learinig.
+
+**It's all about hyperplanes**<br/>
+Using the framework we just build, we can imagine our examples as vectors inside a n-dimensional feature space \\(\mathbb{R}^d\\). If every vector is associated to a label for each class \\(\hat{y}\\), all the story resolve to find an hyperplane that  divides into separates groups the vectors beloging to different class.
+
+Ok, I think I lost many of you in this last step. Let's take a step back.
+
+![Hyperplanes divide the known world :(](/assets/2017-06-10/hyperplane.png)
+
