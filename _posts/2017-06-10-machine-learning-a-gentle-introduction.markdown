@@ -53,6 +53,23 @@ A computer is simply a machine that is able to do some arithmetical operation ov
 
 The number of features that characterize example \\(X\\) is clearly infinite. Think to an apple: it has a color, a volume, a radius, a quality, an age...but also a number of molecules, atoms, and so on. Then, the first operation we need to do on \\(X\\) is to choose some of these features, mapping it into a new space \\(\mathcal{X}\\), called the _feature space_.
 
-The best choice of \\(\mathcal{X}\\) is a space in which each feature is represented by a number. Doing so, an example \\(\mathbf{x} \in \mathcal{X}\\) becomes a vector of numbers: each feature is a possible dimension in this space.
+The best choice of \\(\mathcal{X}\\) is a space in which each feature is represented by a number. Doing so, an example \\(\mathbf{x} \in \mathcal{X}\\) becomes a vector of numbers \\((x_1,\dots, x_n)\\): each feature \\(x_i\\) is a possible dimension in this space.
 
 Let's call \\(\phi : X \to \mathcal{X}\\) the function that maps examples from the _input space_ to the _feature space_.
+
+As an example, suppose we want to associate to a set of emails the relative author. This task is called _authorship attribution_. The first step we need to do is to map each email \\(x\\) in the relative vector \\(\mathbf{x}\\) for some feature space. Obviously, the selection process of the feature space is one of the core processes of machine learning: representing examples with the wrong set of features could mean to fail the entire learning process.  
+
+For our example, some possible features can be the following:
+
+ 1. The number of words used in the email
+ 2. The number of adjectives
+ 3. The number of adverbs
+ 4. The number of occurences of each single punctuation character
+ 5. And so on...
+
+An email \\(x\\) is then represented in the feature space with something like this: \\(\mathbf{x} = (34, 7, 10, 3, 6)\\). As you can see, it's a simple vector in \\(\mathbb{N}^5\\)! This kind of representation opens up to a lot of usefull considerations, that will complete our introduction to machine learning.
+
+**Vector similarity and the concept of distance**<br/>
+Given a Supervisor \\(\mathcal{S}\\) that gives us supervisions \\((\mathbf{x}\_1, \hat{y}\_1), \dots, (\mathbf{x}\_m, \hat{y}\_m)\\), the learning process resolve to find the degree of similarity between a new example \\(\mathbf{x}_{m+1}\\) and the previous ones. 
+
+Speaking of vectors in some numeric feature space, the similarity concept is equal to the concept of _distance_ between two vectors.
