@@ -7,14 +7,14 @@ categories: machine-learning artificial-intelligence
 tags:
     - machine-learning
     - ai
-summary: "Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzz words in the information technology field were IoT and Big Data, the catch'em all word of this year is without a doubt Machine Learning. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build Skynet to ruin the world? Machine will steal my job in the future? Know your enemy, they said. So let's try to understand what Machine Learning really means."
+summary: "Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzz words in the information technology field were IoT and Big Data, the catch'em all word of this year is without any doubts Machine Learning. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build Skynet to ruin the world? Machine will steal my job in the future? Know your enemy, they said. So let's try to understand what Machine Learning really means."
 social-share: true
 social-title: "Machine Learning: A gentle introduction"
 social-tags: "machinelearning, ArtificialIntelligence"
 math: true
 ---
 
-Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzz words in the information technology field were _IoT_ and _Big Data_, the _catch'em all_ word  of this year is without a doubt _Machine Learning_. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build Skynet to ruin the world? Machine will steal my job in the future? "Know your enemy", they said. So let's try to understand what Machine Learning really means.
+Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzz words in the information technology field were _IoT_ and _Big Data_, the _catch'em all_ word  of this year is without any doubts _Machine Learning_. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build Skynet to ruin the world? Machine will steal my job in the future? "Know your enemy", they said. So let's try to understand what Machine Learning really means.
 
 ![I am your friendly metal neighbour!!!](/assets/2017-06-10/skynet.jpg)
 
@@ -81,9 +81,26 @@ $$
 We have just define a good way to understand how vectors are related to eachother inside the feature space. _Eureka!_ Let's try to make a step beyond and to close the first circle of this introductionto machine learinig.
 
 **It's all about hyperplanes**<br/>
-Using the framework we just build, we can imagine our examples as vectors inside a n-dimensional feature space \\(\mathbb{R}^d\\). If every vector is associated to a label for each class \\(\hat{y}\\), all the story resolve to find an hyperplane that  divides into separates groups the vectors beloging to different class.
+Using the framework we just build, we can imagine our examples as vectors inside a n-dimensional feature space \\(\mathbb{R}^d\\). If every vector is associated to a label for each class \\(\hat{y}\\), the story resolves to find an hyperplane that  divides into separates groups the vectors beloging to different class.
 
-Ok, I think I lost many of you in this last step. Let's take a step back.
+Ok, wait. I think I lost many of you in this last step. Let's take a step back.
 
 ![Hyperplanes divide the known world :(](/assets/2017-06-10/hyperplane.png)
 
+In the above image a set of supervisions is represented in a two dimensional feature space, a.k.a. \\(\mathbb{R}^2\\). Each vector \\(\mathbf{x}_i\\) is colored either with blue or orange. The colors represent classes.
+
+As you can see, using this feature space supervisions are naturally distributed in two different sets inside \\(\mathbb{R}^2\\). Then, a learner in such space is represented by a line \\(\mathbf{w}\\) that divides the two sets of supervisions, orange-colored and blue-colored. Orange-colored supervisions are above \\(\mathbf{w}\\); Blue-colored supervisions are below \\(\mathbf{w}\\).
+
+For this problem, the hypothesis space is the set of all hyperplanes in \\(\mathbb{R}\\). The learning process tries to discover the hyperplane \\(h\\) that divides supervisions in their classes.
+
+#### Conclusions
+Summarizing, we just reduced the problem of supervised learning in a simplier problem, which is the selection process of an hyperplane in \\(\mathbb{R}^d\\). Based of which algorithm is used to find the hyperplane, we identify different types of supervised learning (i.e. Neural Networks, Support Vector Machines, and so on).
+
+As we saw, the selection process of the feature space is a primary process. If we choose a feature space in which the supervisions are not separable, the learning process will becomes harder and an optimal solution could not exists.
+
+In the next part of this series of posts, we are going to explore some other interesting features of machine learning, i.e. training, validation and testing processes, generalization, overfitting and many others.
+
+Stay tuned.
+
+#### References
+- [Large Margin Multiclass Learning: Models and Algorithms. PhD Thesis, Fabio Aiolli, Dept. of Computer Science, University of Pisa, 2004](http://phd.di.unipi.it/Theses/PhDthesis_Aiolli.pdf)
