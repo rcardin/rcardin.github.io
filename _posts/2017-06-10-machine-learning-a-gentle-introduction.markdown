@@ -7,14 +7,14 @@ categories: machine-learning artificial-intelligence
 tags:
     - machine-learning
     - ai
-summary: "Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzz words in the information technology field were IoT and Big Data, the catch'em all word of this year is without any doubts Machine Learning. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build Skynet to ruin the world? Machine will steal my job in the future? Know your enemy, they said. So let's try to understand what Machine Learning really means."
+summary: "Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzzwords in the information technology field were IoT and Big Data, the catch'em all word of this year is without any doubts Machine Learning. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build a Skynet to ruin the world? Machines will steal my job in the future? Know your enemy, they said. So let's try to understand what Machine Learning really means."
 social-share: true
 social-title: "Machine Learning: A gentle introduction"
 social-tags: "machinelearning, ArtificialIntelligence"
 math: true
 ---
 
-Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzz words in the information technology field were _IoT_ and _Big Data_, the _catch'em all_ word  of this year is without any doubts _Machine Learning_. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build Skynet to ruin the world? Machine will steal my job in the future? "Know your enemy", they said. So let's try to understand what Machine Learning really means.
+Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzzwords in the information technology field were _IoT_ and _Big Data_, the _catch'em all_ word  of this year is without any doubts _Machine Learning_. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build a Skynet to ruin the world? Machines will steal my job in the future? "Know your enemy", they said. So let's try to understand what Machine Learning really means.
 
 ![I am your friendly metal neighbour!!!](/assets/2017-06-10/skynet.jpg)
 
@@ -23,11 +23,17 @@ The task we are going to accomplish is not simple. So, let's start from the begi
 
 > Machine Learning is a discipline of Artificial Intelligence, that is responsible to study and develop algorithms that allows machines to learn information. In detail, the learning process is done using an inductive approach, that tries to extract rules and behavioural patterns from huge amount of data.
 
-The types of information used by the algorithms (_learner_) identify the following categorization of machine learning algorithms, which are:
+The types of information used by the algorithms (_learners_) to learn identify the following categorization of machine learning algorithms, which are:
 
- 1. **Supervised learning**: The learner a set of given couples (_input_, _output_) to learn a function \\(f\\) that maps _input_ to _output_. The above couples are called _supervisions_ and using them the learner tries to find the function that approximately performs like \\(f\\). Supervisions must be available at the beginning of the learning process.
- 2. **Unsupervised learning**: In this kind of learning process, the function \\(f\\) is learned by the learner using solely the _input_s given to the learner. There is no information relative to the output of the function \\(f\\). In this type of learning process, the learner tries to approximate the probability distribution of the given inputs. 
- 3. **Reinforcement learning**: Given an environment which an agent can interact with, and given a set of positive and negative returns the environment can give to the age, the objective in this case is to find a policy of action of the agent that maximizes the values of the above returns.
+ 1. **Supervised learning**: The learner a set of given couples (_input_, _output_) to learn a function \\(f\\) that maps _input_ to _output_. The above couples are called _supervisions_ and using them the learner tries to find the function that approximately fits like \\(f\\). Supervisions must be available at the beginning of the learning process.
+ 2. **Unsupervised learning**: In this kind of learning process, the function \\(f\\) is learned by the learner using solely the given _inputs_. There is no _a priori_ information relative to the output of the function \\(f\\). In this type of learning process, the learner tries to approximate the probability distribution of the given inputs. 
+ 3. **Reinforcement learning**: Given an environment which an agent can interact with and given a set of positive and negative returns the environment can give to the agent, the objective in this case is to find a policy of action of the agent that maximizes the values of the above returns.
+
+Let's have some examples. We have some mixed fruits, i.e. oranges, apples and bananas. Using supervised learning we give to the learned the set of fruits and we tell it the type of each fruit. Using this information, the learner tries to undestand what characterizes each type of fruit. Given new fruits of unknown type, the algorithms will try to guess if they are oranges, apples or bananas.
+
+Using unsupervised learning, we do not know the type of any fruit. Our task is to group the fruits that seems to be same. The learner will try to build these groups (or clusters) looking at the information it has.
+
+Using reinforcement learning, the fruits are all scattered on the floor of a room. Each type of fruit smells in a different way and has a caloric intake. An agent that can recognizes smells is free to move inside the room. It does not know the caloric intake of each type of fruits until it eats the fruit. The algorithm will learn how to move inside the room trying to maximize the caloric intake.
 
 Given the above definitions, we can now move on. In this post I will focus on _supervised learning_. Let's move on.
 
