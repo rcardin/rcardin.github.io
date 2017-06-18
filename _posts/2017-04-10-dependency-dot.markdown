@@ -26,7 +26,7 @@ Has the concept of dependency a different meaning when we speak about procedural
 oriented programming or functional programming? In this post I will try to sum up all the knowledge
 I gained during my life as a software developer.
 
-#### The very beginning
+## The very beginning
 First of all we need to have clear in mind the concept of dependency in every day language. _Merriam-Webster_
 gives the following definition of dependency:
 
@@ -41,7 +41,7 @@ We have just derived that _dependency between two components is a measure of the
 changes to one component could affect also the other_. The stronger the dependency between the
 components, the higher the above probability.
 
-**Coupling**<br/>
+### Coupling
 Coupling between components measures exactly their degree of dependency. Tightly-coupled components
 have a higher probability to change together; loosely-coupled components have a lower probability.
 
@@ -65,7 +65,7 @@ of an architecture.
 Finally, this principle is so important because of dynamism of software architectures. There is no software
 product that does not change over its lifetime. Changes happen, changes are part of software world.
 
-#### Object oriented programming and dependency
+## Object oriented programming and dependency
 In object oriented programming the above concept of component is usually identified by a *type*. Basically,
 in object oriented programming we are interested in dependencies among types, that are concrete types, a.k.a. classes,
 or abstract types, a.k.a. abstract classes and interfaces.
@@ -77,7 +77,7 @@ The different kinds of dependency between types are well summarized in the follo
 The figure maps all possible types dependencies into four equivalence sets.
 The notation used is UML. Let's have a brief look at everyone.
 
-**Dependency**<br/>
+### Dependency
 On the left we find the weakest form of dependency. With a dashed arrow between two types in UML we
 model a dependency that
 
@@ -99,7 +99,7 @@ As you can see, the only part of `A` that `B` needs to know is the interface inf
 if only if `A` changes its interface, i.e. the signature of method `methodA`, a change in `B` might
 be required.
 
-**Association**<br/>
+### Association
 Increasing the level of dependency we find *association*.
 
 > Association means that a class will actually contain a reference to an object, or objects, of the other class
@@ -123,7 +123,7 @@ temporary anymore, but it starts to be something permanent (i.e. all the lifetim
 In our example, references to `A` inside `B` are allowed in every method of the latter, widening
 the scope of possible dependencies from `A`.
 
-**Aggregation and Composition**<br/>
+### Aggregation and Composition
 Aggregation and composition are stronger versions of the association relationship: They add additional properties to the latter. Essentially,
 an aggregation states that one type *owns* the other, which means that it is responsible of its *creation* and *deletion*.
 
@@ -145,7 +145,7 @@ class B() {
 These relationships generate a strong dependence between types, because
 one type has to know how to build an instance of the other.
 
-**Inheritance**<br/>
+### Inheritance
 *Inheritance* represents the strongest type of dependency relationship that can be defined between two different
 types.
 
@@ -173,7 +173,7 @@ that, using inheritance, the *information hiding* principle is not respected any
 However, not all the types of inheritance are bad guys. Inheritance from abstract types mitigates the drawbacks of this kind of relationship. Why? The lower the shared code, the lower the degree of dependence. *Type inheritance*, which means that a class implements an
 interface, it is not harmful: Only interface methods' signatures are shared.
 
-#### Calculating the degree of dependency
+## Calculating the degree of dependency
 You should have noticed a pattern from the above descriptions. The more the quantity of shared code between two types, the stronger the dependency. It is also true that, the wider the scope of this dependency
 in terms of time, the stronger the dependency.
 
@@ -216,13 +216,13 @@ $$
   \large{\delta_{tot}^{A} = \frac{1}{n} \displaystyle\sum_{C_j \in {C_1, \dots, C_n}} \delta_{A \to C_j }}
 $$
 
-#### Conclusions
+## Conclusions
 Summing up, we gave a definition of dependency in software engineering. We tried to understand why dependency
 among components should be minimized. We revised how UML helps us to visually manage
 the dependencies, in object oriented world. With this information, we tried to formalize a formula to calculate the degree
 of dependency between two class.
 
-#### References
+## References
 
  - [Merriam-Webster, Dependence definition](https://www.merriam-webster.com/dictionary/dependence)
  - [Professionalism and TDD (Reprise)](https://8thlight.com/blog/uncle-bob/2014/05/02/ProfessionalismAndTDD.html)

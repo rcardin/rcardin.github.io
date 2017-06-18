@@ -25,7 +25,7 @@ describes the reasons of the failure of the Scala language in becoming the next 
 language. But, are we sure that authors of Scala ever pretend the language to be used by every developer on the Planet? 
 I don't think so.
 
-#### Introduction
+## Introduction
 First of all, who am I to write such an article? Basically, nobody. All I want to do is to report my experience with the 
 Scala language in the last 5 years. I started learning Scala in 2013, attending at Martin Odersky Coursera courses. I 
 read some books about Scala programming, among the others, "[Scala for the impatient](http://horstmann.com/scala/)" by 
@@ -34,7 +34,7 @@ I worked as a senior developer in a Big-data project that uses the Scala program
 
 Then, during the last years I had the opportunity to get an idea to the past, present and future of Scala.
 
-#### As is
+## As is
 Have you ever installed the JDK from scratch? I know you had. Do you remember the image that remembers you there are
 at least 3 billions of devices running Java out of there?
 
@@ -46,7 +46,7 @@ written in Java. Do you really think that some new language can really substitut
    
 I do not think so. But, let's have Scala a *chance*.
 
-#### The language
+## The language
 For those of you that do not know it, Scala is an awesome programming language. Is it simple to master? No, it does not. 
 Definitively. It's syntax is elegant and powerful, it but hides a lot of lessons learned from the design of older 
 programming languages, Java on top.
@@ -104,7 +104,7 @@ decisions during the design only after some years of development.
 How can we pretend that the vast majority of developers all over the world can immediately understand the subtle 
 features of this language called Scala?
 
-#### Functional programming
+## Functional programming
 For years Scala was one of the few programming languages running on the JVM that mixes the object oriented paradigm with 
 the functional paradigm. In 2015 came Java 8, that introduces *lambdas*. Many of you started to says that Scala would
 die because Java, out favorite mainstream programming language, introduced the functional approach to.
@@ -188,7 +188,7 @@ Though these features are not intimately related with functional programming, th
 
 In conclusion, please stop saying that Java 8 has outclassed Scala as a functional programming language. 
 
-#### Scala best
+## Scala best
 In conclusion, Java 8 and Scala are not comparable from many points of view. If Java can be defined a general purpose 
 programming language, where can we use Scala effectively?
 
@@ -199,7 +199,7 @@ i.e. Apache Spark.
 Spark `RDD[T]`, *Resilient Distributed Dataset*, looks like a collection at the top level of its abstraction. Then, 
 Scala features related to collections manipulation fit perfectly to work with such kind of data structure.
 
-#### Conclusion
+## Conclusion
 As I tried to proof in this post, the aim of Scala was not that of substitute Java, not today, not in the future. The 
 language has its own features, as any other existing language. These features subtend a lot of software engineering 
 concepts. Also mathematics plays an important role in deep understanding of Scala. These facts clearly explains why 
@@ -220,7 +220,7 @@ purer than Java 8.
 **Post-post scriptum**
 The Internet community is still debating about whether Java 8 lambda expressions are or are not first class citizens.
 
-#### References
+## References
 - [Chapter 2: Using function in Java. Functional Programming in Java: How to Improve Your Java Programs Using Functional 
 Techniques, Pierre-Yves Saumont, 2016, Manning Pubns Co.](https://www.amazon.it/Functional-Programming-Java-Programs-Techniques/dp/1617292737/ref=sr_1_2?ie=UTF8&qid=1476079422&sr=8-2&keywords=functional+programming+in+java) 
 - [Is Java 8 a Functional Programming Language?](http://www.beyondjava.net/blog/java-8-functional-programming-language/)

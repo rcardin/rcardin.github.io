@@ -17,7 +17,7 @@ social-share: true
 social-title: "Eat that cake! Cake pattern explained"
 social-tags: "scala, programming"
 ---
-# Introduction
+## Introduction
 We know it: managing dependencies between software components within a project of magnitude rather
 than trivial could become a hell if not planned properly. Many of you will wonder why it is necessary
 to dwell too much on this topic. Responses to this question are two, namely:
@@ -57,13 +57,13 @@ information to operate like a factory, managing the complete life cycle of softw
 In Java, for example, the most commonly used DI frameworks are [Spring](http://spring.io/) and
 [Google Guice](https://github.com/google/guice).
 
-# The Cake pattern
+## The Cake pattern
 
 Scala provides a mechanism to resolve dependencies similar to DI, the *cake pattern*. Unlike DI pattern in
 other languages, such as Java, C++, etc ... the cake pattern can be used directly with language constructs
 available in Scala.
 
-#### Traits
+### Traits
 
 In Scala the cake pattern is made possible by the presence of the construct of the trait. A trait is similar
 to a Java interface, but unlike the latter it can have both attributes, both methods completely implemented.
@@ -74,7 +74,7 @@ implement some kind of multiple inheritance, that is not allowed in other progra
 
 ![Class diagram showing the meaning of traits](http://rcardin.github.io/assets/cp_3.png)
 
-#### Self-type annotation
+### Self-type annotation
 
 The Self-type annotation is a special construct that allows you to declare the dependencies of a component
 from one or more trait, i.e. which trait should be associated with the component using mixin. For example,
@@ -106,7 +106,7 @@ and if these are not met it will provide the following error:
 
 > class BarAble cannot be instantiated because it does not conform to its self-type BarAble with FooAble
 
-#### The full recipe
+### The full recipe
 
 Trait and self-type annotation are the foundation of the cake pattern. Return to the main problem, namely the
 resolution of dependency between the class `UserService` and the class `UserRepository`. An elegant solution
@@ -180,7 +180,7 @@ trait UserRepositoryComponent {
 }
 {% endhighlight %}
 
-#### References
+## References
 
 - [Real-World Scala: Dependency Injection (DI)](http://jonasboner.com/2008/10/06/real-world-scala-dependency-injection-di/)
 - [Cake pattern in depth](http://www.cakesolutions.net/teamblogs/2011/12/19/cake-pattern-in-depth)

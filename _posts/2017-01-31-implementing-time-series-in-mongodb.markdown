@@ -27,7 +27,7 @@ query and aggregate using many different time granularity (monthly, weekly, dail
 should also be stored in a way that does not consume too much disk space and is optimal in performance
 for MongoDB to maintain. In a word, I need to transform MongoDB in a Time series database.
 
-#### Time series
+## Time series
 
 Let's start from the beginning. What a *time series* is. Citing [Wikipedia](https://en.wikipedia.org/wiki/Time_series):
 
@@ -71,7 +71,7 @@ main characteristic of a time series database is that it should have some **powe
 Let's say, if we need to know how much butterflies were counted by scientist "perpetua" in "location 1" during the last year,
 it should be easy to retrieve this information.
 
-#### Time series in MongoDB
+## Time series in MongoDB
 MongoDB is a general purpose document oriented database. This means that information inside the database is stored as document.
 MongoDB uses BSON format, a binary variant of JSON documents. A document in MongoDB looks like the following.
 
@@ -145,7 +145,7 @@ our analysis. Tags are in the main document, let's say at level 0. Fields are pa
 The aggregation over time is determined by the value of the `date` property at each level. Documents are always *complete*.
 This means that we will find a subdocument for each minute / hour / day, whether the fields value are 0 or not.
 
-**Why this? Why that?**<br/>
+### Why this? Why that?
 So far so good. Now, the question is: why do we use this complex document schema? Which are the pro and cons?
 
 First of all, if we model our events using an 1:1 approach with respect to the documents we would end up with one document
@@ -205,7 +205,7 @@ cause an existing document to grow or be moved on disk*. This fact allows MongoD
 But, this requirement opens an important issue about the management of time series using MongoDB: who is responsible to
 insert the "all zero" document for each *tag set* inside the collection?
 
-#### Which came first, the chicken or the egg?
+## Which came first, the chicken or the egg?
 This is the real and central issue using MongoDB to model time series. We need a procedure that inserts the documents
 before we can use and update them.
 
@@ -224,7 +224,7 @@ Bingo! We found it! We can insert the whole documents in a `$setOnInsert` clause
 collection. *Nope*. Due to a bug explained in [this Stackoverflow question](https://stackoverflow.com/questions/41552405/mongodb-collection-update-initialize-a-document-with-default-values)
 it not possible use the same property both in the `$setOnInsert` and `$update` clauses. S**t!
 
-#### Three step initialization
+## Three step initialization
 Then, do we reach a dead end, a *cul-de-sac*? At first sight it may seem so. Fortunately, me and my colleagues found a
 *workaround*. We can call it *three step initialization*. 
 
@@ -279,7 +279,7 @@ Clearly, what makes the above procedure working is the guarantee of atomicity on
 the procedure is a little bit creepy, but we did not find anything better at the moment. Do you have any better idea?
 If so, try to explain it in the comment section. Thanks!
 
-#### References
+## References
  - [Time series](https://en.wikipedia.org/wiki/Time_series)
  - [InfluxDB Key Concepts](https://docs.influxdata.com/influxdb/v1.2/concepts/key_concepts/)
  - [Schema Design for Time Series Data in MongoDB](https://www.mongodb.com/blog/post/schema-design-for-time-series-data-in-mongodb)

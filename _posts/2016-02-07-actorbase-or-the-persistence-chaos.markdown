@@ -27,7 +27,7 @@ into a real thing.
 
 But, as usual, let's start from the beginning.
 
-#### Why we need NoSQL databases
+## Why we need NoSQL databases
 
 This section would not be a detailed list of the reasons why we need NoSQL databases. Certainly, we learned so far that the
 word *NoSQL* stands for *not only SQL*. Because what we have learned is that property of SQL database are awesome. Being
@@ -39,7 +39,7 @@ the scalability is what we need to let our massive applications to adapt themsel
 
 So, why *not only SQL*? Because if we don't strictly need the relational part, we love to query our databases using SQL!
 
-#### Which kind of NoSQL database?
+## Which kind of NoSQL database?
 
 There is a variety of types of NoSQL databases. The most famous are the following:
  
@@ -55,7 +55,7 @@ replicated many type, and so on.
 
 Then, the only thing you have to choose is how to scale. Which kind of mechanism will manage your key-value couples?
 
-#### The actor model
+## The actor model
 
 The actor model is a well known mathematical model that abstract concurrent and distributed programming into *actors*. As
 John Mitchell wrote once:
@@ -85,7 +85,7 @@ messages. One possibility is to have a message compose of:
 Why are we talking about the actor model? Because actors can be distributed physically in different nodes of a network.
 In this way it should be simpler to develop a distributed application, also a NoSQL database.
 
-#### Actor Model + NoSQL database = Actorbase
+## Actor Model + NoSQL database = Actorbase
 
 What the hell can happen if we try to implement a NoSQL database using actors? First of all, we have to choose a NoSQL 
 database model that can fit the actor model. So, let's choose a key-value map database and let each actor to manage a 
@@ -113,7 +113,7 @@ The figure below shows a logical schema of the possible interactions between the
  
 ![Possible message structure](http://rcardin.github.io/assets/2016-03-05/ACTORBASE.png)
 
-#### The story so far
+## The story so far
 Okay, okay, wait a minute. Which is the syntax of the query language? Which are the technical features of this database?
 Well, this is simply a proposal I gave to my Computer Science students of the 
 [Software Engineering](http://www.math.unipd.it/~tullio/IS-1/2015/Progetto/C1.pdf) course at the Department of 
@@ -130,7 +130,7 @@ features of the CAP theorem will it have? Which will be the use cases for such d
 Do you like the idea? Have you some questions or suggestions? Does someone out there want to present us a logo? 
 Let me know in the comments. Cheers!  
   
-#### References
+## References
 - [Chapter 14: Concurrent and Distributed Programming. Concepts in Programming Languages, John C. Mitchell, 2002, Cambridge University Press](http://www.amazon.com/Concepts-Programming-Languages-John-Mitchell/dp/0521780985)
 - [Leader Election](https://en.wikipedia.org/wiki/Leader_election)
 - [First module home page of the Software Engineering course of the Department of Mathematics, University of Padova (in italian)](http://www.math.unipd.it/~tullio/IS-1/2015/)

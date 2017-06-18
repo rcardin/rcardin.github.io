@@ -26,12 +26,12 @@ Well, as you might have guessed, in this post, we'll talk about the Chain of Res
 is not one of the more popular ones, at least among the patterns defined by the *Gang of Four*, but modern dependency
 injection frameworks give us the possibility to implement it in a smart, and fresh way. Let’s see how.
 
-#### Introduction
+## Introduction
 Disclaimer: There is nothing new with this pattern. A colleague of mine used it days ago, and I've also used it a lot
 in the past. This post was inspired by a solution to a problem I recently encountered, which we'll dive into below, and
 I did not immediately notice that this pattern could be used to solve that problem.
 
-#### The classic pattern
+## The classic pattern
 The Chain of Responsibility pattern is a *behavioural design pattern*. It was firstly defined in the book *Design 
 Patterns*, wrote by the *Gang of Four*. The intent of the pattern is the following.
 
@@ -82,7 +82,7 @@ Inside the JDK implementation, the pattern is applied at least in two points:
  - Implementation of the *logging* mechanisms: [`java.util.logging.Logger#log()`](https://docs.oracle.com/javase/8/docs/api/java/util/logging/Logger.html)
  - Implementation of the filtering mechanisms of http requests and responses in the Servlet specification: [`javax.servlet.Filter#doFilter()`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html)
 
-#### The advent of dependency injection
+## The advent of dependency injection
 As in many other situations, the definition of the dependency injection pattern changed the tune. Let's see how
 to use DI features to modernize the Chain of Responsibility pattern.
 
@@ -121,7 +121,7 @@ Simply as f\*\*k! Obviously, every dependency injection library has its own ways
 such situation. In Spring, using *auto-discovery* feature, you have to provide very little configuration. In Guice the story
 is little more complicated, but the final result is the same.
 
-#### Modern implementations of CoR
+## Modern implementations of CoR
 To summarize a little: We have seen the Chain of Responsibility design pattern in its classical form; We have seen
 *multibindings* feature provided by dependency injection libraries; In the final step through the nirvana we will see
 how to mix this two concept together.
@@ -151,7 +151,7 @@ Taking advantage of dependency injection, adding a new `Handler` implementation 
 code at all. This means that virtually no regression tests need to be performed. On the other side, it is a little
 bit more difficult (but not impossible) to impose an order of execution of `Handler`s inside the chain.
 
-#### Warnings
+## Warnings
 As in many other patterns, it is important to focus which is the role of the classes that build the pattern.
 Which responsibilities will you give to a concrete `Handler`? Will you develop the *business logic* of the application
 directly inside the body of that `Handler`?
@@ -198,7 +198,7 @@ In this way, we end up with two types with different responsibilities: `PayeeSer
 directly connected to payee information; `CountryPayeeEnricher` type that offers a standardized access to the services
 offered by the previous type.
 
-#### The Scala way
+## The Scala way
 For sake of completeness, I also want to talk about the implementation of the CoR pattern in the Scala language. As many
 other design patterns, there is an implementation of the CoR pattern built in the language: *partial functions*. As the theory
 stated, a partial function is a function that is defined only for some subset of values of its domain. In Scala, such
@@ -236,7 +236,7 @@ you have to fulfill to use CoR in such a way. In fact,
 >
 >  If you do not need to do these things, pattern-matching PartialFunctions works great.
 
-#### References
+## References
  - [Chapter: Chain of Responsibility (pag. 223). Design Patterns, Elements of Reusable Object Oriented Software, GoF, 
    1995, Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
  - [Design Patterns in the JDK](http://www.briandupreez.net/2010/11/design-patterns-in-jdk.html)

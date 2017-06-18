@@ -33,7 +33,7 @@ pros and cons in the next post of this series.
 
 So, let's start from the beginning: dependency injection definition.
 
-#### Definition
+## Definition
 
 The definition of *dependency injection* was first given by Martin Fowler in the blog post [Inversion of Control 
 Containers and the Dependency Injection pattern](http://martinfowler.com/articles/injection.html). The dependency 
@@ -92,7 +92,7 @@ Well, this is the right way. The only things we still miss are the following:
  1. A way to signal to the injector that a class has a certain dependency
  2. A way to instruct (or configure) the injector to resolve dependencies
  
-#### Constructor injection versus Setter injection
+## Constructor injection versus Setter injection
 Since dependencies are nothing more then objects attributes (more or less), the injector has to be instructed to know how 
 to fulfill these attributes. In Java there are three ways to set attributes of an object, which are:
    
@@ -104,7 +104,7 @@ Once you have selected your preferred way, you will annotate the corresponding s
 The annotation and its behaviour are defined inside a JSR. Dependency injection is so important in the Java ecosystem 
 that there are two dedicated JSRs, i.e. [JSR-330](https://jcp.org/en/jsr/detail?id=330) and [JSR-299](https://jcp.org/en/jsr/detail?id=299). 
 
-**Constructor dependency injection**<br /> 
+### Constructor dependency injection
 If you want the injector to use the constructor to inject the dependency of a class, annotate the constructor with 
 `@Inject`.
   
@@ -128,7 +128,7 @@ constructor parameters.
 This is the **preferred** and **correct** way to use the dependency injection. Because the object is build using a 
 constructor, this behaviour favors the use of *immutable* objects and do not break the *information hiding* principle.
 
-**Setter dependency injection**<br />
+### Setter dependency injection
 Since the definition of the Java programming language, the aim of the Sun Microsystem was standardization. The
 [Java Bean Specification](http://download.oracle.com/otndocs/jcp/7224-javabeans-1.01-fr-spec-oth-JSpec/) stated that a
 java bean must have a default constructor and a couple of getter and setter methods for each attribute it owns. Having
@@ -157,7 +157,7 @@ public class MovieLister {
 }
 {% endhighlight %}
 
-#### The injector
+## The injector
 There are many implementations in the Java ecosystem of dependency injectors. Each implementation differs from each 
 others essentially for these features:
  
@@ -228,12 +228,12 @@ rule, the injector will do the magic for you. In the above example, the followin
  
 That's so easy!
  
-#### The story so far
+## The story so far
 Clearly, this is only the introduction of the *dependency injection* story. There are a lot of features that 
 characterize this pattern. For example, the ability to decide if a class should be or not a *singleton*, using the 
 `@Singleton` annotation on class definition.
 
-#### Using dependency injection with Scala
+## Using dependency injection with Scala
 Scala is a language that runs on top of the JVM. The language itself has it own techniques to deal with the dependency
 injection. But, if you have to mix Java and Scala code inside the same project, you have to resume the JSR-330. The
 `@Inject` annotation can be used also in the scala code.
@@ -252,11 +252,11 @@ But, why the hell have parenthesis to add a `()` couple of parenthesis after the
 because, otherwise, how could you tell if `(val finder: MovieFinder)` is constructor parameter list or arguments to 
 `@Inject`?
 
-#### What's next?
+## What's next?
 This small post is only an introduction to dependency injection. The internet community is divided on the real usefulness
 of the pattern. In the next posts of this series I will try to analyze the pros and cons of using this pattern.
  
-#### References
+## References
 - [Chapter: Singleton (pag. 127). Design Patterns, Elements of Reusable Object Oriented Software, GoF, 1995, 
 Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
 - [Dependency Injection on SlideShare](http://www.slideshare.net/RiccardoCardin/design-pattern-architetturali-dependency-injection)

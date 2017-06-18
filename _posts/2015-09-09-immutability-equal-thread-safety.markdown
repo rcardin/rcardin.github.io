@@ -24,7 +24,7 @@ No, there is not a typo in the title of this post. It is a distorted quotation f
 And more or less this was my reaction when I discovered that in Java *immutability is not equals to thread-safety*. 
 Not always. Let me explain why.
 
-#### We need some definition first
+## We need some definition first
 All it comes from the fact that I am reading the book [Java concurrency in practice](http://www.amazon.com/Java-Concurrency-Practice-Brian-Goetz/dp/0321349601),
 a.k.a. JCIP, written by Brian Goetz. The book is very well written and it is a milestone in the Java Community. In the book,
 Goetz and al. tries to give us a reasoned vision of the problems belonging to the concurrency world. The language used 
@@ -54,7 +54,7 @@ the possible changes of objects' internal state, avoiding those changes makes ea
     
 Ok, this is the theory and we like it. But, we want to make our hands dirty. So, let's talk about code.
  
-#### Immutability in Java
+## Immutability in Java
 It is surprising that there is no an idiomatic way in the Java language to make a class immutable. I suppose that the
 problem here is that Java winks to C++ and other procedural programming languages, more than to Lisp and Haskell.
 By the way, we can try to implement an immutable class strictly following the above definition.
@@ -84,7 +84,7 @@ attribute of the class is also immutable, so there is no possibility that a muta
 using the accessor methods. Nice. The only problem is the *Java Memory Model* of the JVM that executes your code, but who 
 cares? :)
 
-#### The Java Memory Model
+## The Java Memory Model
 
 Seriously, there is a problem with the above code. First of all: what is the **Java Memory Model**, a.k.a. JMM or 
 JSR133? Looking at the FAQ page of the JSR133 we can find that
@@ -138,7 +138,7 @@ statement is very hard, so I recommend you to read it from a post of the user *a
 
 So, are we fucked up!? No, we're not and the solution is easier than what you're thinking about.
 
-#### Use the `final`, Luke!
+## Use the `final`, Luke!
  
 Fortunately, Goetz and al. put a strong requirement in the definition of the JSR133, which is
 
@@ -175,7 +175,7 @@ from debugging multi-threaded code, that is not working properly.
  
 Finally, under these conditions we can now proudly say that: *"Yes, Immutability implies thread-safety"*. 
 
-#### Immutability in Scala
+## Immutability in Scala
 Scala and many other modern programming languages are build on top of the JVM. For this reason, they do not define a
 custom model for multi-threaded programs execution, but they reuse the one defined in Java. A question easily rises: do
 Scala suffer of the same problems we have seen so far? I've made this question on [Stackoverflow](https://stackoverflow.com/questions/32113124/immutability-and-thread-safety-in-scala/32241751#32241751). 
@@ -233,7 +233,7 @@ attribute.
 We can conclude that in Scala the concept of immutability is idiomatically implemented in a way that is
 consistent with respect to the JMM. In Scala it is true to say that *immutability implies thread-safety*.
  
-#### References
+## References
 - [Chapter II: Thread Safety. Java concurrency in practice, Brian Goetz, 2006, Addison-Wesley Professional](http://www.amazon.com/Java-Concurrency-Practice-Brian-Goetz/dp/0321349601)
 - [Item 15: Minimize mutability. Effective Java, Joshua Bloch, 2008, Addison-Wesley](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683)
 - [What is a memory model, anyway?](https://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html#whatismm)

@@ -71,7 +71,7 @@ Not so good.
 
 Let's look how tests analysis can improve the architecture of software that we develop everyday.
 
-#### The very beginning
+## The very beginning
 
 So, which is the main problem with the above code? First of all, we have to understand what the
 code is meant to do. Basically, the method `execute` takes some data modeled as the `Info` object
@@ -90,7 +90,7 @@ is built? All the logic is drowned inside the `execute` method.
 
 Let's try to change some stuffs in order to obtain a better (a.k.a. more testable) design.
 
-#### The root of evil
+## The root of evil
 
 Reviewing the *responsibilities* owned by the `execute` method, we found that it owns more than one.
 The responsibilities that I see are the following:
@@ -112,7 +112,7 @@ How can we repair such a bad situation? Once, Romans would have said
 
 And also I do.
 
-#### The path through perfection
+## The path through perfection
 
 There is a principle in SOLID programming which is known as *Single-Responsibility Principle*. It
 represents the first "S" in the word SOLID. This principle states that
@@ -168,7 +168,7 @@ type.
 
 New unit tests for `MessageFactory` lacks. The smart reader will easily overcome this problem ;)
 
-**Test Proven Design**<br />
+### Test Proven Design
 Should we have come to the same conclusion following another path? The answer is yes. We already stated
 that tests of the original component were not perfect. The construction logic of a `Message` type was
 not properly tested, due to the lack of visibility of this process.
@@ -183,7 +183,7 @@ improved from different points of view.
 Summarizing, following a need deriving from the testing process, we came to a design that seems to be
 good enough.
 
-#### Conclusions
+## Conclusions
 Starting from a "real life" code snippet, we saw how the absence of some unit test drove us to the
 refactoring of a class. The new version of the class also satisfies one of the basic principles of SOLID programming,
 the *Single-Responsibility Principle*. This means that the class is more maintainable, flexible, coherent,
@@ -194,7 +194,7 @@ knowledge of the theory of TDD, I never had the opportunity to apply it in real 
 the effective application of TDD principles should be taught initially. Is there anybody out there who can
 confirm it?
 
-#### References
+## References
 
  - [Chapter 8: The Single-Responsibility Principle (SRP). Agile Principles, Patterns, and Practices in C#,
  Robert C. Martin, Micah Martin, 2006, Prentice Hall](https://www.amazon.it/Agile-Principles-Patterns-Practices-C/dp/0131857258)

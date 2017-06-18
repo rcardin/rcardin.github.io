@@ -43,7 +43,7 @@ the code? Is it the comment? (For sake of completeness, the code was the correct
 
 This true story allows me to introduce the main focus of this article: *comments in software coding*.
 
-#### The story so far
+## The story so far
 
 When I was attending the course of Computer Science at the University they told me that I had to document my code. In
 this way, the developers that would come after me would have understood easily the code I had wrote. Someone else than me 
@@ -100,7 +100,7 @@ public class Sum implements Operation {
 The previous code hits a DC score greater than **0.6**. Then, the quality of a development process that produces that 
 code should be very high. Instead, the code of the class `Sum` is not considered quite good. Let me tell you why.
  
-#### The problem about comments
+### The problem about comments
 
 As Robert C. "Uncle Bob" Martin wrote in his book [Clean Code](http://www.amazon.it/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882):
 
@@ -146,7 +146,7 @@ public class Person {
 }
 {% endhighlight %}
 
-#### And so? What have I to do?!
+### And so? What have I to do?!
 
 As Brian W. Kernighan and P. J. Plaugher said in their book 
 [The Elements of Programming Style](http://www.amazon.com/The-Elements-Programming-Style-Edition/dp/0070342075),
@@ -200,7 +200,7 @@ df.setTimeZone(TimeZone.getTimeZone("GMT"));
 In conclusion, every time you will find yourself to write some comments to code, ask yourself if you can rewrite a
 better code instead of using comments.
  
-#### References
+## References
 
 - [Chapter IV: Comments. Clean Code: A Handbook of Agile Software Craftsmanship, 
    Robert C. Martin, 2008, Prentice Hall](http://www.amazon.it/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882):

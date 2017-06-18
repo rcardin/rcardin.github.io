@@ -25,7 +25,7 @@ programming world. While you have not to worry about the *distributed* adjective
 related to it, the *functional* and *asynchronous* adjectives make things more complex with respect to the error 
 handling process. Let's explain why. 
 
-#### Classical error handling
+## Classical error handling
 In classic situations, such as in languages as Java or C++, *exceptions* are used to signal an exceptional behaviour of a program.
 If you need to handle an particular type of exception, you will use a `try`-`catch` statement, surrounding the 
 statements that can rise the exception. 
@@ -54,8 +54,7 @@ I will not discuss if it is better to use a checked or an unchecked exception in
 The important thing is the **locality** of the statements that handle the exception and the statements that rise the exception.
 The latter is inside the scope of the formers.
 
-#### Asynchronous execution and exception handling
-
+## Asynchronous execution and exception handling
 Apache Spark uses `RDD` (*Resilient Distributed Datasets*) as the basic block to build algorithms over huge amount 
 of data (refer to [A new way to err, Apache Spark](http://rcardin.github.io/big-data/apache-spark/scala/programming/2016/04/30/a-new-way-to-err-apache-spark.html) for a more detailed description).   
 
@@ -121,7 +120,7 @@ As you can see, we have lost completely the **locality** of the exception handli
 Using this approach we lose which element throw the exception. Furthermore, Spark is used to process huge 
 amount of data: are we sure we want to block the whole execution for a single error on a single element of an `RDD`?
   
-#### Functional programming and exception handling
+## Functional programming and exception handling
 A first attempt to resolve the last problem can be to move the `try`-`catch` statement inside the transformation. Then,
 the above code will become the following.
 
@@ -180,7 +179,7 @@ error rise during computation.
 So, your `RDD[T]` will become a `RDD[Try[T]]`. Using this *escamotage*, we can now use the same data structure to forward 
 both data and exceptions. That's great!
 
-**Chaining operations**<br/>
+### Chaining operations
 Ok, we have a `RDD[Try[T]]`...now what? How can we work with instances of `Try[T]`? Do you remember when I said the this 
 type is a monad? Then, we can use the `map` and `flatMap` methods to work proficiently with it.
   
@@ -232,7 +231,7 @@ val result =
  
 It is more readable, isn't it?
 
-#### Collecting the results
+## Collecting the results
 At some point in your program you will need to get only the `Success` or `Failure` instances inside the `RDD[Try[T]]`. 
 There is a lot of techniques to accomplish this task, but the one I preferred is to use the `collect` transformation. 
 
@@ -250,7 +249,7 @@ val successes =
 
 And that's all, folks!
  
-#### References
+## References
 - [The Neophyte's Guide to Scala Part 6: Error Handling With Try](http://danielwestheide.com/blog/2012/12/26/the-neophytes-guide-to-scala-part-6-error-handling-with-try.html)
 - [Getting an RDD of Failure[T] from an RDD[Try[T]] without compilation warning](https://stackoverflow.com/questions/39392162/getting-an-rdd-of-failuret-from-an-rddtryt-without-compilation-warning)
 - [Spark 2.0 RDD API](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD)

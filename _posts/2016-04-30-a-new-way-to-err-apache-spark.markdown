@@ -32,7 +32,7 @@ objects for you, optimize the algorithm for you. However, **be aware**: there is
 do not deeply understand the logic behind it, you will discover new way to loss your time searching for incomprehensible 
 bugs.
 
-#### Spark distributed data structures
+## Spark distributed data structures
 
 One of the core concepts of Apache Spark is the way it represents distributed data structures. *Resilient Distributed 
 Dataset*, a.k.a. `RDD`, is the type that is used by Spark to work with data in a distributed way. `RDD[T]` is a 
@@ -70,7 +70,7 @@ Finally, when you work with `RDD` you have to remember that
 > although you can define new RDDs any time, Spark computes them only in a **lazy** fashion —that is, the first time 
   they are used in an action.
   
-#### Spark and serialization
+## Spark and serialization
 
 Using the information given above, it's easy to imagine that Spark does a lot of work on your code. First of all, it 
 has to partition the execution of transformations on `RDD`, and then it has to rewrite your code in a way that enables
@@ -130,7 +130,7 @@ Spark adopt exactly the same behaviour: every object that is not enclosed inside
 transformation will be strictly serialized and send to worker nodes. It will share no state with the original copy in 
 the driver node.
 
-#### One line of code to ruin them all
+## One line of code to ruin them all
 
 Now that we presented the basic behaviour of Spark, we can return to the object of this article: the new kind of bugs 
 you can nicely find using Spark. Let's start from the code.
@@ -188,7 +188,7 @@ Clearly, the problem is that the above code is not *functional*, which means tha
 the transformation has some *side effects* on its input.
 Remove the mutable state, and you will remove (more or less) every code smell.
 
-#### On Spark distribution model
+## On Spark distribution model
 
 The parallelism that I've made between Java RMI and Apache Spark is merely related to the external behaviour seen by 
 the developer, and not related to the implementation of Spark. As **Roland Kuhn** wrote in an email that kindly answer 
@@ -201,6 +201,6 @@ a question that I have previously made to him
   
 And that's all, folks!
  
-#### References
+## References
 - [Chapter 3: Programming with RDDs. Learning Spark, Holden Karau, Andy Konwinski, Patrick Wendell, Matei Zaharia, 
    2015, O'Reilly Media](http://shop.oreilly.com/product/0636920028512.do)

@@ -17,7 +17,7 @@ social-share: true
 social-title: "The Good, the Bad and the Singleton"
 social-tags: "design, java, scala, programming"
 ---
-# Introduction
+## Introduction
 If you search for the word *Singleton* on Google, you will probably find a bunch of rants about the
 fact that this design pattern is the absolute evil on the earth. Compared to the Singleton pattern, Darth 
 Vader and Lord Voldemort are like little scout girls selling cookies door to door. Is it true? Or is the design pattern totally misunderstood by developers? In this series of articles I will try to analyze the
@@ -25,7 +25,7 @@ reasons that stay behind those rants and I will try to give my point of view on 
 
 So, let's start from the very beginning, the definition of the design pattern as it was given by the GoF's book.
 
-# Singleton
+## Singleton
 
 The Singleton design pattern is an *object creational* design pattern. It was formalized by the GoF inside their
 most famous book, [Design Patterns: Elements of Reusable Object-Oriented Software](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612).
@@ -69,7 +69,7 @@ So far so good. You have to keep in mind that the book was published in 1994. Ja
 embryonal state, and at that time nobody knew of dependency injection*, not even the DI's father, Martin Fowler. For sake of
 completeness, let's look at Singleton implementation in Java and Scala.
 
-#### Singletons in Java: not such a good friend
+### Singletons in Java: not such a good friend
 
 Ok, the first implementation we can try is the one that translates directly from the previous UML class diagram into code.
 
@@ -162,7 +162,7 @@ to guarantee that the `INSTANCE` variable of the base class will be instantiated
 sub-class. This topic is far beyond the focus on this article. An example of Singleton sub-classing can
 be found in the *Implementation* section of the chapter related to Singleton in the GoF's book.
 
-#### Idiomatic Singleton in Scala
+### Idiomatic Singleton in Scala
 What about the Scala language? Scala became a mainstream programming language a decade after Java. So, it had the
 time to learn from the errors of others language. Some of you could say: "*So, why the f\*\*\*k is there a way to have an 
 idiomatic implementation of an anti-pattern like the Singleton pattern?*". We will try to answer to this question in the next
@@ -184,7 +184,7 @@ println ChuckNorris.roundhouseKick
 As you know, if we have an `object` type that has the same name as a `class` type, we will call it *companion object* of
 the class. But, that is another story ;)
 
-# Conclusions
+## Conclusions
 In this article we have analyzed the Singleton pattern from an agnostic point of view. First, we have introduced it through
 the definition given in the GoF's book. Then, we have discussed how to implement the pattern using the Java language and
 the Scala language. 
@@ -193,7 +193,7 @@ We intentionally have not given any judgment from a design point of view. In the
 why the Singleton pattern is so hated by so many software architects and programmers. We will introduce the difference
 between "Singleton" and "singleton" and we will probably reach the conclusion that the best answer to the question "*How will you implement a Singleton in a specific programming language?*" is: "*I will not implement it at all!*". 
 
-#### References
+## References
 
 - [Chapter: Singleton (pag. 127). Design Patterns, Elements of Reusable Object Oriented Software, GoF, 1995, 
 Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)

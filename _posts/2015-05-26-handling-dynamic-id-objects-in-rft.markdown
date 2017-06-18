@@ -15,7 +15,7 @@ social-share: true
 social-title: "Handling dynamic id objects in Rational Functional Tester"
 social-tags: "testing, programming, rft"
 ---
-# Introduction
+## Introduction
 Functional testing is an discipline that is becoming more and more requested in software industry. A functional test
 is mainly represented by an automatic navigation inside a UI that checks some properties of that user interface. The 
 growth is probably due to the continuous increasing of the complexity of the UIs. 
@@ -33,11 +33,11 @@ There are three main tools to develop and to execute functional testing, which a
 In this article we will focus on Rational Functional Tester and on a problem that affects it: the *recognition of HTML
 objects with a dynamic id*.
  
-# Rational funtional tester
+## Rational funtional tester
 I don’t want to have a full dissertation about RFT and its pros and cons. As previously stated, my aim is to focus on a 
 very specific problem, i.e. the recognition of HTML object with a dynamic-id.
 
-#### How RFT works (sucks...)
+### How RFT works (sucks...)
 In short, RFT gives you a &quot;Studio&quot; application based on top of Eclipse by which a developer can record elements of an
 HTML page and can record some actions on them, such as clicks, text editing, and so on. All this stuff is recorded
 inside a script, which is a Java class extending a class of the RFT API. Recorded object are represented using other 
@@ -56,7 +56,7 @@ As you can see, every attribute of a recorded HTML element is converted into a t
  and then uses these weights to associate every element, found during execution of a test, to the previously recorded
  objects.
  
-#### Dynamic-id objects: where the plot thickens
+### Dynamic-id objects: where the plot thickens
 
 So a nice approach, isn&#39;t it? No, it is not. It is a f*****g damned approach. Why? Because, as every programmer know, 
 there are a lot of framework out of there, that during UI compilation process generate dynamically the ids associated to 
@@ -70,7 +70,7 @@ does not help: the id could vary so much that it was impossible to express its v
 
 Is this a dead end? No, luckily it is not.
 
-#### A subtle escamotage
+### A subtle escamotage
 
 IBM engineers know how to work. Then they left us a backdoor to enter the Matrix. The type `TestObject` defines the
 method `find`, that lets us to search for a particular object that satisfies some searching properties.
@@ -109,7 +109,7 @@ Summarizing, once you have found a set of properties that univocally identifies 
 to obtain the object. If you do not use the `.id` property in the searching process, the problem of dynamic-id objects
 can be avoided. 
 
-#### The other side of the moon
+### The other side of the moon
 
 Unfortunately, the using of the `find` method has many drawbacks. First of all the `find` method works if and only if the 
 object you are searching is *fully loaded* in the page at the time of the search action. 
@@ -127,7 +127,7 @@ In [this blog](https://www.ibm.com/developerworks/community/blogs/rfttreasures/e
 
 > 4) **Memory cleanup** : Last but equally important thing to remember while using objects returned by find is to free the objects as soon as the work is done or whenever you feel that the object might have changed in the AUT as part of some intermediate transaction.
 
-#### References
+## References
 
 - [RFT Html.Select has dynamic id and is not recognized](https://stackoverflow.com/questions/29128116/rft-html-select-has-dynamic-id-and-is-not-recognized/29141551#29141551)
 - [Understanding Test Object Map in Rational Functional Tester](http://rftobjectmap.blogspot.in/)
