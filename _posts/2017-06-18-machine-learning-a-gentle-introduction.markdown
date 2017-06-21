@@ -19,13 +19,13 @@ Looking at the last Google and Apple conventions it was clear to all: if in the 
 ![I am your friendly metal neighbour!!!](/assets/2017-06-10/skynet.jpg)
 
 ## Definitions
-The task we are going to accomplish is not simple. So, let's start from the begining: What does _machine learning_ refer to.
+The task we are going to accomplish is not simple. So, let's start from the beginning: What does _machine learning_ refer to.
 
 > Machine Learning is a discipline of Artificial Intelligence, that is responsible to study and develop algorithms that allows machines to learn information. In detail, the learning process is done using an inductive approach, that tries to extract rules and behavioural patterns from huge amount of data.
 
 The types of information used by the algorithms (_learners_) to learn identify the following categorization of machine learning algorithms, which are:
 
- 1. **Supervised learning**: The learner a set of given couples (_input_, _output_) to learn a function \\(f\\) that maps _input_ to _output_. The above couples are called _supervisions_ and using them the learner tries to find the function that approximately fits like \\(f\\). Supervisions must be available at the beginning of the learning process.
+ 1. **Supervised learning**: The learner exploits a set of given couples (_input_, _output_) to learn a function \\(f\\) that maps _input_ to _output_. The above couples are called _supervisions_ and using them the learner tries to find the function that approximately fits like \\(f\\). Supervisions must be available at the beginning of the learning process.
  2. **Unsupervised learning**: In this kind of learning process, the function \\(f\\) is learned by the learner using solely the given _inputs_. There is no _a priori_ information relative to the output of the function \\(f\\). In this type of learning process, the learner tries to approximate the probability distribution of the given inputs. 
  3. **Reinforcement learning**: Given an environment which an agent can interact with and given a set of positive and negative returns the environment can give to the agent, the objective in this case is to find a policy of action of the agent that maximizes the values of the above returns.
 
@@ -40,7 +40,7 @@ Given the above definitions, we can now move on. In this post I will focus on _s
 ## Supervised learning
 We said that in this kind of learning we need a set of couples of inputs and outputs that we called _supervisions_. Someone has to give us this infomation, otherwise it is not possible to learn anything using this approach. We can call this "someone" the _oracle_.
 
-Let's try to define the process of learning now. We need a set of item we want to categorized in some way. Let's call this set \\(X\\) and the items belonging to it \\(x \in X\\). We define a _supervisor_ \\(\mathcal{S}\\), that given a \\(x \in X\\), gives a label \\(\hat{y} \in \mathcal{Y}\\). Finally, we call \\(\mathcal{H}\\) a set of functions \\(h\\) (a.k.a. _hypothesis space_) that maps an \\(x\\) into an \\(y\\), such that
+Let's try to define the process of learning now. We need a set of item we want to categorize in some way. Let's call this set \\(X\\) and the items belonging to it \\(x \in X\\). We define a _supervisor_ \\(\mathcal{S}\\), that given a \\(x \in X\\), gives a label \\(\hat{y} \in \mathcal{Y}\\). Finally, we call \\(\mathcal{H}\\) a set of functions \\(h\\) (a.k.a. _hypothesis space_) that maps an \\(x\\) into an \\(y\\), such that
 
 $$
   y = h(x)
