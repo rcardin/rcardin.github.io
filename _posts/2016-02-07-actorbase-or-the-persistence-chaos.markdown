@@ -17,6 +17,7 @@ summary: "You know, everybody out there is talking about Big data, NoSQL databas
 social-share: true
 social-title: "Actorbase or the persistence chaos"
 social-tags: "database, actormodel, reactive, akka, scala"
+dzone-link: "https://dzone.com/articles/actorbase-or-quotthe-persistence-chaosquot"  
 ---
 You know, everybody out there is talking about *Big data*, *NoSQL databases*, *reactive programming* and so on. There
 are a lot of buzzwords that are constantly used in this era and the above are some of these.
