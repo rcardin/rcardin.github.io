@@ -87,9 +87,7 @@ The lack of rigorousness in principles definitions leads to principles' interpre
 
 Having discussed the differences between functional programming and object oriented programming paradigms we discover and understand an important concept, which is:
 
-*The more a programming language is easy to learn, the easier it is to make mistakes using it.* The following graph tries to show visually the meaning of this sentence.
-
-![Programming language curve](/assets/2017-08-01/programming_languages_curve.png)
+*The more a programming language is easy to learn, the easier it is to make mistakes using it.*
 
 Finally, object oriented programming languages are not going anywhere. We will continue to use them, because they are easy to learn. Also functional programming languages are here to stay. Everytime we need to ensure some nice properties relative to our programs, they will help us a lot.
 
