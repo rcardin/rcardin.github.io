@@ -15,6 +15,8 @@ social-tags: "oop, functional, programming"
 math: false
 ---
 
+*Disclaimer: the post contains some humor. If you are sensible to humorism, please, do not continue to read.*
+
 Recently I read the article [Beginning to Doubt Object-Oriented Programming](https://dzone.com/articles/beginning-to-doubt-object-oriented-programming-1) on DZone. It is not the first post that I find on a blog that praises functional programming with respect to object-oriented programming. For all of this posts, object-oriented programming is dead (more or less). I think that at the basis of all this posts there is a misunderstanding over what functional programming really is. Now it's time for me to give my two cents to the fight among different programming paradigms. 
 
 First of all, I want to say that I respect the opinion of the author of the above article. What I am going to say it is my personal point of view on the issue. There is no an absolute right or absolute wrong opinion on this dilemma. So, peace and love to everyone.
