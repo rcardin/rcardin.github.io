@@ -91,6 +91,10 @@ Having discussed the differences between functional programming and object orien
 
 *The more a programming language is easy to learn, the easier it is to make mistakes using it.*
 
+The following graph tries to show visually the meaning of this sentence.
+
+![Programming language curve](/assets/2017-08-01/programming_languages_curve.png)
+
 Finally, object oriented programming languages are not going anywhere. We will continue to use them, because they are easy to learn. Also functional programming languages are here to stay. Everytime we need to ensure some nice properties relative to our programs, they will help us a lot.
 
 The world is full of tradeoff. So, stop this war among programming paradigms and start to get the best from both sides of the force.
