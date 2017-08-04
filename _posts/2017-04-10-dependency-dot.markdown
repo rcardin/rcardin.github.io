@@ -18,6 +18,7 @@ social-tags: "programming, oop, softwareengineering"
 medium-link: "https://medium.com/@riccardo_cardin/dependency-ffc118404f0"
 dzone-link: "https://dzone.com/articles/dependency"
 dev-link: "https://dev.to/riccardo_cardin/dependency"
+reddit-link: "https://www.reddit.com/r/programming/comments/64wfp0/dependency/"
 math: true
 ---
 

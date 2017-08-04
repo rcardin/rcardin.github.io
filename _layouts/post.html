@@ -8,7 +8,7 @@ layout: default
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}
-      {% if page.dzone-link or page.medium-link %}
+      {% if page.dzone-link or page.medium-link or page.reddit-link %}
       •
       Also in:
       {% if page.dzone-link %}
@@ -19,6 +19,9 @@ layout: default
       {% endif %}
       {% if page.dev-link %}
       <a href="{{ page.dev-link }}" title="Dev.to">dev.to</a>
+      {% endif %}
+      {% if page.reddit-link %}
+      <a href="{{ page.reddit-link }}" title="Reddit"><i class="fa fa-reddit-alien"></i></a>
       {% endif %}
       {% endif %}
     </p>

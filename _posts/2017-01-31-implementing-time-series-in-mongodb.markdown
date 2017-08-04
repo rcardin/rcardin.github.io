@@ -19,6 +19,7 @@ social-tags: "database, mongodb"
 medium-link: "https://medium.com/@riccardo_cardin/implementing-time-series-in-mongodb-1bd99523f01d#.xuu0js11y"
 dzone-link: "https://dzone.com/articles/implementing-time-series-in-mongodb"
 dev-link: "https://dev.to/riccardo_cardin/implementing-time-series-in-mongodb"
+reddit-link: "https://www.reddit.com/r/programming/comments/5r83ko/implementing_time_series_in_mongodb/"
 ---
 
 I came recently to design a solution for MongoDB to store information that has time as the

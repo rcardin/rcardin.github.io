@@ -17,6 +17,7 @@ social-share: true
 social-title: "Test Proven Design"
 social-tags: "test, programming, design"
 dzone-link: "https://dzone.com/articles/test-proven-design"
+reddit-link: "https://www.reddit.com/r/programming/comments/69dqlp/test_proven_design/"
 ---
 
 Just a couple of days ago, I was surfing through the code base of the project I am actually working on

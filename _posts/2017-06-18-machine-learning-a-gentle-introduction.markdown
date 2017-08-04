@@ -11,6 +11,7 @@ summary: "Looking at the last Google and Apple conventions it was clear to all: 
 social-share: true
 social-title: "Machine Learning: A gentle introduction"
 social-tags: "machinelearning, ArtificialIntelligence"
+reddit-link: "https://www.reddit.com/r/learnmachinelearning/comments/6i0y2n/machine_learning_a_gentle_introduction/"
 math: true
 ---
 
