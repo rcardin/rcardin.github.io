@@ -12,6 +12,7 @@ summary: "Recently I read the article \"Beginning to Doubt Object-Oriented Progr
 social-share: true
 social-title: "Object Oriented Programming strikes back!"
 social-tags: "oop, functional, programming"
+dzone-link: "https://dzone.com/articles/object-oriented-programming-strikes-back"
 reddit-link: "https://www.reddit.com/r/programming/comments/6r2olk/object_oriented_programming_strikes_back/"
 math: false
 ---
