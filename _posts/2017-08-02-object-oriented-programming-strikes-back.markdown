@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Object Oriented Programming strikes back!"
+title:  "Object-Oriented Programming strikes back!"
 date:   2017-08-02 08:15:21
 comments: true
 categories: object-oriented functional programming
@@ -13,6 +13,7 @@ social-share: true
 social-title: "Object Oriented Programming strikes back!"
 social-tags: "oop, functional, programming"
 dzone-link: "https://dzone.com/articles/object-oriented-programming-strikes-back"
+medium-link: "https://medium.com/@riccardo_cardin/object-oriented-programming-strikes-back-5b2c8b72bf55"
 reddit-link: "https://www.reddit.com/r/programming/comments/6r2olk/object_oriented_programming_strikes_back/"
 math: false
 ---
@@ -60,26 +61,26 @@ Where do I want to go with this dissertation? The real functional programming re
 However you need to study and learn mathematics. Little drops of Category theory will wet your face.
 
 ## Object Oriented Programming
-What about Object Oriented programming? Have you ever heard about boring mathematical laws you have to follow? Have you ever heard about esoteric terms like monads or functors, or anything else? Have you ever applied some mathematic theory to your object oriented programs?
+What about Object Oriented programming? Have you ever heard about boring mathematical laws you have to follow? Have you ever heard about esoteric terms like monads or functors, or anything else? Have you ever applied some mathematic theory to your object-oriented programs?
 
-Nope. The beautiful thing about object oriented programming is that is almost *math-free*. Everyone can start to study and learn an object oriented programming language such as Java, C++ or Kotlin. At first sight, object orientated programming is very close to **how we perceive reality**.
+Nope. The beautiful thing about object-oriented programming is that is almost *math-free*. Everyone can start to study and learn an object-oriented programming language such as Java, C++ or Kotlin. At first sight, object-oriented programming is very close to **how we perceive reality**.
 
 As human beings living in the lucky part of the world, we know that every car is made by an engine, some wheels, a body and so on. We understand what a `Car` type means and why it owns attributes of type `Engine`, `Wheel` and `Body`.
 
-Object oriented programming is easier to learn than functional programming. Stop. This is the only truth. Both paradigms exist more or less from the beginning of Computer era (think about Lisp, for example, which is born in 1958). Have you ever heard about an operating system written in a functional programming language? Nope.
+Object-oriented programming is easier to learn than functional programming. Stop. This is the only truth. Both paradigms exist more or less from the beginning of Computer era (think about Lisp, for example, which is born in 1958). Have you ever heard about an operating system written in a functional programming language? Nope.
 
 ### Simplicity leads to tradeoffs 
 Simpler means less constrained. Less constrained means less formality to respect. Less formality means that is simpler to use the programming language's features in an erroneous way.
 
 Take the definition of monads that we gave just a moment ago. In the definition the constraints that a type must fulfill to be considered a monad are clear. Math does not lie.
 
-Now, take any principle of object oriented programming: For example, the Single Responsability Principle. The principle states that
+Now, take any principle of object-oriented programming: For example, the Single Responsability Principle. The principle states that
 
 > A class should have only one reason to change.
 
 What the f\*\*ck is a *reason to change*? Where is all the mathematical magic that principles that apply to functional programming languages have? No trace.
 
-Neither the definition of *coupling*, which is at the base of all the theories related to object oriented programming, is defined in a formal way.
+Neither the definition of *coupling*, which is at the base of all the theories related to object-oriented programming, is defined in a formal way.
 
 > Coupling between components measures exactly their degree of dependency.
 
@@ -89,7 +90,7 @@ The lack of rigorousness in principles definitions leads to principles' interpre
 
 ## Conclusions
 
-Having discussed the differences between functional programming and object oriented programming paradigms we discover and understand an important concept, which is:
+Having discussed the differences between functional programming and object-oriented programming paradigms we discover and understand an important concept, which is:
 
 *The more a programming language is easy to learn, the easier it is to make mistakes using it.*
 
@@ -97,7 +98,7 @@ The following graph tries to show visually the meaning of this sentence.
 
 ![Programming language curve](/assets/2017-08-01/programming_languages_curve.png)
 
-Finally, object oriented programming languages are not going anywhere. We will continue to use them, because they are easy to learn. Also functional programming languages are here to stay. Everytime we need to ensure some nice properties relative to our programs, they will help us a lot.
+Finally, object-oriented programming languages are not going anywhere. We will continue to use them, because they are easy to learn. Also functional programming languages are here to stay. Everytime we need to ensure some nice properties relative to our programs, they will help us a lot.
 
 The world is full of tradeoff. So, stop this war among programming paradigms and start to get the best from both sides of the force.
 
