@@ -60,7 +60,7 @@ Where do I want to go with this dissertation? The real functional programming re
 
 However you need to study and learn mathematics. Little drops of Category theory will wet your face.
 
-## Object Oriented Programming
+## Object-oriented Programming
 What about Object Oriented programming? Have you ever heard about boring mathematical laws you have to follow? Have you ever heard about esoteric terms like monads or functors, or anything else? Have you ever applied some mathematic theory to your object-oriented programs?
 
 Nope. The beautiful thing about object-oriented programming is that is almost *math-free*. Everyone can start to study and learn an object-oriented programming language such as Java, C++ or Kotlin. At first sight, object-oriented programming is very close to **how we perceive reality**.
