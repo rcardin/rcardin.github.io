@@ -15,6 +15,7 @@ social-tags: "oop, functional, programming"
 dzone-link: "https://dzone.com/articles/object-oriented-programming-strikes-back"
 medium-link: "https://medium.com/@riccardo_cardin/object-oriented-programming-strikes-back-5b2c8b72bf55"
 reddit-link: "https://www.reddit.com/r/programming/comments/6r2olk/object_oriented_programming_strikes_back/"
+dev-link: "https://dev.to/riccardo_cardin/object-oriented-programming-strikes-back"
 math: false
 ---
 
