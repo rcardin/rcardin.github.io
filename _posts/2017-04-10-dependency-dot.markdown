@@ -118,8 +118,7 @@ class B(val a: A) {
 {% endhighlight %}
 
 Differently from the previous, an association means that a class is *made of* references to
-other classes. Their behaviours start to be more coupled, because the relationship between the types is not
-temporary anymore, but it starts to be something permanent (i.e. all the lifetime of an object).
+other classes. Their behaviours start to be more coupled, because the relationship between the types is not temporary anymore, but it starts to be something permanent (i.e. all the lifetime of an object).
 
 In our example, references to `A` inside `B` are allowed in every method of the latter, widening
 the scope of possible dependencies from `A`.
