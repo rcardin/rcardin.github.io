@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Resove me, Implicitly"
+title:  "Resolve me, Implicitly"
 date:   2017-10-15 13:22:45
 comments: true
 categories: design scala
@@ -53,4 +53,27 @@ In the above example, the class `Connection` is screaming to everyone that she n
 
 if you want to know which other types of dependency declarations are available, please have a look at the post [Resolving your problems with Dependency Injection](http://rcardin.github.io/programming/software-design/java/scala/di/2016/08/01/resolve-problems-dependency-injection.html).
 
-Now that we know how to declare what kinds of objects a component needs to work, we also need a technique to resolve these object. And its here that the "_injection_" part comes into play.
+Now that we know how to declare which kinds of objects a component needs to work, we also need a technique to resolve these object. And its here that the "_injection_" part comes into play.
+
+## Resolving dependency in Scala
+In the JVM ecosystem there are a lot of libraries that implement the injection tecnique. We have many alternatives, such like the following.
+
+1. Spring framework
+2. Guice
+3. Weld
+4. Dagger
+
+There is also a _Java Specification Requests_ dedicated to dependency injection, the [JSR 330](https://jcp.org/en/jsr/detail?id=330). As you can see, the JDK needs external libraries to implement the dependency injection mechanism.
+
+But, **Scala is different**. The Scala programming language has a reacher semantic that allows to implement dependency injection mechanisms without the need of any kind of external libraries. As you we will see in a moment, this tecnique applies both to classes and to functions. That's awsome! 
+
+In the past I wrote about the [Cake Pattern](http://rcardin.github.io/design/2014/08/28/eat-that-cake.html), which implements dependency resolution using traits and [self-type](https://docs.scala-lang.org/tour/self-types.html). This time I want to write about a dependency injection mechanisms that uses two other features of Scala, _function curryfication_ and _implicits_.
+
+### Function curryfication
+As you know, Scala is also quoted as a functional programming language. Functional programming languages have many nice features. One of these features is function curryfication.
+
+
+
+## Refereces
+- [JSR 330: Dependency Injection for Java](https://jcp.org/en/jsr/detail?id=330)
+- [Tour of Scala - Self-type](https://docs.scala-lang.org/tour/self-types.html)
