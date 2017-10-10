@@ -72,8 +72,44 @@ In the past I wrote about the [Cake Pattern](http://rcardin.github.io/design/201
 ### Function curryfication
 As you know, Scala is also quoted as a functional programming language. Functional programming languages have many nice features. One of these features is function curryfication.
 
+Let's take for example a function that takes two arguments:
 
+{% highlight scala %}
+def mul(x: Int, y: Int) = x * y
+{% endhighlight %}
+
+We can refactor this function into a new one, that takes only one parameter and return a new function.
+
+{% highlight scala %}
+def mulOneAtTime(x: Int) = (y: Int) => x * y
+{% endhighlight %}
+
+To multiply to integers you have to call the last function in the following way.
+
+{% highlight scala %}
+mulOneAtTime(7)(6) // Returns 42
+{% endhighlight %}
+
+We said the function `mulOneAtTime` is the curryfication of the original function `mul`. 
+
+> In mathematics and computer science, currying is the technique of translating the evaluation of a function that takes multiple arguments (or a tuple of arguments) into evaluating a sequence of functions, each with a single argument.
+
+There is a shortcut for defining such curried function in Scala:
+
+{% highlight scala %}
+def mulOneAtTime(x: Int)(y: Int) = x * y
+{% endhighlight %}
+
+The languages save us from defining a lot of intermediate functions, giving us some vanilla-flavored syntactic sugar.
+
+I suppose that you are asking why are we talking about currying instead of dependency injection. Be patient.
+
+### Implicits
+TODO
 
 ## Refereces
 - [JSR 330: Dependency Injection for Java](https://jcp.org/en/jsr/detail?id=330)
 - [Tour of Scala - Self-type](https://docs.scala-lang.org/tour/self-types.html)
+- [Chapter 12: Higher-Order Functions, Section 12.8: Currying. Scala for the Impatient, 	
+Cay S. Horstmann, 2010, Addison Wesley](https://www.amazon.it/Scala-Impatient-Cay-S-Horstmann/dp/0321774094)
+- [Currying](https://en.wikipedia.org/wiki/Currying)
