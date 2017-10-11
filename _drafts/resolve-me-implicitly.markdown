@@ -105,6 +105,38 @@ The languages save us from defining a lot of intermediate functions, giving us s
 I suppose that you are asking why are we talking about currying instead of dependency injection. Be patient.
 
 ### Implicits
+Implicits are another awsome feature of the Scala programming language. Hated by someone and feared by most, implicits can be applied to resolve many kind of problems, from automatic conversion between two types, to automatic resolution of dependencies. What we are going to explain is how _implicit parameters_ work in Scala.
+
+The parameters of a function (or a method) can be marked with the keyword `implicit`. In this case the _compiler_ will automagically looks for a value to supply to the parameters marked as `implicit` with the function call. Here is a simple example, taken directly from the Scala SDK:
+
+{% highlight scala %}
+object Future {
+  def apply[T](body: => T)(implicit execctx: ExecutionContext): Future[T]
+}
+
+// Usage - thanks to Stanislav Spiridonov for the funny example :)
+import scala.concurrent._
+import scala.concurrent.ExecutionContext.Implicits.global
+
+val beast = hell.createBeastFor(credentials)
+val f: Future[Option[Blood]] = Future {
+  beast.rape(user)
+}
+{% endhighlight %}
+
+In the above example, the parameter `execctx` of method `apply` is automatically resolved and provided by the compiler to the program. How does the Scala compiler know how to resolve  `implicit` parameters? Compiler search for an object that have the same type of an `implicit` parameter and that is declared using the word `implicit`. In the case of `execctx` in the `object scala.concurrent.ExecutionContext.Implicits` is defined the constant `global`.
+
+{% highlight scala %}
+implicit lazy val global: ExecutionContext = ???
+{% endhighlight %}
+
+During implicits resolution, the compiler search for `var/val/def` that are available in the same scope of the function that as some parameters marked as `implicit`. 
+
+Implicit resolution is also one of the reasons why Scala compiler is so slow. In fact, implicit resoltion has not any impact on runtime performances, as it is done completly at compile time. For a more detailed explanation on implicit resolution, have a look at [Implicit Parameter Resolution](http://daily-scala.blogspot.it/2010/04/implicit-parameter-resolution.html)
+
+So far, so good. We just added another piece to our dependency injection puzzle. Now it's time to put all the ingredients togheter and bake a tasty dependency injection cake.
+
+### Dependency Injection using implicits
 TODO
 
 ## Refereces
@@ -113,3 +145,5 @@ TODO
 - [Chapter 12: Higher-Order Functions, Section 12.8: Currying. Scala for the Impatient, 	
 Cay S. Horstmann, 2010, Addison Wesley](https://www.amazon.it/Scala-Impatient-Cay-S-Horstmann/dp/0321774094)
 - [Currying](https://en.wikipedia.org/wiki/Currying)
+- [Make Them Suffer / Scala Implicit Hell](http://spiridonov.pro/2015/10/14/scala-implicit-hell/)
+- [Implicit Parameter Resolution](http://daily-scala.blogspot.it/2010/04/implicit-parameter-resolution.html)
