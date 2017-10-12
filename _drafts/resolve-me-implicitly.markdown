@@ -137,7 +137,53 @@ Implicit resolution is also one of the reasons why Scala compiler is so slow. In
 So far, so good. We just added another piece to our dependency injection puzzle. Now it's time to put all the ingredients togheter and bake a tasty dependency injection cake.
 
 ### Dependency Injection using implicits
-TODO
+Until now, we learnt how to currying a function; We learnt how implicits work in Scala. It's time to put them all togheter.
+
+As you probably already undestood, we can use implicits to instuct the compiler to automatically resolve components dependencies. Let's start from types. We have already learnt that dependencies of a class should be declared in its constructor. We learnt that for every parameter of a function or method that is marked as `implicit`, the compiler search for an object of the same type in the class scope.
+
+{% highlight scala %}
+trait UserService {
+  def findById(id: String): User
+}
+class SimpleUserService(implict repository: UserRepository) extends UserService {
+  override def findById(id: String): User = repository.findUser(id)
+}
+{% endhighlight %}
+
+In the above example, we declared a `SimpleUserService` class, which declares as its unique external dependency an instance of the type `UserRepository`. The dependency is marked as `implicit`. To let the compiler properly resolve this dependency, we have to provide an object of type `UserRepository` marked as `implicit` in the same scope of the clients of the class `SimpleUserService`.
+
+We have declared also a `UserService` trait over the class, such that clients of this class have not to deal with the boilerplate code of implicits.
+
+We have mainly two possibilities to provide this information to the compiler. The first is to use a _configuration trait_ to mix with every class that declares an implicit dependency.
+
+{% highlight scala %}
+trait Conf {
+  implicit val repository = new MongoDbUserRepository
+}
+object UserController extends Conf
+class UserController {
+  // I know, this code is not the best :P
+  def findById(id: String) = new UserService().findById(id)
+}
+{% endhighlight %}
+
+We chose to mix the trait into the _companion object_ of the class to avoid replication of the instances of the variable `repository`.
+
+The second approach is to use a package object placed in the same package of the class `UserController`.
+
+{% highlight scala %}
+package controllers {
+  class UserController {
+    // I know, this code is not the best :P
+    def findById(id: String) = new UserService().findById(id)
+  }
+}
+package object controllers {
+  implicit val repository = new MongoDbUserRepository
+}
+{% endhighlight %}
+
+Using the latter approach, the definition of the class `UserController` is not polluted by any exoteric extensions. The drawback is that it becomes harder to trace how each implicit paramenter is resolved by the compiler.
 
 ## Refereces
 - [JSR 330: Dependency Injection for Java](https://jcp.org/en/jsr/detail?id=330)
@@ -147,3 +193,5 @@ Cay S. Horstmann, 2010, Addison Wesley](https://www.amazon.it/Scala-Impatient-Ca
 - [Currying](https://en.wikipedia.org/wiki/Currying)
 - [Make Them Suffer / Scala Implicit Hell](http://spiridonov.pro/2015/10/14/scala-implicit-hell/)
 - [Implicit Parameter Resolution](http://daily-scala.blogspot.it/2010/04/implicit-parameter-resolution.html)
+- [WHERE DOES SCALA LOOK FOR IMPLICITS?](http://docs.scala-lang.org/tutorials/FAQ/finding-implicits.html)
+- [Available spec is silent on the fact that the implicit scope of a.A includes package object a](https://issues.scala-lang.org/browse/SI-4427)
