@@ -139,6 +139,7 @@ So far, so good. We just added another piece to our dependency injection puzzle.
 ### Dependency Injection using implicits
 Until now, we learnt how to currying a function; We learnt how implicits work in Scala. It's time to put them all togheter.
 
+#### Object oriented programming
 As you probably already undestood, we can use implicits to instuct the compiler to automatically resolve components dependencies. Let's start from types. We have already learnt that dependencies of a class should be declared in its constructor. We learnt that for every parameter of a function or method that is marked as `implicit`, the compiler search for an object of the same type in the class scope.
 
 {% highlight scala %}
@@ -185,10 +186,49 @@ package object controllers {
 
 Using the latter approach, the definition of the class `UserController` is not polluted by any exoteric extensions. The drawback is that it becomes harder to trace how each implicit paramenter is resolved by the compiler.
 
+#### Functional programming
+Easy enough! We have just implemented dependency injection in Scala using implicits! Wow! But, wait: why did we introduced also function curring? We did not use currying by now.
+
+The secret is soon unveiled. The above examples treat dependency injection in using _object-oriented programming_. But, what about _functional programming_? In functional programming there is the same requirement for functions to declare and resolve their dependencies. In this wolrd, the only way to declare a dependency is to put it into the signature. In this way, a client of the function can provide the needed dependency at the same time of the function call.
+
+{% highlight scala %}
+// The example is taken from the book Scala for the Impatient
+case class Delimiters(left: String, right: String)
+def quote(what: String, delims: Delimiters) = delims.left + what + delims.right
+{% endhighlight %}
+
+To clearly divide the inputs of the functions and the declaration of dependencies, avoiding polluting of the signature, we can using currying.
+
+{% highlight scala %}
+def quote(what: String)(delims: Delimiters) = delims.left + what + delims.right
+{% endhighlight %}
+
+Finally, to let the compiler to resolve automatically the dependencies, we can use implicits, as we did for the object-oriented case. This tecnique is called _implicit parameter_.
+
+{% highlight scala %}
+def quote(what: String)(implicit delims: Delimiters) = 
+  delims.left + what + delims.right
+{% endhighlight %}
+
+## Conclusions
+"_This is the end, my only friend, the end_". We just analyzed on the tecniques we can use to implement natively dependency injection in Scala: Implicits. We analyzed in details the features of the language that helps us to achieve the goal: implicits and function currying. We showed an example both using object-oriented programming and functional programming. Well.
+
+Differently from the Cake Pattern, implicit gives us mechanism to implement dependency injection that is concise and sexy. 
+
+> Dependencies are resolved at compile-time, you write less code, there is no boilerplate, classes are loosely coupled, everything is extendable yet still typesafe.
+
+On the other end, implicits resolution can become hard to understand an maintain very quickly.
+
+> It is common to use package objects with implicits, so there is no way to eyeball that this small import on top of a file feeds several function calls with implicit variables. Even worse, it is impossible to understand from a code that this particular function call needs implicits. 
+
+As for any other tecnique in programming, we always have to compare pros and cons. In my opinion, if using properly, implicits offers more pros than cons. What do you think? Anybody with some bad story about implicits out of there? Cheers.
+
 ## Refereces
 - [JSR 330: Dependency Injection for Java](https://jcp.org/en/jsr/detail?id=330)
 - [Tour of Scala - Self-type](https://docs.scala-lang.org/tour/self-types.html)
 - [Chapter 12: Higher-Order Functions, Section 12.8: Currying. Scala for the Impatient, 	
+Cay S. Horstmann, 2010, Addison Wesley](https://www.amazon.it/Scala-Impatient-Cay-S-Horstmann/dp/0321774094)
+- [Chapter 21: Implicits, Section 21.5: Implicit Parameters. Scala for the Impatient, 	
 Cay S. Horstmann, 2010, Addison Wesley](https://www.amazon.it/Scala-Impatient-Cay-S-Horstmann/dp/0321774094)
 - [Currying](https://en.wikipedia.org/wiki/Currying)
 - [Make Them Suffer / Scala Implicit Hell](http://spiridonov.pro/2015/10/14/scala-implicit-hell/)
