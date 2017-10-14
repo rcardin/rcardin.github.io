@@ -111,7 +111,7 @@ I suppose that you are asking why are we talking about currying instead of depen
 ### Implicits
 Implicits are another awesome feature of the Scala programming language. Hated by someone and feared by most, implicits can be applied to resolve a lot of problems, from automatic conversion between two types to the automatic resolution of dependencies. What we are going to explain is how _implicit parameters_ work in Scala.
 
-The parameters of a function (or a method) can be marked with the keyword `implicit`. In this case, the _compiler_ will automagically look for a value to supply to the parameters marked as `implicit` with the function call. Here is a simple example, taken directly from the Scala SDK:
+The parameters of a function (or a method) can be marked with the keyword `implicit`. In this case, the _compiler_ will automagically look for a value to supply to these parameters. Here is a simple example of function using an `implicit` parameter, taken directly from the Scala SDK:
 
 {% highlight scala %}
 object Future {
@@ -138,13 +138,15 @@ During implicits resolution, the compiler search for `var/val/def` that are avai
 
 Implicit resolution is also one of the reasons why Scala compiler is so slow. In fact, implicits resolution has not any impact on runtime performances, as it is done completely at compile time. For a more detailed explanation on implicit resolution, have a look at [Implicit Parameter Resolution](http://daily-scala.blogspot.it/2010/04/implicit-parameter-resolution.html)
 
+![Implicits, implicits everywhere](https://i.imgflip.com/1xll84.jpg)
+
 So far, so good. We just added another piece to our dependency injection puzzle. Now it's time to put all the ingredients together and bake a tasty dependency injection cake.
 
 ### Dependency Injection using implicits
 Until now, we learned how to currying a function; We learned how implicits work in Scala. It's time to put them all together.
 
 #### Object oriented programming
-As you probably already understood, we can use implicits to instruct the compiler to automatically resolve components dependencies. Let's start from types. We have already learned that dependencies of a class should be declared in its constructor. We learned that for every parameter of a function or method that is marked as `implicit`, the compiler search for an object of the same type in the class scope.
+As you probably already understood, we can use implicits to instruct the compiler to automatically resolve components dependencies. Let's start from types. We have already learned that dependencies of a class should be declared in its constructor. We learned that for every parameter of a function or method that is marked as `implicit`, the compiler search for an object of the same type in the appropriate scope.
 
 {% highlight scala %}
 trait UserService {
