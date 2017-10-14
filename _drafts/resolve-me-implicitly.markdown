@@ -15,12 +15,12 @@ social-tags: "Scala, designpattern, programming"
 math: false
 ---
 
-Reading my posts you can easily find that there is a topic that cares about me a lot: Dependency management in the development process. There is a feature of the Scala programming language that I liked since the beginning. Without any external library, it is possible to successfully implement vary depenency injection mechanisms. In the past, I wrote about the [Cake pattern](http://rcardin.github.io/design/2014/08/28/eat-that-cake.html). Now it's time to talk about dependency injection through the use of implicits. Let this race starts!
+Reading my posts you can easily find that there is a topic that cares about me a lot: Dependency management in the development process. There is a feature of the Scala programming language that I liked since the beginning. Without any external library, it is possible to successfully implement vary dependency injection mechanisms. In the past, I wrote about the [Cake pattern](http://rcardin.github.io/design/2014/08/28/eat-that-cake.html). Now it's time to talk about dependency injection through the use of implicits. Let this race starts!
 
 ## The problem: dependency injection
 
 ### Dependency
-I have written many times about this topic, then I will not make a long introduction. To summarize, every time a component needs to send a message to another component, a dependency is defined between them. Components may be packages, classes, functions and so on. Messages are always associated with methods or functions calls. Dependency between two components can have many levels of strength. If you want a complete explanation of the dependency concept, have a look at this post: [Dependency.](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html).
+I have written many times about this topic, then I will not make a long introduction. To summarize, every time a component needs to send a message to another component, a dependency is defined between them. Components may be packages, classes, functions and so on. Messages are always associated with methods or functions calls. Dependency between two components can have many levels of strength. If you want a complete explanation of the dependency concept, have a look at this post: [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html).
 For sake of completeness, let's give an example of the simplest type of dependency: Association.
 
 {% highlight scala %}
@@ -39,7 +39,9 @@ Other than the coupling between components that derives from dependencies, the p
 
 Dependency resolution can be divided into two different tasks: dependencies declarations and resolution.
 
-First of all, a component should be able to declare its dependencies. A component should be able to scream "_Hey, anybody listening, I need these f@cking classes to work!_". There are many ways a component may choose to declare its dependencies. The most accreditated by the developer community is _constructor injection_.
+![Resolve your declared dependencies](https://i.imgflip.com/1xlkmb.jpg)
+
+First of all, a component should be able to declare its dependencies. A component should be able to scream "_Hey, anybody listening, I need these f@cking classes to work!_". There are many ways a component may choose to declare its dependencies. The most accreditated by the developers' community is _constructor injection_.
 
 Using constructor injection, a component declares its dependencies as the parameters of its constructor.
 
@@ -49,9 +51,9 @@ class Connection (private val mainActor: ActorSelection) {
 }
 {% endhighlight %}
 
-In the above example, the class `Connection` is screaming to everyone that she needs an instance of an `ActorSelection` class to work properly.
+In the above example, the class `Connection` is screaming to everyone that it needs an instance of an `ActorSelection` class to work properly.
 
-if you want to know which other types of dependency declarations are available, please have a look at the post [Resolving your problems with Dependency Injection](http://rcardin.github.io/programming/software-design/java/scala/di/2016/08/01/resolve-problems-dependency-injection.html).
+If you want to know which other types of dependency declarations are available, please have a look at the post [Resolving your problems with Dependency Injection](http://rcardin.github.io/programming/software-design/java/scala/di/2016/08/01/resolve-problems-dependency-injection.html).
 
 Now that we know how to declare which kinds of objects a component needs to work, we also need a technique to resolve these object. And it's here that the "_injection_" part comes into play.
 
@@ -61,7 +63,7 @@ In the JVM ecosystem, there are a lot of libraries that implement the injection 
 1. Spring framework
 2. Guice
 3. Weld
-4. Dagger
+4. Dagger 2
 
 There is also a _Java Specification Requests_ dedicated to dependency injection, the [JSR 330](https://jcp.org/en/jsr/detail?id=330). As you can see, the JDK needs external libraries to implement the dependency injection mechanism.
 
@@ -103,6 +105,8 @@ def mulOneAtTime(x: Int)(y: Int) = x * y
 The languages save us from defining a lot of intermediate functions, giving us some vanilla-flavored syntactic sugar.
 
 I suppose that you are asking why are we talking about currying instead of dependency injection. Be patient.
+
+![Function currying be like](https://i.imgflip.com/1xlkul.jpg)
 
 ### Implicits
 Implicits are another awesome feature of the Scala programming language. Hated by someone and feared by most, implicits can be applied to resolve a lot of problems, from automatic conversion between two types to the automatic resolution of dependencies. What we are going to explain is how _implicit parameters_ work in Scala.
