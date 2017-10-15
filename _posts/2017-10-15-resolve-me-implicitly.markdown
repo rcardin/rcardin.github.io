@@ -192,10 +192,12 @@ package object controllers {
 
 Using the latter approach, the definition of the class `UserController` is not polluted by any exoteric extensions. The drawback is that it becomes harder to trace how each implicit parameter is resolved by the compiler.
 
+![Y U not explicit the implicits!](https://i.imgflip.com/1xn1z9.jpg)
+
 #### Functional programming
 Easy enough! We have just implemented dependency injection in Scala using implicits! Wow! But, wait: why did we introduce also function curring? We did not use currying by now.
 
-The secret is soon unveiled. The above examples treat dependency injection in using _object-oriented programming_. But, what about _functional programming_? In functional programming, there is the same requirement for functions to declare and resolve their dependencies. In this world, the only way to declare a dependency is to put it into the signature. In this way, a client of the function can provide the needed dependency at the same time of the function call.
+The secret is soon unveiled. The above examples treat dependency injection in _object-oriented programming_. But, what about _functional programming_? In functional programming, there is the same requirement for functions to declare and resolve their dependencies. In this world, the only way to declare a dependency is to put it into the signature. In this way, a client of the function can provide the needed dependency at the same time of the function call.
 
 {% highlight scala %}
 // The example is taken from the book Scala for the Impatient
@@ -217,7 +219,7 @@ def quote(what: String)(implicit delims: Delimiters) =
 {% endhighlight %}
 
 ## Conclusions
-"_This is the end, my only friend, the end_". We just analyzed on the techniques we can use to implement natively dependency injection in Scala: Implicits. We analyzed in details the features of the language that helps us to achieve the goal: implicits and function currying. We showed an example both using object-oriented programming and functional programming. Well.
+"_This is the end, my only friend, the end_". We just analyzed the techniques we can use to implement natively dependency injection in Scala: Implicits. We analyzed in details the features of the language that helps us to achieve the goal: implicits and function currying. We showed an example both using object-oriented programming and functional programming. Well.
 
 Different from the Cake Pattern, implicits gives us a mechanism to implement dependency injection that is concise and sexy. 
 
