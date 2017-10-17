@@ -8,7 +8,7 @@ tags:
     - design pattern
     - dependency injection
     - scala
-summary: "Reading my posts you can easily find that there is a topic that cares about me a lot: Dependency management in the development process. There is a feature of the Scala programming language that I liked since the beginning. Without any external library, it is possible to successfully implement vary depenency injection mechanisms. In the past, I wrote about the Cake pattern. Now it's time to talk about dependency injection through the use of implicits. Let this race starts!"
+summary: "Reading my posts you can easily find that there is a topic that cares about me a lot: Dependency management in the development process. There is a feature of the Scala programming language that I liked since the beginning. Without any external library, it is possible to successfully implement vary dependency injection mechanisms. In the past, I wrote about the Cake pattern. Now it's time to talk about dependency injection through the use of implicits. Let this race starts!"
 social-share: true
 social-title: "Resove me, Implicitly"
 social-tags: "Scala, designpattern, programming"
@@ -112,7 +112,7 @@ I suppose that you are asking why are we talking about currying instead of depen
 ### Implicits
 Implicits are another awesome feature of the Scala programming language. Hated by someone and feared by most, implicits can be applied to resolve a lot of problems, from automatic conversion between two types to the automatic resolution of dependencies. What we are going to explain is how _implicit parameters_ work in Scala.
 
-The parameters of a function (or a method) can be marked with the keyword `implicit`. In this case, the _compiler_ will automagically look for a value to supply to these parameters. Here is a simple example of function using an `implicit` parameter, taken directly from the Scala SDK:
+The parameters of a function (or a method) can be marked with the keyword `implicit`. In this case, the _compiler_ will automagically look for a value to supply to these parameters. Here is a simple example of a function using an `implicit` parameter, taken directly from the Scala SDK:
 
 {% highlight scala %}
 object Future {
@@ -146,7 +146,7 @@ So far, so good. We just added another piece to our dependency injection puzzle.
 ### Dependency Injection using implicits
 Until now, we learned how to currying a function; We learned how implicits work in Scala. It's time to put them all together.
 
-#### Object oriented programming
+#### Object-oriented programming
 As you probably already understood, we can use implicits to instruct the compiler to automatically resolve components dependencies. Let's start from types. We have already learned that dependencies of a class should be declared in its constructor. We learned that for every parameter of a function or method that is marked as `implicit`, the compiler search for an object of the same type in the appropriate scope.
 
 {% highlight scala %}
