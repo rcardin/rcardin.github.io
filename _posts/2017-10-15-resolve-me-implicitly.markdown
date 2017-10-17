@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Resolve me, Implicitly"
-date:   2017-10-15 13:22:45
+date:   2017-10-15 11:44:45
 comments: true
 categories: design scala
 tags:
@@ -124,7 +124,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 val beast = hell.createBeastFor(credentials)
 val f: Future[Option[Blood]] = Future {
-  beast.rape(user)
+  beast.tear(user)
 }
 {% endhighlight %}
 
