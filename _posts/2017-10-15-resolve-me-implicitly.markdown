@@ -68,7 +68,7 @@ In the JVM ecosystem, there are a lot of libraries that implement the injection 
 
 There is also a _Java Specification Requests_ dedicated to dependency injection, the [JSR 330](https://jcp.org/en/jsr/detail?id=330). As you can see, the JDK needs external libraries to implement the dependency injection mechanism.
 
-But, **Scala is different**. The Scala programming language has a reacher semantic that allows implementing dependency injection mechanisms without the need of any kind of external libraries. As you we will see in a moment, this technique applies both to classes and to functions. That's awesome! 
+But, **Scala is different**. The Scala programming language has a richer semantic that allows implementing dependency injection mechanisms without the need of any kind of external libraries. As you we will see in a moment, this technique applies both to classes and to functions. That's awesome! 
 
 In the past, I wrote about the [Cake Pattern](http://rcardin.github.io/design/2014/08/28/eat-that-cake.html), which implements dependency resolution using traits and [self-type](https://docs.scala-lang.org/tour/self-types.html). This time I want to write about a dependency injection mechanisms that uses two other features of Scala, _function currying_, and _implicits_.
 
@@ -191,7 +191,7 @@ package object controllers {
 }
 {% endhighlight %}
 
-Using the latter approach, the definition of the class `UserController` is not polluted by any exoteric extensions. The drawback is that it becomes harder to trace how each implicit parameter is resolved by the compiler.
+Using the latter approach, the definition of the object `UserController` is not polluted by any external and strange extensions. The drawback is that it becomes harder to trace how each implicit parameter is resolved by the compiler.
 
 ![Y U not explicit the implicits!](https://i.imgflip.com/1xn1z9.jpg)
 
