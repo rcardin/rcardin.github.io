@@ -15,6 +15,7 @@ social-tags: "Scala, designpattern, programming"
 math: false
 reddit-link: "https://www.reddit.com/r/scala/comments/76p1ej/resolve_me_implicitly/"
 dev-link: "https://dev.to/riccardo_cardin/resolve-me-implicitly-ee8"
+dzone-link: "https://dzone.com/articles/resolve-me-implicitly"
 ---
 
 Reading my posts you can easily find that there is a topic that cares about me a lot: Dependency management in the development process. There is a feature of the Scala programming language that I liked since the beginning. Without any external library, it is possible to successfully implement vary dependency injection mechanisms. In the past, I wrote about the [Cake pattern](http://rcardin.github.io/design/2014/08/28/eat-that-cake.html). Now it's time to talk about dependency injection through the use of implicits. Let this race starts!
