@@ -130,6 +130,9 @@ features of the CAP theorem will it have? Which will be the use cases for such d
 
 Do you like the idea? Have you some questions or suggestions? Does someone out there want to present us a logo? 
 Let me know in the comments. Cheers!  
+
+### Add-ons
+I am developing my own version of the above specification. The work is slowly proceeding in some way. You can find the repository on my [GitHub](https://github.com/rcardin/actorbase).
   
 ## References
 - [Chapter 14: Concurrent and Distributed Programming. Concepts in Programming Languages, John C. Mitchell, 2002, Cambridge University Press](http://www.amazon.com/Concepts-Programming-Languages-John-Mitchell/dp/0521780985)
