@@ -30,6 +30,11 @@ Actors often model long-lived asynchronous processes, in which a response in the
 
 Let's make a concrete example. In Actorbase there are two types of Actors among the others: `StoreFinder` and `Storekeeper`. Each Actor of type `StoreFinder` represents a _distributed map_ or a _table_, but it does not phisically store the key-value couples. This information is stored by `Storekeeper` Actors. So, each `StoreFinder` owns a distributed set of its key-value couples, which means that owns a set of `Storekeeper` Actors that stores the information for it.
 
+`StoreFinder` can route to its `Storekeeper` many types of messages, which represent CRUD operations on the data stored. The problem here is that if a `StoreFinder` owns _n_ `Storekeeper`, to _find_ which value corresponds to a _key_ (if any), it has to send _n_ messages of type `Get("key")` to each `StoreFinder`. Once all the `Storekeeper` answer to the query messages, the `StoreFinder` can answer to its caller with the requested _value_. 
+
+The sequence diagram below depicts excactly the above scenario.
+
+![StoreFinder with two Storekeeper scenario](/assets/2017-11-16/sequence_diagram_sf_sk.png)
 
 ## References
 - [Chapter 2: Patterns of Actor Usage, The Cameo Pattern. Effective Akka, Patterns and Best Practices,	Jamie Allen, August 2013, O'Reilly Media](http://shop.oreilly.com/product/0636920028789.do)
