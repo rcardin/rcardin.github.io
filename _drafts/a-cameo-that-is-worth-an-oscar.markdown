@@ -64,15 +64,11 @@ class StoreFinder(val name: String) extends Actor {
   // sender ?
   private def item(response: Item,
                    queries: Map[Long, QueryReq]): Map[Long, QueryReq] = {
-    val Item(key, opt, id) = response
+    val   Item(key, opt, id) = response
     val QueryReq(actor, responses) = queries(id)
     val newResponses = opt :: responses
     if (newResponses.length == NumberOfPartitions) {
-      val item = newResponses.collect {
-        case Some(tuple) => tuple
-      }.sortBy(_._2)
-        .headOption
-        .map(_._1)
+      // Some code to create the message
       actor ! QueryAck(key, item, id)
       queries - id
     } else {
@@ -99,6 +95,22 @@ A lot of code to handle only a bunch of messages, isn't it? As you can see, to h
 As you can imagine, the handling process of this context is not simple, as a single `StoreFinder` has to handle all the messages that have not received a final response from all the relative `Storekeeper`.
 
 We can do much better, trust me.
+
+### A look at the Future
+A first attempt to reach a more elegant and concise solution might be the use of the _ask pattern_ with `Future`.
+
+> This is a great way to design your actors in that they will not block waiting for responses, allowing them to handle more messages concurrently and increase your application’s performance.
+
+Using the ask pattern, the code that handles the `Query` message and its responses will reduce to the following.
+
+{% highlight scala %}
+case Query(key, u) =>
+  for {
+    responses <- Future.sequence(routees map (ask(_, Get(key, u))).mapTo[Item])
+  } yield {
+    
+  }
+{% endhighlight %}
 
 ## References
 - [Chapter 2: Patterns of Actor Usage, The Cameo Pattern. Effective Akka, Patterns and Best Practices,	Jamie Allen, August 2013, O'Reilly Media](http://shop.oreilly.com/product/0636920028789.do)
