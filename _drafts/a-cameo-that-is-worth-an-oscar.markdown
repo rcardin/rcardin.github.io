@@ -105,12 +105,23 @@ Using the ask pattern, the code that handles the `Query` message and its respons
 
 {% highlight scala %}
 case Query(key, u) =>
-  for {
+  val futureQueryAck: Future[QueryAck] = for {
     responses <- Future.sequence(routees map (ask(_, Get(key, u))).mapTo[Item])
   } yield {
-    
+    QueryAck(/* Some code to create the QueryAck message from responses */)
   }
+  futureQueryAck map (sender ! _)
 {% endhighlight %}
+
+Whoah! This code is fairly concise with respect to the previous one. In addition, using `Future` and a syntax that is fairly declarative, we can achieve the right grade of asynchronous execution that we need quite easily.
+
+> However, there are a couple of things about it that are not ideal. First of all, it is using futures to ask other actors for responses, which creates a new `PromiseActorRef` for every message sent behind the scenes. This is a waste of resources.
+
+Annoying.
+
+> Furthermore, there is a glaring race condition in this code—can you see it? We’re referencing the “sender” in our map operation on the result from `futureQueryAck`, which may not be the same `ActorRef` when the future completes, because the `StoreFinder` ActorRef may now be handling another message from a different sender at that point!
+
+Even more annoying!
 
 ## References
 - [Chapter 2: Patterns of Actor Usage, The Cameo Pattern. Effective Akka, Patterns and Best Practices,	Jamie Allen, August 2013, O'Reilly Media](http://shop.oreilly.com/product/0636920028789.do)
