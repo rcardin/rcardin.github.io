@@ -96,7 +96,7 @@ As you can imagine, the handling process of this context is not simple, as a sin
 
 We can do much better, trust me.
 
-### A look at the Future
+### Asking the future
 A first attempt to reach a more elegant and concise solution might be the use of the _ask pattern_ with `Future`.
 
 > This is a great way to design your actors in that they will not block waiting for responses, allowing them to handle more messages concurrently and increase your application’s performance.
@@ -123,5 +123,41 @@ Annoying.
 
 Even more annoying!
 
+### The Extra pattern
+The problem here is that we are attempting to take the result of the off-thread operations of retrieving data from multiple sources and return it to whomever sent the original request to the `StoreFinder`. But, the actor will likely have move on to handling additional messages in its mailbox by the time the above futures complete.
+
+The trick here is capturing the execution context of a request in a dedicated inner actor. Let's see how our code will become.
+
+{% highlight scala %}
+case Query(key, u) => {
+  // Capturing the original sender
+  val originalSender = sender
+  // Handling the execution in a dedicated actor
+  context.actorOf(Props(new Actor() {
+
+    // The list of responses from Storekeepers
+    var responses: List[Option[(Array[Byte], Long)]] = Nil
+    
+    def receive = {
+      case Item(key, opt, u) =>
+        responses = opt :: responses
+        if (responses.length == partitions) {
+          // Some code that creates the QueryAck message
+          originalSender ! QueryAck(key, item, u)
+          context.stop(self)
+        }
+    }
+  }))
+}
+{% endhighlight %}
+
+Much better. We have captured the context for a single request to `StoreFinder` as the context of a dedicated actor. The original sender of `StoreFinder` actor was captured by the constant `originalSender` and shared with the anonymous actors using a _closure_.
+
+It's easy, isn't it? This simple trick is know as the _Extra pattern_. However, we are searching for a _Cameo_ for our movie.
+
+### Presenting the final Cameo pattern
+TODO
+
 ## References
 - [Chapter 2: Patterns of Actor Usage, The Cameo Pattern. Effective Akka, Patterns and Best Practices,	Jamie Allen, August 2013, O'Reilly Media](http://shop.oreilly.com/product/0636920028789.do)
+- [Re: [akka-user] akka.pattern.ask on a BroadcastRouter](https://groups.google.com/forum/#!topic/akka-user/-3Se23E4lEM)
