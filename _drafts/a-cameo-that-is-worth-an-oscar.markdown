@@ -156,6 +156,54 @@ Much better. We have captured the context for a single request to `StoreFinder` 
 It's easy, isn't it? This simple trick is know as the _Extra pattern_. However, we are searching for a _Cameo_ for our movie.
 
 ### Presenting the final Cameo pattern
+The Extra pattern is very useful when the code inside the anonymous actors is very small and trivial. Otherwise, it pollutes the main actor with details that do not belongs to its responsibility (one for all, actor creation).
+
+> It is also similar to lambdas, in that using an anonymous instance gives you less information in stack traces on the JVM, is harder to use with a debugging tool, and is easier to close over state.
+
+Luckily, the solution is very easy. We can move the anonymous implementation of the actor into its own type definition. 
+
+> This results in a type only used for simple interactions between actors, similar to a cameo role in the movies.
+
+Doing so, the code finally becomes the following.
+
+{% highlight scala %}
+class StoreFinder(val name: String) extends Actor {
+  override def receive: Receive = {
+    // Omissis...
+    case Query(key, u) =>
+      val originalSender = sender()
+      val handler = context.actorOf(Props(new QueryResponseHandler(originalSender, NumberOfPartitions)))
+      broadcastRouter.route(Get(key, u), handler)
+  }
+  // Omissis...
+}
+
+// The actor playing the Cameo role
+class QueryResponseHandler(originalSender: ActorRef, partitions: Int) {
+
+  var responses: List[Option[(Array[Byte], Long)]] = Nil
+
+  override def receive: Receive = LoggingReceive {
+    case Item(key, opt, u) =>
+      responses = opt :: responses
+      if (responses.length == partitions) {
+        // Some code to make up a QueryAck message
+        originalSender ! QueryAck(key, item, u)
+        context.stop(self)
+      }
+  }
+}
+{% endhighlight %}
+
+Much cleaner, such satisfying.
+
+![The moment when you succeed in using the Cameo pattern](https://i.imgflip.com/1zv67w.jpg)
+
+Notice that the router in the `StoreFinder` tells the routees to answer to the actor that handles the query messages, `broadcastRouter.route(Get(key, u), handler)`. Moreover, remember to capture the `sender` in a local variable in the main actor, before passing its reference to the inner actor. 
+
+> Make certain you follow that pattern, since passing the sender `ActorRef` without first capturing it will expose your handler to the same problem that we saw earlier where the sender `ActorRef` changed.
+
+## Conclusions
 TODO
 
 ## References
