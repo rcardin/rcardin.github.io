@@ -36,6 +36,22 @@ Boom. Concise, attractive, but so ambiguous. To explain the principle, the autho
 
 ![Violation of SRP](/assets/2017-12-26/srp_wrong_design.png)
 
+In the above example the class `Rectangle` is said to have at least _two responsibilies_: drawing a rectangle on a GUI and calculate the area of such rectangle. Is it really bad? Well, yes. For example, this design forces the `ComputationalGeometryApp` class to have a dependency from the class `GUI`. 
+
+Moreover, having more than one responsibility means that, every time a change to a requirement linked to the user interface comes, there is a non zero probability that the class `ComputationalGeometryApp` could be changed too. This is also the link between _responsibilities_ and _reasons to change_.
+
+The design that completely adheres to the Single-Responsibility Principle is the following.
+
+![Design SRP-proof](/assets/2017-12-26/srp_design.png)
+
+Arranging the dependencies among classes as depicted in the above class diagram, the geometrical application does not depend from user interface stuff anymore.
+
+## The dark side of the Single-Responsibility Principle
+Well, probably it is one of my problems, but I ever thought that a principle should be defined in a way that two different people understand it in the same way. There should be not space left for interpretation. Probably, my defect comes from my mathematical extraction.
+
+Given the above definition of the Single-Responibility Principle, it is clear that there is no mathematical rigours in it.
+
 
 ## References
 - [Chapter 8: The Single-Responsibility Principle (SRP). Agile Principles, Patterns, And Practices in C#,	Robert C. Martin, Micah Martin, March 2006, Prentice Hall](https://www.amazon.it/Agile-Principles-Patterns-Practices-C/dp/0131857258)
+- [SRP is a Hoax](http://www.yegor256.com/2017/12/19/srp-is-hoax.html)
