@@ -15,6 +15,7 @@ social-tags: "Akka, Scala, designpatterns"
 math: false
 reddit-link: "https://www.reddit.com/r/scala/comments/7f7boo/a_cameo_that_is_worth_an_oscar/"
 dev-link: "https://dev.to/riccardo_cardin/a-cameo-that-is-worth-an-oscar-944"
+dzone-link: "https://dzone.com/articles/a-cameo-that-is-worth-an-oscar"
 ---
 
 Rarely, during my life as a developer, I found pre-packaged solutions that fit my problem so well. Design patterns are an abstraction of both problems and solutions. So, they often need some kind of customization on the specific problem. While I was developing my concrete instance of [Actorbase specification](http://rcardin.github.io/database/actor-model/reactive/akka/scala/2016/02/07/actorbase-or-the-persistence-chaos.html), I came across the **Cameo pattern**. It enlighted my way and my vision about how to use Actors profitably. Let's see how and why.
