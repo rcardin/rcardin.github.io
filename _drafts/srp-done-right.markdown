@@ -47,9 +47,24 @@ The design that completely adheres to the Single-Responsibility Principle is the
 Arranging the dependencies among classes as depicted in the above class diagram, the geometrical application does not depend from user interface stuff anymore.
 
 ## The dark side of the Single-Responsibility Principle
-Well, probably it is one of my problems, but I ever thought that a principle should be defined in a way that two different people understand it in the same way. There should be not space left for interpretation. Probably, my defect comes from my mathematical extraction.
+Well, probably it is one of my problems, but I ever thought that a principle should be defined in a way that two different people understand it in the same way. There should be not space left for interpretation. A principle should be defined using a _quantitave approach_, rather than a _qualitative approach_. Probably, my fault comes from my mathematical extraction.
 
 Given the above definition of the Single-Responibility Principle, it is clear that there is no mathematical rigours in it.
+
+Every developer, using its own experience can give a different meaning to the word _responsibility_. The most common misunderstanding regaring responsibilities is which is the right grain to achieve.
+
+Recently, a "famous" blogger in the field of programming, called Yegor Bugayenko, published a post on his blog in which he discuss how the Single-Responsibility Principle is a hoax: [SRP is a Hoax](http://www.yegor256.com/2017/12/19/srp-is-hoax.html). In the post, he gave a wrong interpretation of the conception of responsibility, in my opinion.
+
+He started from a simple type, which aim is to manage objects stored in AWS S3.
+
+{% highlight java %}
+class AwsOcket {
+    boolean exists() { /* ... */ }
+    void read(final OutputStream output) { /* ... */ }
+    void write(final InputStream input) { /* ... */ }
+}
+{% endhighlight %}
+
 
 
 ## References
