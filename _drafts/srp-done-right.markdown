@@ -65,7 +65,26 @@ class AwsOcket {
 }
 {% endhighlight %}
 
+In his opinion, the above class has more than one responsibility:
 
+1. Checking the existence of an object in AWS S3
+2. Reading its content
+3. Modifying its content
+
+Uhm. So, he propose to split the class into three different new types, `ExistenceChecker`, `ContentReader`, and `ContentWriter`. With this new type, in order to read the content and print it to the console, the following code is needed.
+
+{% highlight java %}
+if (new ExistenceChecker(ocket.aws()).exists()) {
+  new ContentReader(ocket.aws()).read(System.out);
+}
+{% endhighlight %}
+
+As you can see, Yegor experience drives him to defined too fine-grained responsibilities, leading to three type that clearly are not properly **cohesive**.
+
+Where is the problem with Yegor interpretation? Which is the keystone to the comprehension of the Single-Responsibility Principle? _Cohesion_.
+
+## Cohesion
+TODO
 
 ## References
 - [Chapter 8: The Single-Responsibility Principle (SRP). Agile Principles, Patterns, And Practices in C#,	Robert C. Martin, Micah Martin, March 2006, Prentice Hall](https://www.amazon.it/Agile-Principles-Patterns-Practices-C/dp/0131857258)
