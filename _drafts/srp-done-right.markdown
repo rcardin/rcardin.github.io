@@ -12,7 +12,7 @@ summary: "I am a big fan of SOLID programming principles by Robert C. Martin. In
 social-share: true
 social-title: "Single Responsibility Principle done right"
 social-tags: "srp, solid, Programming"
-math: false
+math: true
 ---
 
 I am a big fan of SOLID programming principles by Robert C. Martin. In my opinion, Uncle Bob did a great work when it first defined them in its books. In particular, I thought that the Single-Responsibility Principle was one of the most powerful among these principles, yet one of the most misleading. Its definition gives not any rigorous detail on how to apply it. Every developer is left to his own experiences an knowledge to defined what a responsibility is. Well, maybe I found a way to standardize the application of this principle during the development process. Let me explain how.
@@ -102,6 +102,25 @@ Looking back at Yegor example, it is clear that the three classes he create, thi
 
 ### Pushing to the limit: Effects on the degree of dependency
 In the post [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html), I defined a methematical framework to derive a _degree of dependency_ between types. The natural question that arises is: applying the above reasoning, does the degree of dependency of the overall architecture decrease or increase? 
+
+Well, first of all, let's recall how we can obtain the total degree of dependency of a type `A`.
+
+$$
+  \delta_{tot}^{A} = \frac{1}{n} \displaystyle\sum_{C_j \in {C_1, \dots, C_n}} \delta_{A \to C_j }
+$$
+
+In our case, type `A` is the client of the class `AwsOcket`. Recalling that the value of \\(\delta_{A \to C_j }\\) ranges between 0 and 1, dividing without any motivation the class `AwsOcket` into three different types will not increase the overall degree of dependency of client `A`. In fact, the normalizing factor \\(\frac{1}{n}\\) assure us that rafactoring processes will not increase the local degree of dependency. 
+
+The overall degree of the entire architecture will instead increase, since we have three new types that still depend from `AwsOcket`.
+
+Does this mean that the view of the Single-Responsibility Principle I gave during the post is wrong? No, it does not. However, it shows us that the mathematical framework is incomplete. Probably, the formula for the degree of dependency should be recursive, in order to take into consideration the add of new tightly coupled types.
+
+## Conclusions
+Starting from the definition given by Robert C. Martin of the Single-Responsibility Principle, we showed how simple is to misunderstand it. In order to give some more formal definition, we showed how the principle can be viewed in terms of the concept of cohesion. Finally, we try to give a mathematical proof of what we have done, but we went to the conclusion that the framework that we were using is incomplete. 
+
+This post concludes the year 2017. I want to thank all the people that took some of their time to read my post during this year. I will certainly return in 2018. Stay tuned.
+
+Happy new year.
 
 ## References
 - [Chapter 8: The Single-Responsibility Principle (SRP). Agile Principles, Patterns, And Practices in C#,	Robert C. Martin, Micah Martin, March 2006, Prentice Hall](https://www.amazon.it/Agile-Principles-Patterns-Practices-C/dp/0131857258)
