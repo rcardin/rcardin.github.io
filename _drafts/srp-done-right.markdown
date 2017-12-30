@@ -83,9 +83,27 @@ As you can see, Yegor experience drives him to defined too fine-grained responsi
 
 Where is the problem with Yegor interpretation? Which is the keystone to the comprehension of the Single-Responsibility Principle? _Cohesion_.
 
-## Cohesion
-TODO
+## It's all about Cohesion
+Telling the truth, Uncle Bob opens the chapter dedicated to the Single-Responsibility Principle with the following two sentences.
+
+> This principle was described in the work of Tom DeMarco and Meilir Page-Jones. They called it cohesion. They defined cohesion as the functional relatedness of the elements of a module.
+
+Wikipedia defines cohesion as
+
+>  the degree to which the elements inside a module belong together. In one sense, it is a measure of the strength of relationship between the methods and data of a class and some unifying purpose or concept served by that class.
+
+So, which is the relationship between the Single-Responsibility Principle and cohesion? Cohesion gives us a formal rule to apply when we are in doubt if a type owns more than one responsibility. If a client of a type tends to use always all the functions of that type, then the type is probably highly cohesive. This means that it own only one responsibility, and hence only one reason of change.
+
+In turns out that, like the Open-Closed Principle, you cannot say if a class fullfil the Single-Responsibility Principle in isolation. You need to look at its _incoming dependencies_. In other words, _the clients of a class defines if it fullfils or not the principle_.
+
+Shocking.
+
+Looking back at Yegor example, it is clear that the three classes he create, thinking of adhering to the Single-Responsibility Principle in this way, are loosely cohesive and hence tightly cooupled. The classes `ExistenceChecker`, `ContentReader`, and `ContentWriter` will probably always be used together.
+
+### Pushing to the limit: Effects on the degree of dependency
+In the post [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html), I defined a methematical framework to derive a _degree of dependency_ between types. The natural question that arises is: applying the above reasoning, does the degree of dependency of the overall architecture decrease or increase? 
 
 ## References
 - [Chapter 8: The Single-Responsibility Principle (SRP). Agile Principles, Patterns, And Practices in C#,	Robert C. Martin, Micah Martin, March 2006, Prentice Hall](https://www.amazon.it/Agile-Principles-Patterns-Practices-C/dp/0131857258)
 - [SRP is a Hoax](http://www.yegor256.com/2017/12/19/srp-is-hoax.html)
+- [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html)
