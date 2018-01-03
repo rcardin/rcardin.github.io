@@ -12,6 +12,7 @@ summary: "I am a big fan of SOLID programming principles by Robert C. Martin. In
 social-share: true
 social-title: "Single Responsibility Principle done right"
 social-tags: "srp, solid, Programming"
+reddit-link: "https://www.reddit.com/r/programming/comments/7nup0s/singleresponsibility_principle_done_right/"
 math: true
 ---
 
