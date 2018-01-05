@@ -14,6 +14,7 @@ social-title: "Single Responsibility Principle done right"
 social-tags: "srp, solid, Programming"
 reddit-link: "https://www.reddit.com/r/programming/comments/7nup0s/singleresponsibility_principle_done_right/"
 dzone-link: "https://dzone.com/articles/single-responsibility-principle-done-right"
+dev-link: "https://dev.to/riccardo_cardin/single-responsibility-principle-done-right-15eo"
 math: true
 ---
 
