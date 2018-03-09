@@ -16,7 +16,7 @@ math: false
 
 When I started programming, there was a design pattern among all the others that surprised me for its effectiveness. This pattern was the Template Method pattern. While I proceeded through my developer career, I began to understand that the inconsiderate use of this pattern could lead to big haedhache. The problem was that this pattern promotes code reuse through class inheritance. With functional programming became main stream, this pattern can be revised using lambda expressions, avoiding any inheritance panic.
 
-# The original pattern
+## The original pattern
 It's the year 2004. Martin Fowler had just published one of its most popular post [Inversion of Control Containers and the Dependency Injection pattern](https://martinfowler.com/articles/injection.html) (IoC). The pattern is a concretization of the famous _Hollywood Principle_, that states
 
 > Don't call us, we'll call you
@@ -47,7 +47,7 @@ trait Application {
   def openDocument(fileName: String): Try[Document]
   def canOpen(fileName: String): Boolean
   def create(fileName: String): Document
-  def aboutToOpen(doc: Document) = { /* Some default implementation */ }
+  def aboutToOpen(doc: Document) = { /* Some default implementation */ 34}
   def read(doc: Document)
 }
 
@@ -76,6 +76,17 @@ class CsvApplication() extends GenericApplication {
   def read(doc: Document) = { /* Some implementation */ }
 }
 {% endhighlight %}
+
+## Drawbacks
+One of the main consequence of the original Template Method pattern is _code reuse_. In this blog, we don't like code reuse. In [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html) post, we learnt that we should avoid code reuse in favor of _behaviour reuse_. Code reuse leads to an increase of dependency between classes, resulting in architectures, which components are tightly coupled.
+
+Bad. Really Bad.
+
+Moreover, the abuse of the Template Method pattern tends to generate deep hierarchies of _concrete_ classes. Let's return to our example. One day, your boss ask you to extend the above code to handle more than one type of storage. He wants the software to be able to read both from local filesystem and from the cloud, or from distributed filesystems like HDFS.
+
+Easy, you think. We already have a primitive method, `read`, that I can override to allow my program to read from any kind of storage. You are a smart boy.
+
+_Favor composition over extension_.
 
 ## References
 - [Inversion of Control Containers and the Dependency Injection pattern](https://martinfowler.com/articles/injection.html)
