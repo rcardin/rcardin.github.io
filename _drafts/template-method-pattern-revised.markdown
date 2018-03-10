@@ -77,7 +77,7 @@ class CsvApplication() extends GenericApplication {
 }
 {% endhighlight %}
 
-## Drawbacks
+### Drawbacks
 One of the main consequence of the original Template Method pattern is _code reuse_. In this blog, we don't like code reuse. In [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html) post, we learnt that we should avoid code reuse in favor of _behaviour reuse_. Code reuse leads to an increase of dependency between classes, resulting in architectures, which components are tightly coupled.
 
 Bad. Really Bad.
@@ -86,7 +86,28 @@ Moreover, the abuse of the Template Method pattern tends to generate deep hierar
 
 Easy, you think. We already have a primitive method, `read`, that I can override to allow my program to read from any kind of storage. You are a smart boy.
 
-_Favor composition over extension_.
+{% highlight scala %}
+class CsvApplication() extends GenericApplication { /* ... */ }
+class CsvOnHDFSApplication() extends GenericApplication { 
+  /* ... */ 
+  override def read(doc: Document) = { /* Some implementation */ }
+}
+class CsvOnCloudApplication() extends GenericApplication { 
+  /* ... */ 
+  override def read(doc: Document) = { /* Some implementation */ }
+}
+// And so on...
+{% endhighlight %}
+
+At some point, you need to change the `canOpen` in the  `CsvApplication`. Unfortunately, the new implementation does not fit the behaviour in the `CsvOnCloudApplication` class. Then, you need to override also the `canOpen` method in this class. One day, you will have to change the implementation of another primitive method in some other class in your hierarchy. And the story will repeat over and over again.
+
+Do you see the problem? You miss the maintainability of your classes. You do not know which behaviour is implemented in which class. Every time you modify a class, it is difficult to predict which other classes you need to change.
+
+What can we do at this point? Which alternatives do we have?
+
+> Favor composition over inheritance
+
+
 
 ## References
 - [Inversion of Control Containers and the Dependency Injection pattern](https://martinfowler.com/articles/injection.html)
