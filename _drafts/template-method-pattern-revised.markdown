@@ -84,17 +84,17 @@ Bad. Really Bad.
 
 Moreover, the abuse of the Template Method pattern tends to generate deep hierarchies of _concrete_ classes. Let's return to our example. One day, your boss ask you to extend the above code to handle more than one type of storage. He wants the software to be able to read both from local filesystem and from the cloud, or from distributed filesystems like HDFS.
 
-Easy, you think. We already have a primitive method, `read`, that I can override to allow my program to read from any kind of storage. You are a smart boy.
+Easy, you think. We already have a primitive method, `create` (`read` is reserved to unmurshall byetes into object-oriented structures), that I can override to allow my program to read from any kind of storage. You are a smart boy.
 
 {% highlight scala %}
 class CsvApplication() extends GenericApplication { /* ... */ }
 class CsvOnHDFSApplication() extends GenericApplication { 
   /* ... */ 
-  override def read(doc: Document) = { /* Some implementation */ }
+  override def create(fileName: String): Document = { /* Some implementation */ }
 }
 class CsvOnCloudApplication() extends GenericApplication { 
   /* ... */ 
-  override def read(doc: Document) = { /* Some implementation */ }
+  override def create(fileName: String): Document = { /* Some implementation */ }
 }
 // And so on...
 {% endhighlight %}
@@ -105,12 +105,57 @@ Do you see the problem? You miss the maintainability of your classes. You do not
 
 What can we do at this point? Which alternatives do we have?
 
-> Favor composition over inheritance
+> Favor object composition over class inheritance
 
+The above _motto_ coined by the GoF remembers us one of the principles that should guide us every time we develop something using an object-oriented programming language.
 
+## Template Method pattern: the right way
+It is not difficult to image how we are going to change the original pattern in order to use composition, instead of inheritance. we are going to extract all the behaviours enclosed in _primitive methods_ into dedicated classes. So, in our example, we can identify the following types.
+
+{% highlight scala %}
+// Subtypes of this trait give access to different types of storages
+trait Storage {
+  def openDocument(fileName: String): Try[Document]
+  def canOpen(fileName: String): Boolean
+  def create(fileName: String): Document
+}
+// Different types of file format can be read simply defining 
+// subtypes of this trait
+trait Reader {
+  def read(doc: Document): Document
+}
+{% endhighlight %}
+
+In this way, our original Template type becomes the following.
+
+{% highlight scala %}
+class Application(storage: Storage, reader: Reader) {
+  def openDocument(fileName: String): Try[Document] = {
+    Try {
+      if (storage.canOpen(fileName)) {
+        val document = storage.create(fileName)
+        storage.aboutToOpen(document)
+        reader.read(document)
+      }
+    }
+  }  
+}
+{% endhighlight %}
+
+Whoa! We do not need an abstract type anymore! We do not need to use class inheritance either! Everything can be resolved using object composition during the instantiation of the `Application` class.
+
+{% highlight scala %}
+val hdfsCsvApplication = new Application(new HdfsStorage(), new CsvReader())
+val cloudCsvApplication = new Application(new HdfsStorage(), new CsvReader())
+// And so on...
+{% endhighlight %}
+
+As a benefit, we reduced the dependencies of the overall architecture, avoid all those annoying subclasses.
 
 ## References
 - [Inversion of Control Containers and the Dependency Injection pattern](https://martinfowler.com/articles/injection.html)
 - [Inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control)
+- [Chapter: Introduction (page 20). Design Patterns, Elements of Reusable Object Oriented Software, GoF, 1995, 
+Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
 - [Chapter: Template Method Pattern (page 325). Design Patterns, Elements of Reusable Object Oriented Software, GoF, 1995, 
 Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
