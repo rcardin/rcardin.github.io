@@ -150,7 +150,41 @@ val cloudCsvApplication = new Application(new HdfsStorage(), new CsvReader())
 // And so on...
 {% endhighlight %}
 
-As a benefit, we reduced the dependencies of the overall architecture, avoid all those annoying subclasses.
+As a plus, we reduced the dependencies of the overall architecture, avoid all those annoying subclasses.
+
+### The Scala way
+Ok, we all know that the Scala language can do better than a simple object composition. Scala has some very powerful constructs that allow us to use some smarter versions of the Template Method paatern.
+
+#### Mixins
+The first construct we are going to use are Scala _mixins_. Mixins are traits which are used to compose a class. Basically, using mixins we can add some code to a class without using inheritance. It's a concept very similar to composition.
+
+Revamping the first Application trait we presented in this post, we can use mixins to implement the Template Method also in this way.
+
+{% highlight scala %}
+trait Application {
+  def openDocument(fileName: String): Try[Document]
+  def canOpen(fileName: String): Boolean
+  def create(fileName: String): Document
+  def aboutToOpen(doc: Document) = { /* Some default implementation */ 34}
+  def read(doc: Document)
+}
+// Hdfs storage implementation
+trait HdfsStorage {
+  def openDocument(fileName: String): Try[Document] = /* HDFS implementation */
+  def canOpen(fileName: String): Boolean = /* HDFS implementation */
+  def create(fileName: String): Document = /* HDFS implementation */
+}
+// Csv reader implementation
+trait CsvReader {
+  def read(doc: Document): Document = /* CSV implementation */
+}
+// Creating the application using the proper implementations
+val hdfsCsvApplication = new Application with HdfsStorage with CsvReader
+{% endhighlight %}
+
+As you can see, we can mix any trait during the instantation process of another trait. We achieved composition using mixins, using a natively approach.
+
+#### Functional programming
 
 ## References
 - [Inversion of Control Containers and the Dependency Injection pattern](https://martinfowler.com/articles/injection.html)
@@ -159,3 +193,4 @@ As a benefit, we reduced the dependencies of the overall architecture, avoid all
 Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
 - [Chapter: Template Method Pattern (page 325). Design Patterns, Elements of Reusable Object Oriented Software, GoF, 1995, 
 Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
+- [Class composition with mixins](https://docs.scala-lang.org/tour/mixin-class-composition.html)
