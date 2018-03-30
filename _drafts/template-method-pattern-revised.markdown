@@ -44,14 +44,7 @@ Translating this into code, we obtain the folliwing class.
 
 {% highlight scala %}
 trait Application {
-  def openDocument(fileName: String): Try[Document]
-  def canOpen(fileName: String): Boolean
-  def create(fileName: String): Document
-  def aboutToOpen(doc: Document) = { /* Some default implementation */ 34}
-  def read(doc: Document)
-}
-
-abstract class GenericApplication() extends Application {
+  // Template method
   def openDocument(fileName: String): Try[Document] = {
     Try {
       if (canOpen(fileName)) {
@@ -61,7 +54,13 @@ abstract class GenericApplication() extends Application {
         document
       }
     }
-  }  
+  }
+  // Hook method
+  def aboutToOpen(doc: Document) = { /* Some default implementation */ 34}
+  // Primitives operations
+  def canOpen(fileName: String): Boolean
+  def create(fileName: String): Document
+  def read(doc: Document)
 }
 {% endhighlight %}
 
@@ -151,6 +150,15 @@ val cloudCsvApplication = new Application(new HdfsStorage(), new CsvReader())
 {% endhighlight %}
 
 As a plus, we reduced the dependencies of the overall architecture, avoid all those annoying subclasses.
+
+### The Programmable Template Method
+Most of modern programming languages has functions as first-class citizens. A  variant of the Template Method pattern uses lambas as implemenatations of primitive methods. I like to call it _Programmable Template Method_.
+
+The trick is passing functions in in place of primitive methods during object instantiation. So, using our original `Application` trait we have the following.
+
+{% highlight scala %}
+TODO
+{% endhighlight %}
 
 ### The Scala way
 Ok, we all know that the Scala language can do better than a simple object composition. Scala has some very powerful constructs that allow us to use some smarter versions of the Template Method paatern.
