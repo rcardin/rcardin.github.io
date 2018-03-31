@@ -154,14 +154,40 @@ As a plus, we reduced the dependencies of the overall architecture, avoid all th
 ### The Programmable Template Method
 Most of modern programming languages has functions as first-class citizens. A  variant of the Template Method pattern uses lambas as implemenatations of primitive methods. I like to call it _Programmable Template Method_.
 
-The trick is passing functions in in place of primitive methods during object instantiation. So, using our original `Application` trait we have the following.
+The trick is passing functions in in place of primitive methods during object instantiation. So, let's turn our original `Application` trait into a concrete class receiving some functions as input during the construction process.
 
 {% highlight scala %}
-TODO
+class Application(
+  // Functions used to 'program' the behaviour of the application
+  canOpen: String => Boolean,
+  create: String => Document,
+  read: Document => ()
+) {
+  // Template method
+  def openDocument(fileName: String): Try[Document] = {
+    Try {
+      if (canOpen(fileName)) {
+        val document = create(fileName)
+        aboutToOpen(document)
+        read(document)
+        document
+      }
+    }
+  }
+  def aboutToOpen(doc: Document) = { /* Some default implementation */ 34}
+}
+
+val app = new Application(
+    (filename: String) => /* Some implementation */,
+    (filename: String) => /* Some implemenation */,
+    (doc: Document) => /* Some implementation */
+  )
 {% endhighlight %}
 
+In this way, you have not to declare a new type for each behaviour you want to implement, just create a lamba expression.
+
 ### The Scala way
-Ok, we all know that the Scala language can do better than a simple object composition. Scala has some very powerful constructs that allow us to use some smarter versions of the Template Method paatern.
+So far, so good. We all know that the Scala language can do better than a simple object composition. Scala has some very powerful constructs that allow us to use some smarter versions of the Template Method paatern.
 
 #### Mixins
 The first construct we are going to use are Scala _mixins_. Mixins are traits which are used to compose a class. Basically, using mixins we can add some code to a class without using inheritance. It's a concept very similar to composition.
@@ -192,7 +218,46 @@ val hdfsCsvApplication = new Application with HdfsStorage with CsvReader
 
 As you can see, we can mix any trait during the instantation process of another trait. We achieved composition using mixins, using a natively approach.
 
-#### Functional programming
+#### Functional programming: currying and partial application
+Many of us abandoned the Object-Oriented path, after the were enlighted by the Functional way. Is the template method pattern worth also in Functional programming. Well, in some way the answer is "yes".
+
+In functional programming there is a technique called _currying_. The name "currying" becomes from the mathematician Haskell Curry, who was the first to use this technique.
+
+> Currying transforms a multiargument function so that it can be called as a chain of single-argument functions
+
+So, having a function with at least two input arguments. For sake of simplicity, let's take a function that sums two integers
+
+{% highlight scala %}
+def sum(a: Int, b: Int): Int = a + b
+{% endhighlight %}
+
+Then, using currying, we can derive from `sum` its curryfied form.
+
+{% highlight scala %}
+def curryfiedSum(a: Int)(b: Int): Int = a + b
+{% endhighlight %}
+
+If we pass only the first parameter to `curryfiedSum`, the result will be a new function with only one parameter left. In mathematical jergoun, the function was _partially applied_. Using this approach, we can easily obtain a new function that sums five to any integer number.
+
+{% highlight scala %}
+def sumFive(x: Int): Int = curryfiedSum(5)
+{% endhighlight %}
+
+Well, now that we have give the necessary background, we can revail which is the link between currying and partial application and the Template Method Pattern. Let's define the aggregate function, that applies repeatedly a function to a list of integer numbers. Using this function, we can define two new functions, the factorial n! and the sum of all numbers up to n.
+
+{% highlight scala %}
+def aggregate(id: Int, op: (Int, Int) => Int)(n: Int): Int =
+  if (n == 0) id 
+  else op(aggregate(neutral, op)(n-1), n)
+// Factorial of integers from n to 0
+def factorial = aggregate(1, _ * _)_
+// Summing integers from n to 0
+def sum = aggregate(0, _ + _)_
+{% endhighlight %}
+
+As you can see, the function `aggregate` defines the body the general algorithm, whereas the first two arguments defines the variable parts of the algorithm. Template method and primitive operations: It's the same approach of the Template Method pattern. 
+
+Do you see it? Awsome!
 
 ## References
 - [Inversion of Control Containers and the Dependency Injection pattern](https://martinfowler.com/articles/injection.html)
@@ -202,3 +267,4 @@ Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Or
 - [Chapter: Template Method Pattern (page 325). Design Patterns, Elements of Reusable Object Oriented Software, GoF, 1995, 
 Addison-Wesley](http://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
 - [Class composition with mixins](https://docs.scala-lang.org/tour/mixin-class-composition.html)
+- [Functional design patterns, Part 1](https://www.ibm.com/developerworks/library/j-ft10/)
