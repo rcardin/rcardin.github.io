@@ -13,6 +13,7 @@ social-share: true
 social-title: "Template Method Pattern Revised"
 social-tags: "design, Programming, Scala"
 math: false
+reddit-link: "https://www.reddit.com/r/programming/comments/89bv8x/template_method_pattern_revised/"
 ---
 
 When I started programming, there was a design pattern among all the others that surprised me for its effectiveness. This pattern was the Template Method pattern. While I proceeded through my developer career, I began to understand that the inconsiderate use of this pattern could lead to a big headache. The problem was that this pattern promotes code reuse through class inheritance. With functional programming became mainstream, this pattern can be revised using lambda expressions, avoiding any inheritance panic.
