@@ -158,7 +158,7 @@ val cloudCsvApplication = new Application(new CloudStorage(), new CsvReader())
 As a plus, we reduced the dependencies of the overall architecture, avoiding all those annoying subclasses.
 
 ### The Programmable Template Method
-Most of the modern programming languages have functions as first-class citizens. A  variant of the Template Method pattern uses lambas as implementations of primitive methods. I like to call it _Programmable Template Method_.
+Most of the modern programming languages have functions as first-class citizens. A  variant of the Template Method pattern uses lambdas as implementations of primitive methods. I like to call it _Programmable Template Method_.
 
 As Joshua Bloch wrote in the third edition of [Effective Java](https://www.amazon.com/Effective-Java-3rd-Joshua-Bloch/dp/0134685997),
 
@@ -249,7 +249,7 @@ Then, using currying, we can derive from `sum` its curryfied form.
 def curryfiedSum(a: Int)(b: Int): Int = a + b
 {% endhighlight %}
 
-If we pass only the first parameter to `curryfiedSum`, the result will be a new function with only one parameter left. In mathematical jargoun, the function was _partially applied_. Using this approach, we can quickly obtain a new function that sums five to any integer number.
+If we pass only the first parameter to `curryfiedSum`, the result will be a new function with only one parameter left. In mathematical jargon, the function was _partially applied_. Using this approach, we can quickly obtain a new function that sums five to any integer number.
 
 {% highlight scala %}
 def sumFive(x: Int): Int = curryfiedSum(5)
