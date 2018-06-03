@@ -25,3 +25,17 @@ Once, I have tried to give a definition to _objects_:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The aim of Object-oriented <a href="https://twitter.com/hashtag/programming?src=hash&amp;ref_src=twsrc%5Etfw">#programming</a> is not modeling reality using abstract representations of its component, accidentally called &quot;objects&quot;. <a href="https://twitter.com/hashtag/OOP?src=hash&amp;ref_src=twsrc%5Etfw">#OOP</a> aims to organize behaviors and data together in structures, minimizing dependencies among them.</p>&mdash; Riccardo Cardin (@riccardo_cardin) <a href="https://twitter.com/riccardo_cardin/status/992138929800450048?ref_src=twsrc%5Etfw">May 3, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+There is a lot of information in the above definition. Let's divide it and take a piece at time.
+
+## Messages are the core
+At the beginning there was procedural programming. Exponents of such programming paradigm are languages like COBOL, C, PASCAL, and more recently, Go. In procedual programming, the building block is represented by _the procedure_, which is a function (not mathematically speaking) that take some input arguments and could return some output values.
+
+Data can have some primitive form, like `Integer` or `Double`, or it can be structured into _records_. A record is a set of correlated data, like a `Vector`, which contains two primitive `x` and `y`.
+
+Despite of inputs and outputs, there is no directly connection between data (records) and behaviors (procedures). So. if we want to model all the operation available on a `Vector`, we have to create a lot of procedures that take it as an input.
+
+TODO
+
+## References
+[Procedural programming](https://en.wikipedia.org/wiki/Procedural_programming)
