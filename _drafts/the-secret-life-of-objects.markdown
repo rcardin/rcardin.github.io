@@ -76,6 +76,10 @@ case class CartesianVector(x: Double, y: Double) extends Vector {
 
 The given example is very trivial. Starting from element `x`, `y` and procedures `scale` and `norm`, it was very straight to derive an elegant Object-Oriented solution. But, is it possible to formalize (and, maybe automize) the process we just did to define `CartesianVector`? Let's try to answer this question.
 
+## Using dependency degree to define information aggregates, a.k.a. classes
+
+TODO
+
 ## References
 
 - [Procedural programming](https://en.wikipedia.org/wiki/Procedural_programming)
