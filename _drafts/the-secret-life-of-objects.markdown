@@ -29,6 +29,7 @@ Once, I have tried to give a definition to _objects_:
 There is a lot of information in the above definition. Let's divide it and take a piece at time.
 
 ## Messages are the core
+
 At the beginning there was procedural programming. Exponents of such programming paradigm are languages like COBOL, C, PASCAL, and more recently, Go. In procedual programming, the building block is represented by _the procedure_, which is a function (not mathematically speaking) that take some input arguments and could return some output values.
 
 Data can have some primitive form, like `int` or `double`, or it can be structured into _records_. A record is a set of correlated data, like a `Vector`, which contains two primitive `x` and `y` of type `double`. Using C-like notation, a vector is defined as
@@ -53,14 +54,29 @@ void scale(Vectors v, double factor)
 }
 {% endhighlight %}
 
-As you can see, every procedure insists on the same type of structure, the `Vectors`. Every procedure needs in input an instance of the structure on which executes. Moreover, every piece of code that owns an instance of the `Vectors` structure can access its member values without control. There is no concept of restriction on change of the information of a structure. 
+As you can see, every procedure insists on the same type of structure, the `Vectors`. Every procedure needs in input an instance of the structure on which executes. Moreover, every piece of code that owns an instance of the `Vectors` structure *can access its member values without control*. There is no concept of restriction on which operation can be done on the internal information of a structure.
 
-This makes the procedures' definition very verbose and their maintanance very tricky.
+This makes the procedures' definition very verbose and their maintanance very tricky. Tests becomes very hard to design and execute, because of the lack of _information hiding_.
 
-The main goal of Object-Oriented programing was that of binding the behavours (methods) with the data on which they operate. As Alan Kay once said:
+The main goal of Object-Oriented programming was that of binding the behavior (a.k.a. methods) with the data on which they operate (a.k.a., attributes). As Alan Kay once said:
 
 > [..] it is not even about classes. I'm sorry that I long ago coined the term "objects" for this topic because it gets many people to focus on the lesser idea. The big idea is "messaging" [..]
 
+The concept of class allows us to regain the focus on behavior, and not on methods inputs. You should not even know the internal represetation of a class. You only need its _interface_. In Object-Oriented progamming, the above example becomes the following (I choose to use Scala because of its lack of cerimony).
+
+{% highlight scala %}
+trait Vector {
+  def scale(factor: Double): Vector
+  def norm: Double
+}
+case class CartesianVector(x: Double, y: Double) extends Vector {
+  // Definition of functions declared abstract in Vector trait
+}
+{% endhighlight %}
+
+The given example is very trivial. Starting from element `x`, `y` and procedures `scale` and `norm`, it was very straight to derive an elegant Object-Oriented solution. But, is it possible to formalize (and, maybe automize) the process we just did to define `CartesianVector`? Let's try to answer this question.
+
 ## References
+
 - [Procedural programming](https://en.wikipedia.org/wiki/Procedural_programming)
 - [Alan Kay On Messaging](http://wiki.c2.com/?AlanKayOnMessaging)
