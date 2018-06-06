@@ -12,7 +12,7 @@ summary: "I was in the world of software development for a bit now, and if I und
 social-share: true
 social-title: "The Secret Life of Objects"
 social-tags: "OOP, design, Programming"
-math: false
+math: true
 ---
 
 I was in the world of software development for a bit now, and if I understood a single thing is that programming is not a simple affair. And, Object-Oriented programming is even less easier. The idea that I had of what an *object* is immediatly after I ended the University is very far from the idea I have now. Last week I came across a blog post [Goodbye, Object Oriented Programming](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53). After having read it, I fully understand how easily Object-Oriented programming can be misundestood at many level. I am not saying that I have the last answer to milion dollar question, but I will try to give a different perspective of my undestanding of Object-Oriented programming.
@@ -76,11 +76,41 @@ case class CartesianVector(x: Double, y: Double) extends Vector {
 
 The given example is very trivial. Starting from element `x`, `y` and procedures `scale` and `norm`, it was very straight to derive an elegant Object-Oriented solution. But, is it possible to formalize (and, maybe automize) the process we just did to define `CartesianVector`? Let's try to answer this question.
 
-## Using dependency degree to define information aggregates, a.k.a. classes
+## Information hiding and classes' definition
 
-TODO
+As anyone who follows me from some time knows, I am a big fan of dependency minimization between classes. I have developed a little [theoretical framework](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html) that allows to calculate the dependency degree of an architecture. Basically, this framework is based on the number of dependencies a class has with other classes and the scope of these dependencies, in terms of class life cycle.
+
+I have already use my framework in other circumstances, like when I spoke about the [Single-Responsibility Principle](http://rcardin.github.io/solid/srp/programming/2017/12/31/srp-done-right.html).
+
+This time I will try to use it to sketch a process whose goal is to aggregate information and related behaviors inside the same class, _hiding_ the former to the clients of the class.
+
+Using our initial example once again, we can begin from a totally unstructured set of procedures.
+
+{% highlight scala %}
+def scale(x: Double, y: Double, factor: Double): (Double, Double) = {
+  (x \* factor, y \* factor)
+}
+def norm(x: Double, y: Double): Double = {
+  // To lazy to write down the code for the norm of a vector ;)
+}
+{% endhighlight %}
+
+First of all, we notice that `x` and `y` parameters are present in both procedures. We might create a type for each parameter, like `Abscissa` and `Ordinate`. However, we immediately understand that the two parameters will be always used together in our use cases. There are not procedures that uses only one of the two.
+
+So, we decide to create a structure to bind them together, `Vector`. 
+
+{% highlight scala %}
+type Vector = (Double, Double)
+{% endhighlight %}
+
+We also understand that a simple structure does not fit our needs. `Vector` internal should be changed by anything else then the two procedures (forget for a moment that tuples are immutable in Scala). Telling the truth, we are really interested only in the two procedures. So, we restrict the access to vector information only to the procedure.
+
+How can we do that? We should bind information of a vector with the behaviors associated to it. We need a class.
 
 ## References
 
+- [Goodbye, Object Oriented Programming](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53)
 - [Procedural programming](https://en.wikipedia.org/wiki/Procedural_programming)
 - [Alan Kay On Messaging](http://wiki.c2.com/?AlanKayOnMessaging)
+- [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html)
+- [Single-Responsibility Principle done right](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html)
