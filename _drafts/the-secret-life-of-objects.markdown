@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "The Secret Life of Objects"
+title:  "The Secret Life of Objects: Information Hiding"
 date:   2018-06-08 12:34:33
 comments: true
 categories: design programming oop fp
@@ -10,7 +10,7 @@ tags:
     - oop
 summary: "I was in the world of software development for a bit now, and if I understood a single thing is that programming is not a simple affair. And, Object-Oriented programming is even less easier. The idea that I had of what an object is immediatly after I ended the University is very far from the idea I have now. Last week I came across a blog post -Goodbye, Object Oriented Programming-. After having read it, I fully understand how easily Object-Oriented programming can be misundestood at many level. I am not saying that I have the last answer to milion dollar question, but I will try to give a different perspective of my undestanding of Object-Oriented programming."
 social-share: true
-social-title: "The Secret Life of Objects"
+social-title: "The Secret Life of Objects: Information Hiding"
 social-tags: "OOP, design, Programming"
 math: true
 ---
@@ -78,12 +78,6 @@ The given example is very trivial. Starting from element `x`, `y` and procedures
 
 ## Information hiding and classes' definition
 
-As anyone who follows me from some time knows, I am a big fan of dependency minimization between classes. I have developed a little [theoretical framework](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html) that allows to calculate the dependency degree of an architecture. Basically, this framework is based on the number of dependencies a class has with other classes and the scope of these dependencies, in terms of class life cycle.
-
-I have already use my framework in other circumstances, like when I spoke about the [Single-Responsibility Principle](http://rcardin.github.io/solid/srp/programming/2017/12/31/srp-done-right.html).
-
-This time I will try to use it to sketch a process whose goal is to aggregate information and related behaviors inside the same class, _hiding_ the former to the clients of the class.
-
 Using our initial example once again, we can begin from a totally unstructured set of procedures.
 
 {% highlight scala %}
@@ -106,6 +100,45 @@ type Vector = (Double, Double)
 We also understand that a simple structure does not fit our needs. `Vector` internal should be changed by anything else then the two procedures (forget for a moment that tuples are immutable in Scala). Telling the truth, we are really interested only in the two procedures. So, we restrict the access to vector information only to the procedure.
 
 How can we do that? We should bind information of a vector with the behaviors associated to it. We need a class.
+
+{% highlight scala %}
+case class Vector(x: Double, y: Double) extends Vector {
+  def scale(factor: Double): Vector = { /* Implementation */ }
+  def norm: Double = { /* Implementation */ }
+}
+{% endhighlight %}
+
+Well, taking into consideration only the use cases we have, we could stop here. The solution is already optimal. We hid the information of axis behind our class; the behavior is the only thing client can access from the outside; clients that want to use a vector can interact only with class `Vector`.
+
+What if we want to support also vectors in \\(\mathbb{R}^3\\), or in \\(\mathbb{R}^4\\)? Well, through the use of _intefaces_, types that are pure behavior, object-oriented programming allows our clients to abstract from the concrete implementation of a vector. Then, the above example becomes the following.
+
+{% highlight scala %}
+trait Vector {
+  def scale(factor: Double): Vector
+  def norm: Double
+}
+case class CartesianVector(x: Double, y: Double) extends Vector {
+  // Definition of functions declared abstract in Vector trait
+}
+case class VectorInR3(x: Double, y: Double, z: Double) extends Vector {
+  // Definition of functions declared abstract in Vector trait
+}
+case class VectorInR4(x: Double, y: Double, z: Double) extends Vector {
+  // Definition of functions declared abstract in Vector trait
+}
+{% endhighlight %}
+
+As Wikipedia reminds us
+
+> Information hiding is the principle of segregation of the design decisions in a computer program that are most likely to change, thus protecting other parts of the program from extensive modification if the design decision is changed. The protection involves providing a stable interface which protects the remainder of the program from the implementation (the details that are most likely to change).
+
+### Relationship between information hiding and dependency degree
+
+As anyone who follows me from some time knows, I am a big fan of dependency minimization between classes. I have developed a little [theoretical framework](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html) that allows to calculate the dependency degree of an architecture. Basically, this framework is based on the number of dependencies a class has with other classes and the scope of these dependencies, in terms of class life cycle.
+
+I have already use my framework in other circumstances, like when I spoke about the [Single-Responsibility Principle](http://rcardin.github.io/solid/srp/programming/2017/12/31/srp-done-right.html).
+
+This time I will try to use it to sketch a process whose goal is to aggregate information and related behaviors inside the same class, _hiding_ the former to the clients of the class.
 
 ## References
 
