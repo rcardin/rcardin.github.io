@@ -32,29 +32,29 @@ There is a lot of information in the above definition. Let's divide it and take 
 
 At the beginning there was procedural programming. Exponents of such programming paradigm are languages like COBOL, C, PASCAL, and more recently, Go. In procedual programming, the building block is represented by _the procedure_, which is a function (not mathematically speaking) that take some input arguments and could return some output values.
 
-Data can have some primitive form, like `int` or `double`, or it can be structured into _records_. A record is a set of correlated data, like a `Vector`, which contains two primitive `x` and `y` of type `double`. Using C-like notation, a vector is defined as
+Data can have some primitive form, like `int` or `double`, or it can be structured into _records_. A record is a set of correlated data, like a `Rectangle`, which contains two primitive `height` and `length` of type `double`. Using C-like notation, a vector is defined as
 
 {% highlight c %}
-struct Vectors {
-   double   x;
-   double   y;
+struct Rectangle {
+   double   height;
+   double   length;
 };
 {% endhighlight %}
 
-Despite of inputs and outputs, there is no directly connection between data (records) and behaviors (procedures). So. if we want to model all the operation available on a `Vector`, we have to create a lot of procedures that take it as an input.
+Despite of inputs and outputs, there is no directly connection between data (records) and behaviors (procedures). So. if we want to model all the operation available on a `Rectangle`, we have to create a lot of procedures that take it as an input.
 
 {% highlight c %}
-double norm(Vectors v)
+double area(Rectangle r)
 {
-    // Code that computes the norm 
+    // Code that computes the area of a rectangle 
 }
-void scale(Vectors v, double factor)
+void scale(Rectangle r, double factor)
 {
-    // Code that change the vector v, mutating directly its components
+    // Code that change the rectangle r, mutating directly its components
 }
 {% endhighlight %}
 
-As you can see, every procedure insists on the same type of structure, the `Vectors`. Every procedure needs in input an instance of the structure on which executes. Moreover, every piece of code that owns an instance of the `Vectors` structure *can access its member values without control*. There is no concept of restriction on which operation can be done on the internal information of a structure.
+As you can see, every procedure insists on the same type of structure, the `Rectangle`. Every procedure needs in input an instance of the structure on which executes. Moreover, every piece of code that owns an instance of the `Rectangle` structure *can access its member values without control*. There is no concept of restriction on which operation can be done on the internal information of a structure.
 
 This makes the procedures' definition very verbose and their maintanance very tricky. Tests becomes very hard to design and execute, because of the lack of _information hiding_.
 
@@ -65,66 +65,66 @@ The main goal of Object-Oriented programming was that of binding the behavior (a
 The concept of class allows us to regain the focus on behavior, and not on methods inputs. You should not even know the internal represetation of a class. You only need its _interface_. In Object-Oriented progamming, the above example becomes the following (I choose to use Scala because of its lack of cerimony).
 
 {% highlight scala %}
-trait Vector {
-  def scale(factor: Double): Vector
-  def norm: Double
+trait Shape {
+  def area: Double
+  def scale(factor: Double): Shape
 }
-case class CartesianVector(x: Double, y: Double) extends Vector {
-  // Definition of functions declared abstract in Vector trait
+case class Rectangle(height: Double, length: Double) extends Shape {
+  // Definition of functions declared abstract in Shape trait
 }
 {% endhighlight %}
 
-The given example is very trivial. Starting from element `x`, `y` and procedures `scale` and `norm`, it was very straight to derive an elegant Object-Oriented solution. But, is it possible to formalize (and, maybe automize) the process we just did to define `CartesianVector`? Let's try to answer this question.
+The given example is very trivial. Starting from element `height`, `length` and procedures `scale` and `area`, it was very straight to derive an elegant Object-Oriented solution. But, is it possible to formalize (and, maybe automize) the process we just did to define the class `Rectangle`? Let's try to answer this question.
 
 ## Information hiding and classes' definition
 
-Using our initial example once again, we can begin from a totally unstructured set of procedures.
+We can begin from a totally unstructured set of procedures.
 
 {% highlight scala %}
-def scale(x: Double, y: Double, factor: Double): (Double, Double) = {
-  (x \* factor, y \* factor)
+def scale(height: Double, length: Double, factor: Double): (Double, Double) = {
+  (height \* factor, length \* factor)
 }
-def norm(x: Double, y: Double): Double = {
-  // To lazy to write down the code for the norm of a vector ;)
+def norm(height: Double, length: Double): Double = {
+  height * length
 }
 {% endhighlight %}
 
-First of all, we notice that `x` and `y` parameters are present in both procedures. We might create a type for each parameter, like `Abscissa` and `Ordinate`. However, we immediately understand that the two parameters will be always used together in our use cases. There are not procedures that uses only one of the two.
+First of all, we notice that `height` and `length` parameters are present in both procedures. We might create a type for each parameter, like `Height` and `Length`. However, we immediately understand that the two parameters will be always used together in our use cases. There are not procedures that uses only one of the two.
 
-So, we decide to create a structure to bind them together, `Vector`. 
+So, we decide to create a structure to bind them together, `Rectangle`. 
 
 {% highlight scala %}
-type Vector = (Double, Double)
+type Rectangle = (Double, Double)
 {% endhighlight %}
 
-We also understand that a simple structure does not fit our needs. `Vector` internal should be changed by anything else then the two procedures (forget for a moment that tuples are immutable in Scala). Telling the truth, we are really interested only in the two procedures. So, we restrict the access to vector information only to the procedure.
+We also understand that a simple structure does not fit our needs. `Rectangle` internal should be changed by anything else then the two procedures (forget for a moment that tuples are immutable in Scala). Telling the truth, we are really interested only in the two procedures. So, we restrict the access to vector information only to the procedure.
 
-How can we do that? We should bind information of a vector with the behaviors associated to it. We need a class.
+How can we do that? We should bind information of a rectangle with the behaviors associated to it. We need a class.
 
 {% highlight scala %}
-case class Vector(x: Double, y: Double) extends Vector {
-  def scale(factor: Double): Vector = { /* Implementation */ }
-  def norm: Double = { /* Implementation */ }
+case class Rectangle(height: Double, length: Double) {
+  def scale(factor: Double): Rectangle = Rectangle(height * factor, length)
+  val area: Double = height * length
 }
 {% endhighlight %}
 
 Well, taking into consideration only the use cases we have, we could stop here. The solution is already optimal. We hid the information of axis behind our class; the behavior is the only thing client can access from the outside; clients that want to use a vector can interact only with class `Vector`.
 
-What if we want to support also vectors in \\(\mathbb{R}^3\\), or in \\(\mathbb{R}^4\\)? Well, through the use of _intefaces_, types that are pure behavior, object-oriented programming allows our clients to abstract from the concrete implementation of a vector. Then, the above example becomes the following.
+What if we want to support also shapes like squares and circles?? Well, through the use of _intefaces_, types that are pure behavior, object-oriented programming allows our clients to abstract from the concrete implementation of a shape. Then, the above example becomes the following.
 
 {% highlight scala %}
-trait Vector {
-  def scale(factor: Double): Vector
-  def norm: Double
+trait Shape {
+  def scale(factor: Double): Shape
+  def area: Double
 }
-case class CartesianVector(x: Double, y: Double) extends Vector {
-  // Definition of functions declared abstract in Vector trait
+case class Rectangle(height: Double, length: Double) extends Shape {
+  // Definition of functions declared abstract in Shape trait
 }
-case class VectorInR3(x: Double, y: Double, z: Double) extends Vector {
-  // Definition of functions declared abstract in Vector trait
+case class Square(length: Double) extends Shape {
+  // Definition of functions declared abstract in Shape trait
 }
-case class VectorInR4(x: Double, y: Double, z: Double) extends Vector {
-  // Definition of functions declared abstract in Vector trait
+case class Circle(ray: Double) extends Shape {
+  // Definition of functions declared abstract in Shape trait
 }
 {% endhighlight %}
 
