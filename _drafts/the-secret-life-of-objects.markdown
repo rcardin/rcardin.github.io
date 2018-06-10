@@ -76,7 +76,7 @@ case class Rectangle(height: Double, length: Double) extends Shape {
 
 The given example is very trivial. Starting from element `height`, `length` and procedures `scale` and `area`, it was very straight to derive an elegant Object-Oriented solution. But, is it possible to formalize (and, maybe automize) the process we just did to define the class `Rectangle`? Let's try to answer this question.
 
-## Information hiding and classes' definition
+## Information hiding and class definition
 
 We can begin from a totally unstructured set of procedures.
 
@@ -138,7 +138,32 @@ As anyone who follows me from some time knows, I am a big fan of dependency mini
 
 I have already use my framework in other circumstances, like when I spoke about the [Single-Responsibility Principle](http://rcardin.github.io/solid/srp/programming/2017/12/31/srp-done-right.html).
 
-This time I will try to use it to sketch a process whose goal is to aggregate information and related behaviors inside the same class, _hiding_ the former to the clients of the class.
+This time I will try to use it to sketch the process we just analyzed, whose goal is to aggregate information and related behaviors inside the same class, _hiding_ the former to the clients of the class. Basically, I will try to answer to the question _Why do height and length be collapsed inside one single type (which is incidentally called `Rectangle`)
+
+Just as a recap, I defined in the post [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html) the degree of dependency between two classes `A` and `B` as
+
+$$
+  \large{\delta_{A \to B} = \frac{\varphi_{S_{A|B}}}{\varphi_{S_{tot_B}}}\varepsilon_{A \to B}}
+$$
+
+\\(\varphi\_{S\_{A|B}}\\) is the quantity of code (i.e., SLOC) that is shared between
+types `A` and `B`. \\(\varphi\_{S\_{tot_B}}\\) is the total number of code (i.e. SLOC) of
+`B` class. Finally, \\(\varepsilon_{A \to B}\\) is a factor between 0 and 1 and the wider
+the scope between `A` and `B`, the greater the factor.
+
+If `Height` and `Lenght` had been defined as dedicated types each, then a client `C` that needed to use a rectangle would always have to use both types. Moreover, the `Rectangle` type would still have been necessary, to put the methods `area` and `scale`. Using this configuration, `Rectangle`, `Height` and `Length` are said to be _tightly coupled_, because they are always use together. 
+
+The degree of dependency of class `C` would be very high, using the above definition. Also the degree of dependency of class `Rectangle` would be high, due to reference to `Height` and `Lenght` in the methods `area` and `scale`.
+
+Probably, there are many class configurations that can reduce the above degrees of dependency. However, the minimization of the value \\(\delta_{tot}^{C}\\) can be reached by the solution we gave in the previous paragraph. 
+
+So, in some way, we have reduced the _art_ of design an architecture, to finding a design that minimize a mathematical functino on degree of dependency. Nice.
+
+## Conclusion
+
+Just to sum up, using a toy example (I admit) we tried to sketch the informal process that should be use to defined types and classes. We started from the lacks in procedural programming paradigm and we endend trying to give a mathematical formulation of the above process. All the indexes we used are tightly related to the basic concept of _information hiding_.
+
+Clearly, this is just an idea. It was not my intention to belittle procedural programming, not to celebrate object-oriented programming.
 
 ## References
 
