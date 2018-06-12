@@ -8,14 +8,14 @@ tags:
     - design
     - programming
     - oop
-summary: "I was in the world of software development for a bit now, and if I understood a single thing is that programming is not a simple affair. Also, Object-Oriented programming is even less accessible. The idea that I had of what an object is after I ended the University is very far from the idea I have now. Last week I came across a blog post -Goodbye, Object Oriented Programming-. After having read it, I fully understand how easily Object-Oriented programming can be misunderstood at many levels. I am not saying that I have the last answer to million dollar question, but I will try to give a different perspective of my understanding of Object-Oriented programming."
+summary: "I've been in the software development world for a while, and if I understood a single thing is that programming is not a simple affair. Also, Object-Oriented programming is even less accessible. The idea that I had of what an object is after I ended the University is very far from the idea I have now. Last week I came across a blog post -Goodbye, Object Oriented Programming-. After having read it, I fully understand how easily Object-Oriented programming can be misunderstood at many levels. I am not saying that I have the last answer to the million dollar question, but I will try to give a different perspective of my understanding of Object-Oriented programming."
 social-share: true
 social-title: "The Secret Life of Objects: Information Hiding"
 social-tags: "OOP, design, Programming"
 math: true
 ---
 
-I was in the world of software development for a bit now, and if I understood the single thing is that programming is not a simple affair. Also, Object-Oriented programming is even less accessible. The idea that I had of what an *object* is after I ended the University is very far from the idea I have now. Last week I came across a blog post [Goodbye, Object Oriented Programming](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53). After having read it, I fully understand how easily Object-Oriented programming can be misunderstood at many levels. I am not saying that I have the last answer to million dollar question, but I will try to give a different perspective of my understanding of Object-Oriented programming.
+I've been in the software development world for a while, and if I understood a single thing is that programming is not a simple affair. Also, Object-Oriented programming is even less accessible. The idea that I had of what an *object* is after I ended the University is very far from the idea I have now. Last week I came across a blog post [Goodbye, Object Oriented Programming](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53). After having read it, I fully understand how easily Object-Oriented programming can be misunderstood at many levels. I am not saying that I have the last answer to the million dollar question, but I will try to give a different perspective of my understanding of Object-Oriented programming.
 
 ## Introduction 
 
@@ -26,13 +26,11 @@ Once, I have tried to give a definition to _objects_:
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The aim of Object-oriented <a href="https://twitter.com/hashtag/programming?src=hash&amp;ref_src=twsrc%5Etfw">#programming</a> is not modeling reality using abstract representations of its component, accidentally called &quot;objects&quot;. <a href="https://twitter.com/hashtag/OOP?src=hash&amp;ref_src=twsrc%5Etfw">#OOP</a> aims to organize behaviors and data together in structures, minimizing dependencies among them.</p>&mdash; Riccardo Cardin (@riccardo_cardin) <a href="https://twitter.com/riccardo_cardin/status/992138929800450048?ref_src=twsrc%5Etfw">May 3, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-There is much information in the above definition. Let's divide it and take a piece at one after the other.
-
 ## Messages are the core
 
-In the beginning, there was procedural programming. Exponents of such programming paradigm are languages like COBOL, C, PASCAL, and more recently, Go. In procedural programming, the building block is represented by _the procedure_, which is a function (not mathematically speaking) that take some input arguments and could return some output values.
+In the beginning, there was procedural programming. Exponents of such programming paradigm are languages like COBOL, C, PASCAL, and more recently, Go. In procedural programming, the building block is represented by _the procedure_, which is a function (not mathematically speaking) that takes some input arguments and could return some output values. During its evaluation, a procedure can have _side effects_.
 
-Data can have some primitive form, like `int` or `double`, or it can be structured into _records_. A record is a set of correlated data, like a `Rectangle`, which contains two primitive `height` and `length` of type `double`. Using a C-like notation, the definition of a rectangle is the following.
+Data can have some primitive form, like `int` or `double`, or it can be structured into _records_. A record is a set of correlated data, like a `Rectangle`, which contains two primitive `height` and `length` of type `double`. Using C notation, the definition of a rectangle is the following.
 
 {% highlight c %}
 struct Rectangle {
@@ -41,7 +39,7 @@ struct Rectangle {
 };
 {% endhighlight %}
 
-Despite inputs and outputs, there is no direct link between data (records) and behaviors (procedures). So. if we want to model all the operation available for a `Rectangle`, we have to create many procedures that take it as an input.
+Despite inputs and outputs, there is no direct link between data (records) and behaviors (procedures). So, if we want to model all the operations available for a `Rectangle`, we have to create many procedures that take it as an input.
 
 {% highlight c %}
 double area(Rectangle r)
@@ -56,13 +54,13 @@ void scale(Rectangle r, double factor)
 
 As you can see, every procedure insists on the same type of structure, the `Rectangle`. Every procedure needs as input an instance of the structure on which executes. Moreover, every piece of code that owns an instance of the `Rectangle` structure *can access its member values without control*. There is no concept of restriction or authorization.
 
-The above fact makes the procedures' definition very verbose and their maintenance very tricky. Tests become very hard to design and execute, because of the lack of _information hiding_.
+The above fact makes the procedures' definition very verbose and their maintenance very tricky. Tests become very hard to design and execute, because of the lack of _information hiding_: everything can modify everything.
 
 The primary goal of Object-Oriented programming was that of binding the behavior (a.k.a. methods) with the data on which they operate (a.k.a., attributes). As Alan Kay once said:
 
 > [..] it is not even about classes. I'm sorry that I long ago coined the term "objects" for this topic because it gets many people to focus on the lesser idea. The big idea is "messaging" [..]
 
-The concept of class allows us to regain the focus on behavior, and not on methods inputs. You should not even know the internal representation of a class. You only need its _interface_. In Object-Oriented programming, the above example becomes the following (I choose to use Scala because of its lack of ceremony).
+The concept of classes allows us to regain the focus on behavior, and not on methods inputs. You should not even know the internal representation of a class. You only need its _interface_. In Object-Oriented programming, the above example becomes the following class definition (I choose to use Scala because of its lack of ceremony).
 
 {% highlight scala %}
 trait Shape {
@@ -74,7 +72,7 @@ case class Rectangle(height: Double, length: Double) extends Shape {
 }
 {% endhighlight %}
 
-The example given is very trivial. Starting from element `height`, `length` and procedures `scale` and `area`, it was very straight to derive an elegant Object-Oriented solution. However, is it possible to formalize (and, maybe automize) the process we just did to define the class `Rectangle`? Let's try to answer this question.
+The example given is very trivial. Starting from elements `height`, `length` and procedures `scale` and `area`, it was very straight to derive an elegant Object-Oriented solution. However, is it possible to formalize (and, maybe to automate) the process we just did to define the class `Rectangle`? Let's try to answer this question.
 
 ## Information hiding and class definition
 
