@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Secret Life of Objects: Information Hiding"
-date:   2018-06-08 12:34:33
+date:   2018-06-13 15:30:25
 comments: true
 categories: design programming oop fp
 tags:
@@ -130,11 +130,11 @@ As Wikipedia reminds us
 
 > Information hiding is the principle of segregation of the design decisions in a computer program that is most likely to change, thus protecting other parts of the program from extensive modification if the design decision is changed. The protection involves providing a stable interface which protects the remainder of the program from the implementation (the details that are most likely to change).
 
-### Relationship between information hiding and dependency degree
+### Information hiding and dependency degree
 
-As anyone who follows me from some time knows, I am a big fan of dependency degree minimization between classes. I have developed a small [theoretical framework](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html) that allows calculating the dependency degree of an architecture. This framework is based on the number of dependencies a class has with other classes and on the scope of these dependencies, concerning a class life cycle.
+As anyone who follows me from some time knows, I am a big fan of dependency degree minimization between classes. I have developed a small [theoretical framework](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html) that allows calculating the dependency degree of architecture. This framework is based on the number of dependencies a class has with other classes and on the scope of these dependencies, concerning a class life cycle.
 
-I have already used my framework in other circumstances, like when I spoke about the [Single-Responsibility Principle](http://rcardin.github.io/solid/srp/programming/2017/12/31/srp-done-right.html).
+I had already used my framework in other circumstances, like when I spoke about the [Single-Responsibility Principle](http://rcardin.github.io/solid/srp/programming/2017/12/31/srp-done-right.html).
 
 This time I will try to use it to sketch the process we just analyzed, whose goal is to aggregate information and related behaviors inside the same class, _hiding_ the former to the clients of the class. I will try to answer the question _Why do height and length be collapsed inside one single type (which is incidentally called `Rectangle`)
 
@@ -153,13 +153,13 @@ If `Height` and `Lenght` had been defined as dedicated types each, then a client
 
 The degree of dependency of class `C` would be very high, using the above definition. Also, the degree of dependency of class `Rectangle` would be high too, due to references to `Height` and `Lenght` in the methods `area` and `scale`.
 
-Probably, many class configurations can reduce the above degree of dependency. However, the minimization of the value \\(\delta_{tot}^{C}\\) can be reached by the solution we gave in the previous paragraph. 
+Probably, many class configurations can reduce the degree of dependency of the above example. However, the minimization of the value \\(\delta_{tot}^{C}\\) can be reached by the solution we gave in the previous paragraph. 
 
-So, in some way, we started to trace a new way of design an architecture, reducing in some way the _art_ of design, to find an architecture that minimizes a mathematical function on the degree of dependency. Nice.
+So, in some way, we started to trace a new way of design architecture, reducing in some way the _art_ of design, to find an architecture that minimizes a mathematical function on the degree of dependency. Nice.
 
 ## Conclusion
 
-To sum up, using a toy example (I admit it) we tried to sketch the informal process that should be used to defined types and classes. We started from the lacks we find in procedural programming paradigm, and we ended trying to give a mathematical formulation of this process. All the ideas we used are tightly related to the basic concept of _information hiding_, that we confirmed to be one of the most important concepts in object-oriented programming.
+To sum up, using a toy example (I admit it) we tried to sketch the informal process that should be used to defined types and classes. We started from the lacks we find in procedural programming paradigm, and we ended up trying to give a mathematical formulation of this process. All the ideas we used are tightly related to the basic concept of _information hiding_, that we confirmed to be one of the most essential concepts in object-oriented programming.
 
 This post is just my opinion. It was not my intention to belittle procedural programming, not to celebrate object-oriented programming.
 
