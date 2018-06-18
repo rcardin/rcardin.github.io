@@ -12,6 +12,7 @@ summary: "I've been in the software development world for a while, and if I unde
 social-share: true
 social-title: "The Secret Life of Objects: Information Hiding"
 social-tags: "OOP, design, Programming"
+dev-link: "https://dev.to/riccardo_cardin/the-secret-life-of-objects-information-hiding-cpa"
 math: true
 ---
 
