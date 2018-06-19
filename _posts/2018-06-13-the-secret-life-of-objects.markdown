@@ -12,8 +12,8 @@ summary: "I've been in the software development world for a while, and if I unde
 social-share: true
 social-title: "The Secret Life of Objects: Information Hiding"
 social-tags: "OOP, design, Programming"
-dev-link: "https://dev.to/riccardo_cardin/the-secret-life-of-objects-information-hiding-cpa"
 math: true
+dev-link: "https://dev.to/riccardo_cardin/the-secret-life-of-objects-information-hiding-cpa"
 ---
 
 I've been in the software development world for a while, and if I understood a single thing is that programming is not a simple affair. Also, object-oriented programming is even less accessible. The idea that I had of what an *object* is after I ended the University is very far from the idea I have now. Last week I came across a blog post [Goodbye, Object Oriented Programming](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53). After having read it, I fully understand how easily object-oriented programming can be misunderstood at many levels. I am not saying that I have the last answer to the million dollar question, but I will try to give a different perspective of my understanding of object-oriented programming.
