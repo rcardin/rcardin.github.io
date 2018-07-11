@@ -76,6 +76,14 @@ This quote is by _Joe Armstrong_, the creator of Erlang. For this principle, eve
 
 Well. This is the problem of class inheritance. This is the problem of _code reuse_.
 
+As discussed in the post [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html), class inheritance is the worst form of dependency between two classes. We already related the concept of dependency between classes and the probability of modifying one against one change in another.
+
+It is normal that if two classes are linked through this type of relation, they must be used togheter. This is the problem of inheritance: _Tight coupling_.
+
+So, first of all do not use class inheritance. Do not use inheritance to reuse some code. Use inheritance so share **behavior**.
+
+## Subtyping
+
 But, wait: Is this a break to encapsulation. Well, many of us would say yes. As, subclass (classes that inherits from another) knows and and can virtaully access to internal state of the base class, we are breaking encapsulation. So, we are violating the first principle of object-oriented programming. Is this possible? 
 
 ## References
