@@ -138,8 +138,8 @@ With these approaches, we gain the *thread safety* feature (if you want to know 
 please read this [SO thread](http://stackoverflow.com/questions/20995036/is-initialization-on-demand-holder-idiom-thread-safe-without-a-final-modifier)). 
 However, these types of Singleton *cannot be sub-classed* and they are not *serializable*. 
 
-If you want to get back the *serializability*, you can use the approach suggested by Joshua Block in **item 3** of the
-second edition of the book [Effetctive Java](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683).
+If you want to get back the *serializability*, you can use the approach suggested by Joshua Bloch in **item 3** of the
+second edition of the book [Effective Java (2nd ed.)](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683).
 
 > As of release 1.5, there is a third approach to implementing singletons. Simply make an enum type with one element:
 
