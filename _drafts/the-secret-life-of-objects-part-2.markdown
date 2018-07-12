@@ -74,17 +74,31 @@ Clearly, the class `AlgorithmThatReadFromKafkaAndWriteOnMongo` inherits from `Al
 
 This quote is by _Joe Armstrong_, the creator of Erlang. For this principle, every time you try to reuse some class, you need to add dependencies also to the its parent class, and to the parent class of the parent class, and so on.
 
+Using the previous example, if you want to reuse the class `AlgorithmThatReadFromKafkaAndWriteOnMongoAndLogs`, you also need to import classes `AlgorithmThatReadFromCsvAndWriteOnMongo` and `AlgorithmThatReadFromKafkaAndWriteOnMongo`
+
 Well. This is the problem of class inheritance. This is the problem of _code reuse_.
 
 As discussed in the post [Dependency](http://rcardin.github.io/programming/oop/software-engineering/2017/04/10/dependency-dot.html), class inheritance is the worst form of dependency between two classes. We already related the concept of dependency between classes and the probability of modifying one against one change in another.
 
 It is normal that if two classes are linked through this type of relation, they must be used togheter. This is the problem of inheritance: _Tight coupling_.
 
-So, first of all do not use class inheritance. Do not use inheritance to reuse some code. Use inheritance so share **behavior**.
+So, first of all do not use class inheritance. Do not use inheritance to reuse some code. Use inheritance so share **behavior** among components.
 
-## Subtyping
+Afterwards, do not put more than one _responsibility_ inside a class. I will not dwell on what a responsibility is. I already wrote about this topic in [Single-Responsibility Principle done right](http://rcardin.github.io/solid/srp/programming/2017/12/31/srp-done-right.html). But, if you let your components to implement more than one use case; If you let two different clients of a component to depend from different slices of it, then the problem is not inheritance, it is in your whole design. A component that implements only one responsibility is very likely to inherit from a hierarchy that contains only one type, which is most of times an _abstract type_.
 
-But, wait: Is this a break to encapsulation. Well, many of us would say yes. As, subclass (classes that inherits from another) knows and and can virtaully access to internal state of the base class, we are breaking encapsulation. So, we are violating the first principle of object-oriented programming. Is this possible? 
+Using again our previous example,  there is clearly a problem of code reuse and a violation of the Single-Responsibility Principle. Each class is doing too much, and it is doing in the wrong way.
+
+### Inheritance and encapsulation
+
+If you think about it, there is big prblem with class inheritance: It seems to break encapsulation. A subclass (classes that inherits from another) knows and can virtaully access to internal state of the base class. We are breaking encapsulation. So, we are violating the first principle of object-oriented programming, are not we?
+
+Well, not properly. If a class you inherit from exposes some `protected` state, it is like that class is exposing two kind of interfaces.
+
+> The _publlic_ interface lists what the general client may see, whereas the _protected_ interface lists what inheritors may see.
+
+## Subtyping or reusing behavior
+
+TODO 
 
 ## References
 
