@@ -90,15 +90,24 @@ Using again our previous example,  there is clearly a problem of code reuse and 
 
 ### Inheritance and encapsulation
 
-If you think about it, there is big prblem with class inheritance: It seems to break encapsulation. A subclass (classes that inherits from another) knows and can virtaully access to internal state of the base class. We are breaking encapsulation. So, we are violating the first principle of object-oriented programming, are not we?
+If you think about it, there is big problem with class inheritance: It seems to break encapsulation. A subclass (classes that inherits from another) knows and can virtaully access to internal state of the base class. We are breaking encapsulation. So, we are violating the first principle of object-oriented programming, are not we?
 
 Well, not properly. If a class you inherit from exposes some `protected` state, it is like that class is exposing two kind of interfaces.
 
-> The _publlic_ interface lists what the general client may see, whereas the _protected_ interface lists what inheritors may see.
+> The _public_ interface lists what the general client may see, whereas the _protected_ interface lists what inheritors may see.
+
+The problem is that maintaining two different interfaces of the same type is very hard. Adding different type of clients to a class means to add dependencies. The more dependencies, the higher the coupling. A high coupling means a higher probabilty of changes cascades among types.
+
+So, don't use class inheritance. Stop.
+
+If you can't use inheritance, why is this considered one onf the most important principle of object-oriented programming? Technically, inheritance is still possible under certain circumstances.
 
 ## Subtyping or reusing behavior
+The first case in which you are allowed to use inhertince is **subtyping**, or behaviour inheritance, or interface inheritance.
 
-TODO 
+> Class inheritance defines an object's implementation in terms of another object's implementation. In short, it's a mechanism for code and representation sharing. In contrast, interface inheritance (or subtyping) describes when an object can be used in place of another.
+
+## The Liskov Substitution Principle
 
 ## References
 
