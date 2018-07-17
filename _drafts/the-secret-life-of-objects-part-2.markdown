@@ -40,7 +40,7 @@ So,
 By now, we understood there are two types of inheritance: Class inheritance and interface inheritance (or subtyping). When you used the former, you're basically perfoming *code reuse*, that is you know a class as a piece of code you need, and you extending from it to reuse that code, redefining all the stuff you don't need.
 
 {% highlight scala %}
-class AlgorithmThatReadFromCsvAndWriteOnMongo(val filePath: String, val mongoUri: String) {
+class AlgorithmThatReadFromCsvAndWriteOnMongo(filePath: String, mongoUri: String) {
   def read(): List[String] = {
       // Code that reads from a CSV file
   }
@@ -48,16 +48,14 @@ class AlgorithmThatReadFromCsvAndWriteOnMongo(val filePath: String, val mongoUri
       // Code that writes to MongoDb
   }
 }
-class AlgorithmThatReadFromKafkaAndWriteOnMongo(
-  val broker: String, val topic: String, val mongoUri: String)
+class AlgorithmThatReadFromKafkaAndWriteOnMongo(broker: String, topic: String, mongoUri: String)
   extends AlgorithmThatReadFromCsvAndWriteOnMongo(null, mongoUri) {
 
   def read(): List[String] = {
       // Code that reads from a Kafka topic
   }
 }
-class AlgorithmThatReadFromKafkaAndWriteOnMongoAndLogs(
-  val broker: String, val topic: String, val mongoUri: String, val logFile: String)
+class AlgorithmThatReadFromKafkaAndWriteOnMongoAndLogs(broker: String, topic: String, mongoUri: String, logFile: String)
   extends AlgorithmThatReadFromKafkaAndWriteOnMongo(broker, topic, mongoUri) {
 
   def write(lines: List[String]): Unit = {
@@ -107,8 +105,72 @@ The first case in which you are allowed to use inhertince is **subtyping**, or b
 
 > Class inheritance defines an object's implementation in terms of another object's implementation. In short, it's a mechanism for code and representation sharing. In contrast, interface inheritance (or subtyping) describes when an object can be used in place of another.
 
+The above sentence is very informative. It scream to the world that you **must not** override methods of super classes, if you want to reuse behavior.
+
+Following this principle, the only type from which we can inherit are _interfaces_ and _abstract classes_, avoiding to override any concrete method of the latter.
+
+> When inheritance is used carefully (some will say properly), all classes derived from an abstract class will share its interface. [..] Subclasses merely adds or overrides operations and **does not hide operations of the parent class**.
+
+Why is this principle so important? Because _polymorphism_ dependes on it. In this way, clients remain unaware of the specific type of objects they use, **reducing drastically implementation dependencies**.
+
+> Program to an interface, not an implementation.
+
+### Favor object composition over class inheritance
+
+The only way we have to extend the behavior of a class is to use _object composition_. New functionalities are obtained by assembling objects to get more complex functionalities. Objects are composed using solely their well defined interfaces.
+
+This style of reuse is called **black-box reuse**. No internal details of objects are visible from the outside. The lowest dependency degree is obtained.
+
+> Object composition has another effect on system design. Favoring object composition over class inheritance helps you keep each class encapsulated and focused on one task, on a single responsibility.
+
+Our initial example can be totally rewritten using two new highly specialized types: a `Reader`, and a `Writer`.
+
+{% highlight scala %}
+trait Reader {
+  def read(): List[String]
+}
+trait Writer {
+  def write(lines: List[String]): Unit
+}
+class CsvReader(filePath: String) {
+  def read(): List[String] = {
+      // Code that reads from a CSV file
+  }  
+}
+class MongoWriter(mongoUri: String) extends Writer {
+  def write(lines: List[String]): Unit = {
+      // Code that writes to MongoDb
+  }  
+}
+class KafkaReader(broker: String, topic: String) extends Reader {
+  def read(): List[String] = {
+      // Code that reads from a Kafka topic
+  }  
+}
+class LogWriter(logFile: String) extends Writer {
+  def write(lines: List[String]): Unit = {
+      // Code that writes to a log file
+  }  
+}
+class AlgorithmThatReadFromCsvAndWriteOnMongo(val filePath: String, val mongoUri: String) {
+  def read(): List[String] = {
+      // Code that reads from a CSV file
+  }
+  def write(lines: List[String]): Unit = {
+      // Code that writes to MongoDb
+  }
+}
+// Composing the above classes into this class, we can read and write from and 
+// to whatever we want.
+class Migrator(reader: Reader, writers: List[Writer]) {
+  val lines = reader.read()
+  writers.foreach(_.write(lines))
+}
+{% endhighlight %}
+
 ## The Liskov Substitution Principle
 
 ## References
 
-- [Four Basic Concpets in Object-Oriented Languages, Chapter 10: Concepts in Object-Oriented Languages. Concepts in Programming Languages, John C. Mitchell, 2003, Cambridge University Press]
+- [Four Basic Concpets in Object-Oriented Languages, Chapter 10: Concepts in Object-Oriented Languages. Concepts in Programming Languages, John C. Mitchell, 2003, Cambridge University Press](https://www.amazon.it/Concepts-Programming-Languages-John-Mitchell/dp/0521780985/)
+- [How Design Patterns Solve Design Problems, Chapter 1: Introduction. Design Patterns, Elements of Reusable Software, E. Gamma, R. Helm, R. Johnson, J. Vlissides, 1995, Addison-Wesley](https://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
