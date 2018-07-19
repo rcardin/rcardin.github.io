@@ -170,7 +170,20 @@ class Migrator(reader: Reader, writers: List[Writer]) {
 
 ## The Liskov Substitution Principle
 
+It seems that inheritance should not be used in any case. You must not inherit from a concrete class, only from abstract types. Is it correct? Well, there is a specific case, in which the inheritance from concrete classes is allowed.
+
+The Liskov Substitution Principle tells us exactly which is this case.
+
+> Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.
+
+Basically, a class can inherit from another concrete class if and only if it does not override pre e post condition of the base class. In a derivate class preconditions must not be stronger than in the base class. In a derivate class postconditions must be stronger than in the base class.
+
+> When redefining a routine [in a derivative], you may only replace its precondition by a weaker one, and its postcondition by a stronger one.
+
+This is called _design by contract_. Respecting this principle avoids the redefinition of the _extrinsic public behavior_ of base class, that is the behavior clients of a classe depend upon.
+
 ## References
 
 - [Four Basic Concpets in Object-Oriented Languages, Chapter 10: Concepts in Object-Oriented Languages. Concepts in Programming Languages, John C. Mitchell, 2003, Cambridge University Press](https://www.amazon.it/Concepts-Programming-Languages-John-Mitchell/dp/0521780985/)
 - [How Design Patterns Solve Design Problems, Chapter 1: Introduction. Design Patterns, Elements of Reusable Software, E. Gamma, R. Helm, R. Johnson, J. Vlissides, 1995, Addison-Wesley](https://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
+- [The Liskov Substitution Principle (LSP). Agile Principles, Patterns, and Practices in C#, Robert C. Martin, Micah Martin, 2006, Prentice Hall](https://www.safaribooksonline.com/library/view/agile-principles-patterns/0131857258/)
