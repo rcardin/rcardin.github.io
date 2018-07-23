@@ -172,7 +172,7 @@ class Migrator(reader: Reader, writers: List[Writer]) {
 
 It seems that inheritance should not be used in any case. You must not inherit from a concrete class, only from abstract types. Is it correct? Well, there is a specific case, in which the inheritance from concrete classes is allowed.
 
-The Liskov Substitution Principle tells us exactly which is this case.
+The Liskov Substitution Principle (LSP) tells us exactly which is this case.
 
 > Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.
 
@@ -180,10 +180,30 @@ Basically, a class can inherit from another concrete class if and only if it doe
 
 > When redefining a routine [in a derivative], you may only replace its precondition by a weaker one, and its postcondition by a stronger one.
 
-This is called _design by contract_. Respecting this principle avoids the redefinition of the _extrinsic public behavior_ of base class, that is the behavior clients of a classe depend upon.
+This is called _design by contract_. Respecting this principle avoids the redefinition of the _extrinsic public behavior_ of base class, that is the behavior the clients of a class depend upon.
+
+![Ducks and the Liskov Substitution Principle](https://image.ibb.co/cyshi7/lsp.jpg)
+
+Returning to our previous example, take the class `AlgorithmThatReadFromCsvAndWriteOnMongo` and its subclass `AlgorithmThatReadFromKafkaAndWriteOnMongo`. The LSP tells us that whenever we have need a reference to the first, we can use a reference to the second instead. However, we can't. The first read from a CSV; the second from Kafka.
+
+It's easy to write a test that uses an object of type `AlgorithmThatReadFromKafkaAndWriteOnMongo` where an
+object of type `AlgorithmThatReadFromCsvAndWriteOnMongo` is requested. It's easy to see it fail.
+
+Why? The reason is that we have violated base class *invariants*. We tried to reuse code, and not to reuse behavior.
+
+The same, old story.
+
+## Conclusion
+
+To sum up: never reuse code. Never use class inheritance. Try to reuse behavior. Try to use subtyping. Never, ever, extend a concrete class. Or, if you have to, verify that you fullfil the Liskov Substituion Principle.
+
+If you follow these simple rules, the dependency degree between your classes will stay low, and your architecture will be simplier to maintain and evolve.
+
+Simple. As. F**k.
 
 ## References
 
 - [Four Basic Concpets in Object-Oriented Languages, Chapter 10: Concepts in Object-Oriented Languages. Concepts in Programming Languages, John C. Mitchell, 2003, Cambridge University Press](https://www.amazon.it/Concepts-Programming-Languages-John-Mitchell/dp/0521780985/)
 - [How Design Patterns Solve Design Problems, Chapter 1: Introduction. Design Patterns, Elements of Reusable Software, E. Gamma, R. Helm, R. Johnson, J. Vlissides, 1995, Addison-Wesley](https://www.amazon.it/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)
 - [The Liskov Substitution Principle (LSP). Agile Principles, Patterns, and Practices in C#, Robert C. Martin, Micah Martin, 2006, Prentice Hall](https://www.safaribooksonline.com/library/view/agile-principles-patterns/0131857258/)
+- [What is an example of the Liskov Substitution Principle?](https://stackoverflow.com/questions/56860/what-is-an-example-of-the-liskov-substitution-principle)
