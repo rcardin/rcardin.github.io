@@ -8,7 +8,7 @@ tags:
     - design
     - programming
     - oop
-summary: "This post is the second part of a series of posts concerning the basic concepts of Object-Oriented Programming. This time, I focus on the concept of Inheritance. Whereas most people think that it is easy to understand, the inheritance is a piece of knowledge that is very difficult to master correctly. It subtends a lot of other object-oriented programming principles that are not always directly related to it. Moreover, it is directly related to one of the most potent forms of dependency between object. So, let's get this party started."
+summary: "This post is the second part of a series of posts concerning the basic concepts of Object-Oriented Programming. This time, I focus on the concept of Inheritance. Whereas most people think that it is easy to understand, the inheritance is a piece of knowledge that is very difficult to master correctly. It subtends a lot of other object-oriented programming principles that are not always directly related to it. Moreover, it is directly related to one of the most potent forms of dependency between objects. So, let's get this party started."
 social-share: true
 social-title: "The Secret Life of Objects: Inheritance"
 social-tags: "OOP, design, Programming"
@@ -16,7 +16,7 @@ math: false
 ---
 
 This post is the second part of a series of posts concerning the basic concepts of Object-Oriented Programming. The first post has focused on [Information Hiding](http://rcardin.github.io/design/programming/oop/fp/2018/06/13/the-secret-life-of-objects.html). This time, I focus on the concept of _Inheritance_. Whereas most people think that it is easy to understand, the inheritance is a piece of knowledge that is very difficult to master correctly. It subtends a lot of other object-oriented programming principles that are not always directly related to it. Moreover, it is 
-directly related to one of the most potent forms of dependency between object. 
+directly related to one of the most potent forms of dependency between objects. 
 
 Out of there, many articles and posts rant against Object-Oriented Programming and its principles, just because they don't understand them. One of these posts is [Goodbye, Object Oriented Programming](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53), which treats inheritance and the others object-oriented principles with a very biased and naive eye.
 
@@ -184,7 +184,7 @@ The above is called _design by contract_. Respecting this principle avoids the r
 
 ![Ducks and the Liskov Substitution Principle](https://image.ibb.co/cyshi7/lsp.jpg)
 
-Returning to our previous example, take the class `AlgorithmThatReadFromCsvAndWriteOnMongo` and its subclass `AlgorithmThatReadFromKafkaAndWriteOnMongo`. The LSP tells us that whenever we have needed a reference to the first, we can use a reference to the second instead. However, we can't. The first read from a CSV; the second from Kafka.
+Returning to our previous example, take the class `AlgorithmThatReadFromCsvAndWriteOnMongo` and its subclass `AlgorithmThatReadFromKafkaAndWriteOnMongo`. The LSP tells us that whenever we need a reference to the first, we can use a reference to the second instead. However, in our example, we can't. The first read from a CSV; the second from Kafka.
 
 It's easy to write a test that uses an object of type `AlgorithmThatReadFromKafkaAndWriteOnMongo` where an
 object of type `AlgorithmThatReadFromCsvAndWriteOnMongo` is requested. It's easy to see it fail.
