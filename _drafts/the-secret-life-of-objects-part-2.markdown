@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Secret Life of Objects: Inheritance"
-date:   2018-07-10 09:01:12
+date:   2018-07-27 13:50:12
 comments: true
 categories: design programming oop fp
 tags:
