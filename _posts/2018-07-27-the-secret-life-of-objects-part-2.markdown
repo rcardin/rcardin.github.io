@@ -12,6 +12,7 @@ summary: "This post is the second part of a series of posts concerning the basic
 social-share: true
 social-title: "The Secret Life of Objects: Inheritance"
 social-tags: "OOP, design, Programming"
+reddit-link: "https://www.reddit.com/r/programming/comments/92dghb/the_secret_life_of_objects_inheritance/"
 math: false
 ---
 
