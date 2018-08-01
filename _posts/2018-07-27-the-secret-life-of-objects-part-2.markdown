@@ -196,7 +196,7 @@ The same, old story.
 
 ## Conclusion
 
-To sum up: never reuse code. Never use class inheritance. Try to reuse behavior. Try to use subtyping. Never, ever, extend a concrete class. Alternatively, if you have to, verify that you fulfill the Liskov Substitution Principle.
+To sum up: try to avoid the reuse of code. Avoid class inheritance, if possible. Try to reuse behavior. Try to use subtyping. Prefer not to extend a concrete class. Alternatively, if you have to, verify that you fulfill the Liskov Substitution Principle.
 
 If you follow these simple rules, the dependency degree between your classes will stay low, and your architecture will be simpler to maintain and evolve.
 
