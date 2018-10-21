@@ -155,14 +155,6 @@ class LogWriter(logFile: String) extends Writer {
       // Code that writes to a log file
   }  
 }
-class AlgorithmThatReadFromCsvAndWriteOnMongo(val filePath: String, val mongoUri: String) {
-  def read(): List[String] = {
-      // Code that reads from a CSV file
-  }
-  def write(lines: List[String]): Unit = {
-      // Code that writes to MongoDb
-  }
-}
 // Composing the above classes into this class, we can read and write from and 
 // to whatever we want.
 class Migrator(reader: Reader, writers: List[Writer]) {
