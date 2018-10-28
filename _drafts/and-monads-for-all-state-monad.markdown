@@ -37,6 +37,7 @@ def deposit(account: BankAccount, amount: Double): BankAccount
 If someone tries to withdraw an amount that is greater than the actual bank account balance, the method `withdraw` will return the available amount and an empty compy of bank account.
 
 ## The problem
+
 Now that we defined our basic functions, we want to create another function that composes the following steps:
 
  1. Create a bank account with 0 Euro
@@ -60,3 +61,27 @@ Despite of the simplicity of the above code, you will have certainly noticed tha
 We need a mechanisms to compose in a smarter way functions that deal with the status of an application. The best would be not to have to worry at all about passing the status of our application from one function call to another.
 
 The State Monad helps us in this way.
+
+## The path through the Monad
+
+Citing the book "[Learn You a Haskell for Great Good!](http://learnyouahaskell.com/)"
+
+> We’ll say that a stateful computation is a function that takes some state and returns a value along with some new state.
+
+Our `withdraw` function already behaves in this sense. It returns both a value and a new instance of state. However, the function `deposit` returns only an updated state. No problem. It is easy to change its definition to let the function return a value and a state: Just use an empty value. In Scala, we can use the `Unit` type, and so the definition of the function `deposit` changes into the following.
+
+{% highlight scala %}
+def deposit(account: BankAccount, amount: Double): (Unit, BankAccount)
+{% endhighlight %}
+
+The type of the stateful computation quoted above is `s -> (a, s)`, where `s` is the state and `a` is the value resulting from the execution of the function. Hence, we can rewrite the `withdraw` and `deposit` functions as follows.
+
+{% highlight scala %}
+def deposit(amount: Double): BankAccount => (Unit, BankAccount)
+def withdraw(amount: Double): BankAccount => (Double, BankAccount)
+{% endhighlight %}
+
+## References
+
+- [Demistify the State Monad with Scala 1/2](http://patricknoir.blogspot.com/2014/12/demistify-state-monad-with-scala-12.html)
+- [Learning Scalaz — Tasteful stateful computations](http://eed3si9n.com/learning-scalaz/State.html)
