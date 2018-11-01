@@ -113,6 +113,22 @@ def someFancyOperationsOnBankAccount() {
 
 Well, the situation has not improved for nothing. What we really need now is a better way to compose our functions that we can obtain making the last step throught the definition of the State monad: The definition of `map` and `flatMap` functions.
 
+## The final step: combinator functions
+
+> Well the power of programming is composition, the ability to combine different operations together in order to obtain our target result.
+
+The final step we need to do to build our version of the State monad is to define a set of functions that let us combine smartly states, i.e. `Transfer[+A]` instances.
+
+The first function we need is `map`. As you may already know, the `map` function allows to apply a function to a data structure, obtaining a new version of it (MMMMM...).
+
+In our case, the `map` function is used to transform `Transfer[A]` in a `Transfer[B]`.
+
+{% highlight scala %}
+def map[A,B](tr: Transfer[A])(f: A => B): Transfer[B] = account =>
+  (a, newAccount) = tr(account)
+  (f(a), newAccount)
+{% endhighlight %}
+
 ## References
 
 - [Chapter 6: Purely functional state. Functional Programming in Scala, P. Chiusano,  R. Bjarnason, 2014, Manning Publications](https://www.manning.com/books/functional-programming-in-scala)
