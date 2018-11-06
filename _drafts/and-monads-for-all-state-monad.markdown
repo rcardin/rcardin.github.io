@@ -119,7 +119,7 @@ Well, the situation has not improved for nothing. What we really need now is a b
 
 The final step we need to do to build our version of the State monad is to define a set of functions that let us combine smartly states, i.e. `Transfer[+A]` instances.
 
-The first function we need is `map`. As you may already know, the `map` function allows to apply a function to a data structure, obtaining a new version of it (MMMMM...).
+The first function we need is `map`. As you may already know, the `map` function allows to apply a function to the type contained in a generic data structure, obtaining a new version of it.
 
 In our case, the `map` function is used to transform `Transfer[A]` in a `Transfer[B]`.
 
@@ -127,6 +127,22 @@ In our case, the `map` function is used to transform `Transfer[A]` in a `Transfe
 def map[A,B](tr: Transfer[A])(f: A => B): Transfer[B] = account =>
   (a, newAccount) = tr(account)
   (f(a), newAccount)
+{% endhighlight %}
+
+However, the problem with the `map` function  is that it tends to accumulate the generic type. For example, the result of the repeated application of `map` to a `Transfer[_]`, `transfer.map(/*... */).map(/*...*/)` is `Transfer[Transfer[_]]`. So, we need a function that behaves like `map`, but that can _flatten_ the accumulated types: The `flatMap` function. Instead of taking a function from `A` to `B` as parameter, the `flatMap` function takes a function from `A` to `Transfer[B]` as parameter. 
+
+Remembering the `type Transfer[+A] = BankAccount => (A, BankAccount)`, the `flatMap` function is defined indeed in this way.
+
+{% highlight scala %}
+def flatMap[A,B](tr: Transfer[A])(f: A => Transfer[B]): Transfer[B] = account =>
+  (a, newAccount) = tr(account)
+  f(a)(newAccount)
+{% endhighlight %}
+
+Very well. The last step we miss is to define a function that _lifts_ a value of type `A` to the type `Transfer[A]`. Think about this functino as a factory method in Object-Oriented Programming.
+
+{% highlight scala %}
+def apply[A](value: A): Transfer[A] = account => (A, account)
 {% endhighlight %}
 
 ## References
