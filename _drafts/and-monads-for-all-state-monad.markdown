@@ -19,44 +19,55 @@ This article starts a series on a topic that is very hot among the developers' c
 
 ## The context
 
-First of all, we need a program with some state to mutate during its execution. As an example, let's model a simple representation of a Bank account. Basically, a Bank account contains two main information, that are the client identifier and the available amount.
+First of all, we need a program with some state to mutate during its execution. As an example, let's model a simple representation of a stock portfolio. Basically, a stock portfolio is a map that associate stock's names to an amount of stocks owned .
 
 {% highlight scala %}
-case class BankAccount(clientId: String, balance: Double)
+type Stocks = Map[String, Double]
 {% endhighlight %}
 
-In our representation of reality, a client can perform two operations on her Bank account: a money withdrawal or a money deposit. As we know that in functional programming object are immutable, the two functions cannot have any _side effect_ on their input. So, both functions must return also the updated bank account.
+In our representation of reality, a client can perform three operations on her stock porfolio: To buy more stocks; To sell owned stocks; Get the quantity of stocks owned. As we know that in functional programming object are immutable, the three functions cannot have any _side effect_ on their input. So, all of the functions must return also the updated bank account.
 
 {% highlight scala %}
-// Returns the withdrawn amount and an update copy of input account object
-def withdraw(account: BankAccount, amount: Double): (Double, BankAccount)
-// Returns an update copy of input account object
-def deposit(account: BankAccount, amount: Double): BankAccount
+// Buys an amount (dollars) of the stock with given name. Returns the number
+// of purchased stocks.
+def buy(name: String, amount: Double, portfolio: Stocks): (Double, Stocks) = {
+  val purchased = amount / Prices(name)
+  val owned = portfolio(name)
+  (purchased, portfolio + (name -> (owned + purchased)))
+}
+// Sells a quantity of stocks of the given name. Returns the amount of
+// dollars earned by the selling operation.
+def sell(name: String, quantity: Double, portfolio: Stocks): (Double, Stocks) = {
+  val revenue = quantity * Prices(name)
+  val owned = portfolio(name)
+  (revenue, portfolio + (name -> (owned - quantity)))
+}
+// Returns the quantity of stocks owned for name.
+def get(name: String, portfolio: Stocks): Double = portfolio(name)
 {% endhighlight %}
 
-If someone tries to withdraw an amount that is greater than the actual bank account balance, the method `withdraw` will return the available amount and an empty compy of bank account.
+We imagine to live in a colored world, full of funny and unicorns, so our portfolio contains always some stocks for the given name.
 
 ## The problem
 
 Now that we defined our basic functions, we want to create another function that composes the following steps:
 
- 1. Create a bank account with 0 Euro
- 2. Deposit 100 Euro
- 3. Withdraw 50 Euro
- 4. Withdraw 30 Euro
+ 1. To sell all the stocks for a given company
+ 2. Using the sell's revenue, to buy stocks of another company
+ 3. To return the quantity of stocks of the first type initially owned, and the quantity of the new purchased stocks
 
-Using nothing more that the functions `withdraw` and `deposit`, we can develop the new function as follows.
+Using nothing more that the functions `get`, `sell`, and `buy`, we can develop the new function as follows.
 
 {% highlight scala %}
-def someFancyOperationsOnBankAccount() {
-  val bankAccount = BankAccount("rcardin", 0.0D)
-  val bankAccount1 = deposit(bankAccount, 100.0D)
-  val (bankAccount2, amount) = withdraw(bankAccount1, 50.0D)
-  val (bankAccount3, amount1) = withdraw(bankAccount2, 30.0D)
-}
+def move(from: String, to: String, portfolio: Stocks): ((Double, Double), Stocks) = {
+    val (originallyOwned, _) = get(from)(portfolio)
+    val (revenue, newPortfolio) = sell(from, originallyOwned)(portfolio)
+    val (purchased, veryNewPortfolio) = buy(to, revenue)(newPortfolio)
+    ((originallyOwned, purchased), veryNewPortfolio)
+  }
 {% endhighlight %}
 
-Despite of the simplicity of the above code, you will have certainly noticed that we have to pass *manually* the correct reference to the updated bank account to every step of our algorithm. This is very tedious and error prone.
+Despite of the simplicity of the above code, you will have certainly noticed that we have to pass *manually* the correct reference to the updated stocks portfolio to every step of our algorithm. This is very tedious and **error prone**.
 
 We need a mechanisms to compose in a smarter way functions that deal with the status of an application. The best would be not to have to worry at all about passing the status of our application from one function call to another.
 
@@ -143,6 +154,14 @@ Very well. The last step we miss is to define a function that _lifts_ a value of
 
 {% highlight scala %}
 def apply[A](value: A): Transfer[A] = account => (A, account)
+{% endhighlight %}
+
+Using the _combinators_ we just defined, we can rewrite the `someFancyOperationsOnBankAccount` method in a cleaner way.
+
+{% highlight scala %}
+def someFancyOperationsOnBankAccount() {
+  flatMap(deposit(100.D))(() => flatMap(withdraw(50.0D))(amount => map(withdraw(30.0D))))
+}
 {% endhighlight %}
 
 ## References
