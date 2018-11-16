@@ -81,26 +81,47 @@ Citing the book "[Learn You a Haskell for Great Good!](http://learnyouahaskell.c
 
 > We’ll say that a stateful computation is a function that takes some state and returns a value along with some new state.
 
-Our `withdraw` function already behaves in this sense. It returns both a value and a new instance of state. However, the function `deposit` returns only an updated state. No problem. It is easy to change its definition to let the function return a value and a state: Just use an empty value. In Scala, we can use the `Unit` type, and so the definition of the function `deposit` changes into the following.
+Our `buy` and `sell` functions already behave in this sense. They return both a value and a new instance of state. However, the function `get` returns only a value, without updating the state. No problem. It is easy to change its definition to let the function return a value and a state: Just use the same input state. So the definition of the function `get` changes into the following.
 
 {% highlight scala %}
-def deposit(account: BankAccount, amount: Double): (Unit, BankAccount)
+def get(name: String, portfolio: Stocks): (Double, Stocks) = (portfolio(name), portfolio)
 {% endhighlight %}
 
-The type of the stateful computation quoted above is `s -> (a, s)`, where `s` is the state and `a` is the value resulting from the execution of the function. Functions of this type are called _state actions_ of _state transitions_.Hence, we can rewrite the `withdraw` and `deposit` functions as follows.
+The type of the stateful computation quoted above is `S => (A, S)`, where `S` is the state and `A` is the value resulting from the execution of the function. The Functions of this type are called _state actions_ of _state transitions_. Hence, we can rewrite the `buy`, `sell`, and `get` functions as follows.
+
+First of all, let's use some _currying_ to divide inputs into two groups, and to isolate the state.
 
 {% highlight scala %}
-def deposit(amount: Double): BankAccount => (Unit, BankAccount)
-def withdraw(amount: Double): BankAccount => (Double, BankAccount)
+def buy(name: String, amount: Double)(portfolio: Stocks): (Double, Stocks)
+def sell(name: String, quantity: Double)(portfolio: Stocks): (Double, Stocks)
+def get(name: String)(portfolio: Stocks): (Double, Stocks)
 {% endhighlight %}
 
-Just to improve the readability of our two functions, let's define the following _type alias_.
+If we pass to these functions only the first group of inputs, we obtain exactly a set of functions of type `S => (A, S)`.
 
 {% highlight scala %}
-type Transfer[+A] = BankAccount => (A, BankAccount)
+def buyPartial(name: String, amount: Double): Stocks => (Double, Stocks) = buy(name, amount)
+// And so on...
 {% endhighlight %}
 
-We need the type parameter `A` because our function returns both a `Unit` and a `Double` value.
+The next step is to remove the currying at all. It is not elegant, and we don't like its syntax ;)
+
+{% highlight scala %}
+def buy(name: String, amount: Double): Stocks => (Double, Stocks) = portfolio => {
+  val purchased = amount / Prices(name)
+  val owned = portfolio(name)
+  (purchased, portfolio + (name -> (owned + purchased)))
+}
+// And so on...
+{% endhighlight %}
+
+Just to improve the readability of our three functions, let's define the following _type alias_.
+
+{% highlight scala %}
+type Transaction[+A] = Stocks => (A, Stocks)
+{% endhighlight %}
+
+Our three functions returns always a `Double` as output. However, to be more elastic, we need the type parameter `A` to let a function on `Stocks` type to returns any value.
 
 Using the new type alias, our functions become the following.
 
