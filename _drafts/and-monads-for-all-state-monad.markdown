@@ -126,20 +126,26 @@ Our three functions returns always a `Double` as output. However, to be more ela
 Using the new type alias, our functions become the following.
 
 {% highlight scala %}
-def deposit(amount: Double) = account => ((), account.copy(balance = account.balance + amount)
-def withdraw(amount: Double) = account => {
-  if (amount > account.balance)
-    (account.balance, account.copy(balance = 0))
-  else
-    (amount, account.copy(balance = account.balance - amount))
+def buy(name: String, amount: Double): Transaction[Double] = portfolio => {
+  val purchased = amount / Prices(name)
+  val owned = portfolio(name)
+  (purchased, portfolio + (name -> (owned + purchased)))
+}
+def sell(name: String, quantity: Double): Transaction[Double] = portfolio => {
+  val revenue = quantity * Prices(name)
+  val owned = portfolio(name)
+  (revenue, portfolio + (name -> (owned - quantity)))
+}
+def get(name: String): Transaction[Double] = portfolio => {
+  (portfolio(name), portfolio)
 }
 
 // And finally...
-def someFancyOperationsOnBankAccount() {
-  val bankAccount = BankAccount("rcardin", 0.0D)
-  val bankAccount1 = deposit(100.0D)(bankAccount)
-  val (bankAccount2, amount) = withdraw(50.0D)(bankAccount1)
-  val (bankAccount3, amount1) = withdraw(30.D)(bankAccount2)
+def move(from: String, to: String): Transaction[(Double, Double)] = portfolio => {
+  val (originallyOwned, _) = get(from)(portfolio)
+  val (revenue, newPortfolio) = sell(from, originallyOwned)(portfolio)
+  val (purchased, veryNewPortfolio) = buy(to, revenue)(newPortfolio)
+  ((originallyOwned, purchased), veryNewPortfolio)
 }
 {% endhighlight %}
 
@@ -149,40 +155,45 @@ Well, the situation has not improved for nothing. What we really need now is a b
 
 > Well the power of programming is composition, the ability to combine different operations together in order to obtain our target result.
 
-The final step we need to do to build our version of the State monad is to define a set of functions that let us combine smartly states, i.e. `Transfer[+A]` instances.
+The final step we need to do to build our version of the State monad is to define a set of functions that let us combine smartly states, i.e. `Transaction[+A]` instances.
 
 The first function we need is `map`. As you may already know, the `map` function allows to apply a function to the type contained in a generic data structure, obtaining a new version of it.
 
-In our case, the `map` function is used to transform `Transfer[A]` in a `Transfer[B]`.
+In our case, the `map` function is used to transform a `Transaction[A]` in a `Transaction[B]`.
 
 {% highlight scala %}
-def map[A,B](tr: Transfer[A])(f: A => B): Transfer[B] = account =>
-  (a, newAccount) = tr(account)
-  (f(a), newAccount)
+def map[A, B](tr: Transaction[A])(f: A => B): Transaction[B] = portfolio =>
+  (a, newPortfolio) = tr(portfolio)
+  (f(a), newPortfolio)
 {% endhighlight %}
 
-However, the problem with the `map` function  is that it tends to accumulate the generic type. For example, the result of the repeated application of `map` to a `Transfer[_]`, `transfer.map(/*... */).map(/*...*/)` is `Transfer[Transfer[_]]`. So, we need a function that behaves like `map`, but that can _flatten_ the accumulated types: The `flatMap` function. Instead of taking a function from `A` to `B` as parameter, the `flatMap` function takes a function from `A` to `Transfer[B]` as parameter. 
+However, the problem with the `map` function  is that it tends to accumulate the generic type. For example, the result of the repeated application of `map` to a `Transaction[_]`, `map(/*... */)(a => map(/*...*/)(/*...*/)` is `Transaction[Transaction[_]]`. So, we need a function that behaves like `map`, but that can _flatten_ the accumulated types: The `flatMap` function. Instead of taking a function from `A` to `B` as parameter, the `flatMap` function takes a function from `A` to `Transaction[B]` as parameter. 
 
-Remembering the `type Transfer[+A] = BankAccount => (A, BankAccount)`, the `flatMap` function is defined indeed in this way.
+Remembering the `type Transaction[+A] = Stocks => (A, Stocks)`, the `flatMap` function is defined indeed in this way.
 
 {% highlight scala %}
-def flatMap[A,B](tr: Transfer[A])(f: A => Transfer[B]): Transfer[B] = account =>
-  (a, newAccount) = tr(account)
-  f(a)(newAccount)
+def flatMap[A,B](tr: Transaction[A])(f: A => Transaction[B]): Transaction[B] = portfolio =>
+  (a, newPortfolio) = tr(portfolio)
+  f(a)(newPortfolio)
 {% endhighlight %}
 
-Very well. The last step we miss is to define a function that _lifts_ a value of type `A` to the type `Transfer[A]`. Think about this functino as a factory method in Object-Oriented Programming.
+Very well. The last step we miss is to define a function that _lifts_ a value of type `A` to the type `Transaction[A]`. Think about this functino as a factory method in Object-Oriented Programming.
 
 {% highlight scala %}
-def apply[A](value: A): Transfer[A] = account => (A, account)
+def apply[A](value: A): Transaction[A] = portfolio => (A, portfolio)
 {% endhighlight %}
 
-Using the _combinators_ we just defined, we can rewrite the `someFancyOperationsOnBankAccount` method in a cleaner way.
+Using the _combinators_ we just defined, we can rewrite the `move` method in a cleaner way.
 
 {% highlight scala %}
-def someFancyOperationsOnBankAccount() {
-  flatMap(deposit(100.D))(() => flatMap(withdraw(50.0D))(amount => map(withdraw(30.0D))))
-}
+def move(from: String, to: String): Transaction[(Double, Double)] =
+  flatMap(get(from))(
+    originallyOwned => flatMap(sell(from, originallyOwned))(
+      revenue => map(buy(to, revenue))(
+        purchased => (originallyOwned, purchased)
+      )
+    )
+  )
 {% endhighlight %}
 
 ## References
