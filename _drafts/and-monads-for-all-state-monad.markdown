@@ -196,6 +196,25 @@ def move(from: String, to: String): Transaction[(Double, Double)] =
   )
 {% endhighlight %}
 
+The presence of the `map` and of the `flatMap` functions allows us to improve further the readability of the code of the `move` function, just applying the syntactic sugar of the _for-comprehension_ construct. Using the `for...yield` syntax, The function becomes the following.
+
+{% highlight scala %}
+def move(from: String, to: String): Transaction[(Double, Double)] =
+  for {
+    originallyOwned <- get(from)
+    revenue <- sell(from, originallyOwned)
+    purchased <- buy(to, revenue)
+  } yield {
+    (originallyOwned, purchased)
+  }
+{% endhighlight %}
+
+Wow! Now, the code looks like the good ol'imperative code, but it maintains all the awesome feature of functional code. _Supercalifragilisticexpialidocious!!!_
+
+## Summing up
+
+It's time to abstract the above concepts into our monad construct.
+
 ## References
 
 - [Chapter 6: Purely functional state. Functional Programming in Scala, P. Chiusano,  R. Bjarnason, 2014, Manning Publications](https://www.manning.com/books/functional-programming-in-scala)
