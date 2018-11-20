@@ -213,7 +213,40 @@ Wow! Now, the code looks like the good ol'imperative code, but it maintains all 
 
 ## Summing up
 
-It's time to abstract the above concepts into our monad construct.
+It's time to abstract the above concepts into our monad construct. First of all, we need a type for our monad. Our stocks example uses the type `Stocks` to store the state of the application. We need to substitute it with a generic type variable, `S`. `Transaction[A]` abstracts to type `State[S, A]`
+
+{% highlight scala %}
+type State[S, A] = S => (A, S)
+// And so...
+type Transaction[A] = State[Stocks, A]
+{% endhighlight %}
+
+Once we defined the `State[S, A]` type, the `unit`, `map`, and `flatMap` functions becomes the following.
+
+{% highlight scala %}
+def unit[S, A](a: A): State[S, A] = state => {
+  (a, state)
+}
+def map[S, A, B](sm: State[S, A])(f: A => B): State[S, B] = state => {
+  val (value, newState) = sm(state)
+  (f(value), newState)
+}
+def flatMap[S, A, B](sm: State[S, A])(f: A => State[S, B]): State[S, B] = state => {
+  val (value, newState) = sm(state)
+  f(value)(newState)
+}
+{% endhighlight %}
+
+And this is our State Monad! Awesome! Moreover, the definition of type `Transaction` in terms of the type `State` allows us to maintain the code of our business function as it is. No change is needed.
+
+If you prefer, you can define a `trait` for the type `State`. If so, the functions `unit`, `map`, and `flatMap` become methods of the trait, instead of lonely functions.
+
+### Reinventing the wheel
+
+There are a lot of good functional libraries out of there for the Scala language. Both [Scalaz](http://eed3si9n.com/learning-scalaz/State.html) and [Cats](https://typelevel.org/cats/datatypes/state.html) have their own implementation of the State Monad. So, the above is only an exercise to acquire a deeper understand of the State Monad concepts, but it is not ready for production use ;)
+
+## Conclusions
+TODO
 
 ## References
 
