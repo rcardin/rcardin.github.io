@@ -8,14 +8,14 @@ tags:
     - design
     - programming
     - fp
-summary: "This article starts a series on a topic that is very hot among the developers' community: functional programming. In details, we will focus on monads. The main aim of monads is to make simpler the composition of pure functions, that are mathematical functions that cannot have any side effect. We start with a classic: The State Monad. As its name suggests, using this object, we will be able to manage the state of a program effectively, without breaking one of the paradigm main principles, immutability."
+summary: "This article starts a series on a topic that is very hot among the developers' community: functional programming. In details, we will focus on monads. The main aim of monads is to make simpler the composition of pure functions, that are mathematical functions that cannot have any side effect. We start with a classic: The State Monad. As its name suggests, using this object, we will be able to manage the state of a program effectively, without breaking one of the main principles of the paradigm, immutability."
 social-share: true
 social-title: "...And Monads for All: The State Monad"
 social-tags: "FP, design, Programming, monad"
 math: false
 ---
 
-This article starts a series on a topic that is very hot among the developers' community: functional programming. In details, we will focus on _monads_. This very complex object coming from the Category Theory is so important in functional programming that is very hard to program without it in this kind of paradigm. Its main aim is to make simpler the composition of pure functions, that are mathematical functions that cannot have any _side effect_. We start with a classic: _The State Monad_. As its name suggests, using this object, we will be able to manage the state of a program effectively, without breaking one of the paradigm main principles, _immutability_.
+This article starts a series on a topic that is very hot among the developers' community: functional programming. In details, we will focus on _monads_. This very complex object coming from the Category Theory is so important in functional programming that is very hard to program without it in this kind of paradigm. Its main aim is to make simpler the composition of pure functions, that are mathematical functions that cannot have any _side effect_. We start with a classic: _The State Monad_. As its name suggests, using this object, we will be able to manage the state of a program effectively, without breaking one of the main principles of the paradigm , _immutability_.
 
 ## The context
 
@@ -25,7 +25,7 @@ First of all, we need a program with some state to mutate during its execution. 
 type Stocks = Map[String, Double]
 {% endhighlight %}
 
-In our representation of reality, a client can perform three operations on her stock portfolio: To buy more stocks; To sell owned stocks; Get the number of stocks owned. As we know that in the functional programming object are immutable, the three functions cannot have any _side effect_ on their input. So, all of the functions must also return the updated bank account.
+In our representation of reality, a client can perform three operations on her stock portfolio: To buy more stocks; To sell owned stocks; To get the number of stocks owned. As we know that in the functional programming object are immutable, the three functions cannot have any _side effect_ on their input. So, all of the functions must also return the updated bank account.
 
 {% highlight scala %}
 // Buys an amount (dollars) of the stock with given name. Returns the number
@@ -50,7 +50,7 @@ We imagine to live in a colored world, full of funny and unicorns, so our portfo
 
 ## The problem
 
-Now that we defined our essential functions, we want to create another function that composes the following steps:
+Now that we defined our essential functions, we want to create another function that composes them to create a new use case:
 
  1. Selling all the stocks for a given company
  2. Using the sell's revenue, buying stocks of another company
