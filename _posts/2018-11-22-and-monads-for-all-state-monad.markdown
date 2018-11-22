@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "...And Monads for All: The State Monad"
-date:   2018-11-03 17:15:53
+date:   2018-11-22 21:09:53
 comments: true
 categories: design programming fp monad
 tags:
@@ -60,7 +60,7 @@ Using nothing more than the functions `get`, `sell`, and `buy`, we can develop t
 
 {% highlight scala %}
 def move(from: String, to: String, portfolio: Stocks): ((Double, Double), Stocks) = {
-    val (originallyOwned, _) = get(from)(portfolio)
+    val originallyOwned = get(from)(portfolio)
     val (revenue, newPortfolio) = sell(from, originallyOwned)(portfolio)
     val (purchased, veryNewPortfolio) = buy(to, revenue)(newPortfolio)
     ((originallyOwned, purchased), veryNewPortfolio)
@@ -75,6 +75,8 @@ We need a mechanism to compose in a smarter way functions that deal with the sta
 
 The State Monad helps us in this way.
 
+![Show me the code!](https://i.imgflip.com/2n7wbj.jpg)
+
 ## The path through the Monad
 
 Citing the book "[Learn You a Haskell for Great Good!](http://learnyouahaskell.com/)"
@@ -87,7 +89,7 @@ Our `buy` and `sell` functions already behave in this sense. They return both a 
 def get(name: String, portfolio: Stocks): (Double, Stocks) = (portfolio(name), portfolio)
 {% endhighlight %}
 
-The type of the stateful computation quoted above is `S => (A, S)`, where `S` is the state and `A` is the value resulting from the execution of the function. The Functions of this type are called _state actions_ of _state transitions_. Hence, we can rewrite the `buy`, `sell`, and `get` functions as follows.
+The type of the stateful computation quoted above is `S => (A, S)`, where `S` is the state and `A` is the value resulting from the execution of the function. The functions of this type are called _state actions_ of _state transitions_. Hence, we can rewrite the `buy`, `sell`, and `get` functions as follows.
 
 First of all, let's use some _currying_ to divide inputs into two groups, and to isolate the state.
 
@@ -100,7 +102,8 @@ def get(name: String)(portfolio: Stocks): (Double, Stocks)
 If we pass to these functions only the first group of inputs, we obtain precisely a set of functions of type `S => (A, S)`.
 
 {% highlight scala %}
-def buyPartial(name: String, amount: Double): Stocks => (Double, Stocks) = buy(name, amount)
+def buyPartial(name: String, amount: Double): Stocks => (Double, Stocks) = 
+  buy(name, amount)
 // And so on...
 {% endhighlight %}
 
@@ -150,6 +153,8 @@ def move(from: String, to: String): Transaction[(Double, Double)] = portfolio =>
 {% endhighlight %}
 
 Well, the situation has improved for nothing. What we need now is a better way to compose our functions that we can obtain making the last step through the definition of the State monad: The definition of `map` and `flatMap` functions.
+
+![Do we have some improvements?](https://i.imgflip.com/2n7wt5.jpg)
 
 ## The final step: combinator functions
 
@@ -241,12 +246,18 @@ So, this is our State Monad! Awesome! Moreover, the definition of type `Transact
 
 If you prefer, you can define a `trait` for the type `State`. If so, the functions `unit`, `map`, and `flatMap` become methods of the trait, instead of lonely functions.
 
+![Welcome to the state monad](https://i.imgflip.com/2n7xa4.jpg)
+
 ### Reinventing the wheel
 
 There are a lot of good functional libraries out of there for the Scala language. Both [Scalaz](http://eed3si9n.com/learning-scalaz/State.html) and [Cats](https://typelevel.org/cats/datatypes/state.html) have their implementation of the State Monad. So, the above is only an exercise to acquire a deeper understanding of the State Monad concepts, but it is not ready for production use ;)
 
 ## Conclusions
-In our journey, we started from an application that needs to share some state. Many functions modify this state. Following the functional programming constraints, we tried to avoid the use of mutable state. Using curryfication and first-order functions, we built a framework that allowed us to share the state between different functions. Then, we introduced some _combinators_, to make the process of composing the previous functions in a more natural, and less error-prone way.
+In our journey, we started from an application that needs to share some state. Many functions modify this state. Following the functional programming constraints, we tried to avoid the use of mutable state. Using curryfication and first-order functions, we built a framework that allowed us to share the state between different functions. Then, we introduced some _combinators_, to make the process of composing the previous functions in a more natural, and less error-prone way. 
+
+Our final gratification was the definition of the State Monad.
+
+The code I used in this post is available in my GitHub repository, [state-monad-example](https://github.com/rcardin/state-monad-example)
 
 ## References
 
