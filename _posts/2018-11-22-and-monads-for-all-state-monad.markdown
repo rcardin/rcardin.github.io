@@ -12,6 +12,7 @@ summary: "This article starts a series on a topic that is very hot among the dev
 social-share: true
 social-title: "...And Monads for All: The State Monad"
 social-tags: "FP, design, Programming, monad, Scala"
+reddit-link: "https://www.reddit.com/r/programming/comments/9zna03/and_monads_for_all_the_state_monad/"
 math: false
 ---
 
