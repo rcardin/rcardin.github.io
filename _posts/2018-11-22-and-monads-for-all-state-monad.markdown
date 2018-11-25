@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "...And Monads for All: The State Monad"
+title:  "...And Monads for (Almost) All: The State Monad"
 date:   2018-11-22 21:09:53
 comments: true
 categories: design programming fp monad
@@ -10,13 +10,17 @@ tags:
     - fp
 summary: "This article starts a series on a topic that is very hot among the developers' community: functional programming. In details, we will focus on monads. The main aim of monads is to make simpler the composition of pure functions, that are mathematical functions that cannot have any side effect. We start with a classic: The State Monad. As its name suggests, using this object, we will be able to manage the state of a program effectively, without breaking one of the main principles of the paradigm, immutability."
 social-share: true
-social-title: "...And Monads for All: The State Monad"
+social-title: "...And Monads for (Almost) All: The State Monad"
 social-tags: "FP, design, Programming, monad, Scala"
 reddit-link: "https://www.reddit.com/r/programming/comments/9zna03/and_monads_for_all_the_state_monad/"
 math: false
 ---
 
 This article starts a series on a topic that is very hot among the developers' community: functional programming. In details, we will focus on _monads_. This very complex object coming from the Category Theory is so important in functional programming that is very hard to program without it in this kind of paradigm. Its main aim is to make simpler the composition of pure functions, that are mathematical functions that cannot have any _side effect_. We start with a classic: _The State Monad_. As its name suggests, using this object, we will be able to manage the state of a program effectively, without breaking one of the main principles of the paradigm , _immutability_.
+
+**Disclaimer**: I will not describe the very basics of functional programmings, such as immutability and referential transparency. The material I present has the primary objective to fix the concepts and the reasoning that are needed to understand the basic Monads. 
+
+I will use Scala, because I don't know Haskell (but, it is in my todo list) and because it is a language I love (coming from Java ecosystem). You can agree, or in disagreement with me. I don't mind ;)
 
 ## The context
 
