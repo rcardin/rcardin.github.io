@@ -13,6 +13,7 @@ social-share: true
 social-title: "...And Monads for (Almost) All: The State Monad"
 social-tags: "FP, design, Programming, monad, Scala"
 reddit-link: "https://www.reddit.com/r/programming/comments/9zna03/and_monads_for_all_the_state_monad/"
+dev-link: "https://dev.to/riccardo_cardin/and-monads-for-almost-all-the-state-monad-2im1"
 math: false
 ---
 
