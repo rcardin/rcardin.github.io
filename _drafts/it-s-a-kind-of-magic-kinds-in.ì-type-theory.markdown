@@ -26,4 +26,22 @@ what does this mean? In this little introductory post, I will try to explain mys
 during my journey through kinds in my Haskell travelling.
 
 ## The beginning of all the sadness
+
+To make thinks simple, we start from the Java programming language. In Java you can define a class 
+(a type), which take as input parameter another type. It is called a _generic class_. For example, think to the `List<T>` type. There is a _type parameter_ `T` that one should provide to the compiler when dealing with a `List` to obtain a concrete and usable type. Then, we have `List<Integer>`, `List<String>`, `List<Optional<Double>>`, and so on.
+
+What about if we provide not a concrete type aa the value of the type parameter? What about `List<List>`, for example? Well, the Java compiler transforms this type into the more safer `List<List<Object>>`, warning you that you are using `List` in a non generic way. And yes, `List<Object>` is an awful concrete type.
+
+So, it seems that Java type system allows to fill type parameters only with concrete types. Fair enough. And the Scala programming language? Well, Scala introduces a feature that is called **Higher Kinded Types (HKT)**. HKTs allows us to define things like the following.
+
+```scala
+trait Functor[F[_]] {
+  def map[A, B](fa: F[A])(f: A => B): F[B]
+}
+```
+
 TODO
+
+## References
+
+- [Scala: Types of a higher kind](https://www.atlassian.com/blog/archives/scala-types-of-a-higher-kind)
