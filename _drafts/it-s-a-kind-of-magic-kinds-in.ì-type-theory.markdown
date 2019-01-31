@@ -34,11 +34,11 @@ What about if we provide not a concrete type aa the value of the type parameter?
 
 So, it seems that Java type system allows to fill type parameters only with concrete types. Fair enough. And the Scala programming language? Well, Scala introduces a feature that is called **Higher Kinded Types (HKT)**. HKTs allows us to define things like the following.
 
-```scala
+{% highlight scala %}
 trait Functor[F[_]] {
   def map[A, B](fa: F[A])(f: A => B): F[B]
 }
-```
+{% endhighlight %}
 
 TODO
 
