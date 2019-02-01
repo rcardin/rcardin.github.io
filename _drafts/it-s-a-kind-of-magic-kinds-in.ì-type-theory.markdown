@@ -32,7 +32,7 @@ To make thinks simple, we start from the Java programming language. In Java you 
 
 What about if we provide not a concrete type aa the value of the type parameter? What about `List<List>`, for example? Well, the Java compiler transforms this type into the more safer `List<List<Object>>`, warning you that you are using `List` in a non generic way. And yes, `List<Object>` is an awful concrete type.
 
-So, it seems that Java type system allows to fill type parameters only with concrete types. Fair enough. And the Scala programming language? Well, Scala introduces a feature that is called **Higher Kinded Types (HKT)**. HKTs allows us to define things like the following.
+So, it seems that Java type system allows to fill type parameters only with concrete types. Fair enough. And the Scala programming language? Well, Scala introduces in the game a feature that is called **Higher Kinded Types (HKT)**. HKTs allows us to define things like the following.
 
 {% highlight scala %}
 trait Functor[F[_]] {
@@ -40,8 +40,16 @@ trait Functor[F[_]] {
 }
 {% endhighlight %}
 
-TODO
+What does that strange symbols, `F[_]`, mean? It means that `Functor` is a generic type, which type parameter can be filled with any other generic type that accept one and only one type parameter, i.e. `List[T]`, `Option[T]`, and so on. Differently from Java, Scala accepts both concrete types and types that remain generic, that is whose type parameters are not binded. If you think about it, it's like partial application in function, in which not all the parameters are given at one time.
+
+The Scala vision of types came from how the type system of Haskell was thought. Also in Haskell you can define a _functor_.
+
+{% highlight haskell %}
+class Functor f where  
+    fmap :: (a -> b) -> f a -> f b 
+{% endhighlight %}
 
 ## References
 
 - [Scala: Types of a higher kind](https://www.atlassian.com/blog/archives/scala-types-of-a-higher-kind)
+- [Making Our Own Types and Typeclasses](http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass)
