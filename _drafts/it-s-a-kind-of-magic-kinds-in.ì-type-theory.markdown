@@ -54,9 +54,10 @@ Different sysntax, same semantic.
 So, in some programming languages we need a way to distinguish between the available types. As we just saw, there are types that are concrete, and types that needs some information to become concrete. Type theory comes in help to us, with **Kinds**, i.e. types of types.
 
 ## Kinds
-TODO
+As we just said, kinds are the types of types, more or less. To be more formal, a kind is actually more of an arity specifier.
 
 ## References
 
 - [Scala: Types of a higher kind](https://www.atlassian.com/blog/archives/scala-types-of-a-higher-kind)
 - [Making Our Own Types and Typeclasses](http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass)
+- [Kind (type theory)](https://en.wikipedia.org/wiki/Kind_(type_theory))
