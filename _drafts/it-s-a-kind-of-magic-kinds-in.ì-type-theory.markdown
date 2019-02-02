@@ -49,6 +49,13 @@ class Functor f where
     fmap :: (a -> b) -> f a -> f b 
 {% endhighlight %}
 
+Different sysntax, same semantic.
+
+So, in some programming languages we need a way to distinguish between the available types. As we just saw, there are types that are concrete, and types that needs some information to become concrete. Type theory comes in help to us, with **Kinds**, i.e. types of types.
+
+## Kinds
+TODO
+
 ## References
 
 - [Scala: Types of a higher kind](https://www.atlassian.com/blog/archives/scala-types-of-a-higher-kind)
