@@ -53,11 +53,27 @@ Different sysntax, same semantic.
 
 So, in some programming languages we need a way to distinguish between the available types. As we just saw, there are types that are concrete, and types that needs some information to become concrete. Type theory comes in help to us, with **Kinds**, i.e. types of types.
 
+But, first we need to specify the small bricks we need to built the road through kinds definition. And so we will do.
+
+## Some fancy title
+### Values
+Starting from the beginning we found _values_. Values are the information or data that our programs evaluate. Examples of values are things like `1`, `"hello"`, `true`, `3.14`, and so on. Each value in a program belongs to a type. A value can be assigned to a name, that is called a _variable_.
+
+### Types
+_Types_ give information to our program about how to treat values at runtime. In other terms, they set _contraints_ to values. Saying that a variable has type `bool`, `e: bool`,it means that it can have only two values, that are `true` or `false`.
+
+In statically typed programming languages, the definition of types for values is made at compile time. You must give to each value (or variable) a type while your writing your code. In dinamically typed programming languages, the type of a value is determined at runtime, that is during execution of the program. 
+
+In functional programming languages, in which functions are first-order citizens, each function has an associated type too. For example, the function `sum`, that takes two integers and returns their sum, has type `(Int, Int) => Int` in Scala, or `Int -> Int -> Int` in Haskell.
+
+As we previously said, there can be types that are _parametric_. _Generic types_ uses _type parameters_ to exploit this feature. So, we can define a type... TODO
+
 ## Kinds
-As we just said, kinds are the types of types, more or less. To be more formal, a kind is actually more of an arity specifier.
+As we just said, kinds are the types of types, more or less. To be more formal, a kind is actually more of an arity specifier. 
 
 ## References
 
 - [Scala: Types of a higher kind](https://www.atlassian.com/blog/archives/scala-types-of-a-higher-kind)
 - [Making Our Own Types and Typeclasses](http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass)
 - [Kind (type theory)](https://en.wikipedia.org/wiki/Kind_(type_theory))
+- [Correct terminology in type theory: types, type constructors, kinds/sorts and values](https://softwareengineering.stackexchange.com/questions/255878/correct-terminology-in-type-theory-types-type-constructors-kinds-sorts-and-va)
