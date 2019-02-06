@@ -107,7 +107,28 @@ class Functor f where
 
 By the definition, `f` receives a concrete type in input, and produces a concrete type. So, `Functor`, as `List`, `Option` and so on, has kind `* -> *`. In other words, it is a function that takes a concrete type in input and produce a concrete type. `Map[K, V]` has kind `* -> * -> *`, because it needs two concrete types in input to produce a concrete type.
 
-TALK ABOUT CURRYING
+The fact that type constructors are similar to some kind of function, is underlyned by the use of _currying_ to model situations, in which more than one parameter takes place.
+
+In Haskell, you can ask the kind of a type to the compiler, using the function `:k`.
+
+{% highlight shell %}
+ghci> :k Functor  
+Functor :: * -> *  
+{% endhighlight %}
+
+But, a question should arise into your mind: What the hell are kinds useful for? And, the answer is _typeclasses_.
+
+### Typeclasses
+
+A typeclass is a concept that not all the programming languages have. For example, it is present in Haskell, and (obviously) Scala, but not in Java.
+
+> A typeclass defines some behaviour, and then types that can behave in that way are made instances of that typeclass. So when we say that a type is an instance of a typeclass, we mean that we can use the functions that the typeclass defines with that type.
+
+A typeclass is very similar to the concept of `interface` in Java. In Scala it is obtained using a `trait`. In Haskell, there is a dedicated construct that is the `class` construct. In Haskell, there are typeclasses for a lot of features that a type could have: the `Eq` typeclass marks all the type that be checked for equality; The `Ord` typeclass marks all the types that can be compared; The `Show` typeclass is used by the type that can be pretty printed in the standard output.
+
+Our `Functor` that we defined earlier is in fact a typeclass. The `fmap` function defines the behaviour of the typeclass.
+
+Typeclasses can declare some very weird type parameters, and kind le 
 
 ## References
 
