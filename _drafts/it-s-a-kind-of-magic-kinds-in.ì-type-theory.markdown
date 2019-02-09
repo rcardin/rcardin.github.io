@@ -120,7 +120,7 @@ But, a question should arise into your mind: What the hell are kinds useful for?
 
 ### Typeclasses
 
-A typeclass is a concept that not all the programming languages have. For example, it is present in Haskell, and (obviously) Scala, but not in Java.
+A typeclass is a concept that not all the programming languages have. For example, it is present in Haskell, and (in some way) Scala, but not in Java.
 
 > A typeclass defines some behaviour, and then types that can behave in that way are made instances of that typeclass. So when we say that a type is an instance of a typeclass, we mean that we can use the functions that the typeclass defines with that type.
 
@@ -128,7 +128,27 @@ A typeclass is very similar to the concept of `interface` in Java. In Scala it i
 
 Our `Functor` that we defined earlier is in fact a typeclass. The `fmap` function defines the behaviour of the typeclass.
 
-Typeclasses can declare some very weird type parameters, and kind le 
+Typeclasses are not native citizens of Scala, but they can be simulated quite well. The example below declares the typeclass `Show`.
+
+{% highlight scala %}
+trait Show[A] {
+  def show(a: A): String
+}
+{% endhighlight %}
+
+While in Haskell typeclasses have a native support, so the compiler recognize them and generate automatically the binary code associated with them, in Scala you need to revamp some intricated mechanisms, involving _implicits_ (see [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html) for more details on the topic).
+
+So, to let a type to belong to a typeclass, in Haskell you have simple to declare it in the type definition, using the `deriving` keyword.
+
+{% highlight haskell %}
+data List a = Empty | Cons a (List a) deriving (Show, Read, Eq, Ord) 
+{% endhighlight %}
+
+Anyway, Describing an abstract behaviour, typeclasses are inherently abstract too. The way the abstraction is achieved is using type parameters. Usually, typeclasses declare some contraints on the type represented by the type parameter.
+
+The problem is that typeclasses can declare some very weird type parameters. Reasoning on the kind of types, allows us to understand which type can be used to fulfill the type parameter.
+
+Let's do a simple example. As we said, the `Functor` typeclass has kind `* -> *`, which means that it wants types that take only one parameter. Such kind of types are similar to the `List`, `Maybe`, `Set` types.
 
 ## References
 
@@ -136,3 +156,4 @@ Typeclasses can declare some very weird type parameters, and kind le
 - [Making Our Own Types and Typeclasses](http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass)
 - [Kind (type theory)](https://en.wikipedia.org/wiki/Kind_(type_theory))
 - [Correct terminology in type theory: types, type constructors, kinds/sorts and values](https://softwareengineering.stackexchange.com/questions/255878/correct-terminology-in-type-theory-types-type-constructors-kinds-sorts-and-va)
+- [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html)
