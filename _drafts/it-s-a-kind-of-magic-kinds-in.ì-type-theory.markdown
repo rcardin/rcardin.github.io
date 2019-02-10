@@ -148,7 +148,21 @@ Anyway, Describing an abstract behaviour, typeclasses are inherently abstract to
 
 The problem is that typeclasses can declare some very weird type parameters. Reasoning on the kind of types, allows us to understand which type can be used to fulfill the type parameter.
 
-Let's do a simple example. As we said, the `Functor` typeclass has kind `* -> *`, which means that it wants types that take only one parameter. Such kind of types are similar to the `List`, `Maybe`, `Set` types.
+Let's do a simple example. As we said, the type needed by the `Functor` typeclass has kind `* -> *`, which means that the typeclass requests types that take only one parameter. Such kind of types are similar to the `List`, `Maybe` (`Option` in Scala, and `Optional` in Java), `Set` types. 
+
+What if we want apply such typeclass to the `Either` type. Both in Haskell and Scala, this type is defined as `Either[L, R]`, defining two type parameters, respectively _left_ and _right_. For the definition we gave of kind, `Either` has kind `* -> * -> *`. The kind of `Either` and of the type requested by the `Functor` class are not compatible, so we need to _partially apply_ `Either` type, to obtain a new type having kind `* -> *`.
+
+For sake of completeness (and for those of you that know Haskell syntax), the partial application to make `Either` a member of `Functor` results in something like the following. Here, we mapped the case of the _right_ type parameter.
+
+{% highlight haskell %}
+instance Functor (Either a) where  
+    fmap f (Right x) = Right (f x)  
+    fmap f (Left x) = Left x  
+{% endhighlight %}
+
+## Conclusions
+
+Our journey through an edulcorated extract of type theory has finished. We saw many different concepts along the way. Many of these should be more detailed, but a post would not have been enough. Clearly, you need kinds only when you have to manage Higher kinded types in Scala or Haskell (or in any programming language that provides a version of such types). Kinds help you to understand which type can be member of a typeclass. Long story short :)
 
 ## References
 
