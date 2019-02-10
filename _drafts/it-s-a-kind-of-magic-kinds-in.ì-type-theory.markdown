@@ -55,7 +55,7 @@ So, in some programming languages we need a way to distinguish between the avail
 
 But, first we need to specify the small bricks we need to built the road through kinds definition. And so we will do.
 
-## Some fancy title
+## Types revised
 ### Values
 
 Starting from the beginning we found _values_. Values are the information or data that our programs evaluate. Examples of values are things like `1`, `"hello"`, `true`, `3.14`, and so on. Each value in a program belongs to a type. A value can be assigned to a name, that is called a _variable_.
@@ -80,7 +80,7 @@ So, in the ssme way (value) constructors take as input a list of values to gener
 
 Now, we have two different "kinds" of types: The former is represented by concrete types; The latter by type constructors. We have just said that we need to define the type of a type :O
 
-## Kinds
+## Kinds (of monsters)
 
 _Kinds_ are the types of types, more or less. To be more formal, a kind is actually more of an arity specifier. We use the character `*` to refer to kinds.
 
