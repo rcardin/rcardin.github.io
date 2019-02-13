@@ -63,7 +63,7 @@ _Types_ give information to our program about how to treat values at runtime. In
 
 > So, a type is a compile-time constraint on the values an expression can be at runtime.
 
-In statically typed programming languages, the definition of types for values is made at compile time. You must give to each value (or variable) a type while your writing your code. In dynamically typed programming languages, the type of value is determined at runtime, that is during the execution of the program. 
+In statically typed programming languages, the definition of types for values is made at compile time. You must give to each value (or variable) a type during you art writing your code. In dynamically typed programming languages, the type of value is determined at runtime, that is during the execution of the program. 
 
 In functional programming languages, in which functions are first-order citizens, each function has an associated type too. For example, the function `sum`, that takes two integers and returns their sum, has type `(Int, Int) => Int` in Scala, or `Int -> Int -> Int` in Haskell.
 
@@ -79,9 +79,9 @@ Now, we have two different "kinds" of types: The former is represented by concre
 
 ## Some Kind (of monsters)
 
-_Kinds_ are the types of types, more or less. To be more formal, a kind is actually more of an arity specifier. We use the character `*` to refer to kinds.
+_Kinds_ are the types of types, more or less. A kind is more of an arity specifier. We use the character `*` to refer to kinds.
 
-`*` is the kind of simple and concrete types. A concrete type is a type that doesn't take any type of parameters.
+`*` is the kind of simple and concrete types. A concrete type is a type that doesn't take any parameters.
 
 What about type constructors? Let's take a step back. A (value) constructor is nothing more than a function that takes a tuple of values in input and returns a new value.
 
@@ -102,9 +102,9 @@ class Functor f where
     fmap :: (a -> b) -> f a -> f b 
 {% endhighlight %}
 
-By the definition, `f` receives a concrete type as input, and produces a concrete type. So, `Functor`, as `List`, `Option` and so on, has kind `* -> *`. In other words, it is a function that takes a concrete type in input and produces a concrete type. `Map[K, V]` has kind `* -> * -> *`, because it needs two concrete types in input to produce a concrete type.
+By definition, `f` receives a concrete type as input, and produces a concrete type. So, `Functor`, as `List`, `Option` and so on, has kind `* -> *`. In other words, it is a function that takes a concrete type in input and produces a concrete type. `Map[K, V]` has kind `* -> * -> *`, because it needs two concrete types in input to produce a concrete type.
 
-The fact that type constructors are similar to some kind of function, is underlined by the use of _currying_ to model situations, in which more than one parameter takes place.
+The fact that type constructors are similar to functions is underlined by the use of _currying_ to model situations, in which more than one parameter takes place.
 
 In Haskell, you can ask the kind of a type to the compiler, using the function `:k`.
 
@@ -113,7 +113,7 @@ ghci> :k Functor
 Functor :: * -> *  
 {% endhighlight %}
 
-But, a question should arise into your mind: What the hell are kinds useful for? And, the answer is _typeclasses_.
+However, a question should arise into your mind: What the hell are kinds useful for? The answer is _typeclasses_.
 
 ### Typeclasses
 
@@ -133,7 +133,7 @@ trait Show[A] {
 }
 {% endhighlight %}
 
-While in Haskell type classes have native support, so the compiler recognizes them and generates automatically the binary code associated with them, in Scala you need to revamp some intricated mechanisms, involving _implicits_ (see [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html) for more details on the topic).
+While in Haskell type classes have native support, so the compiler recognises them and generates automatically the binary code associated with them, in Scala you need to revamp some intricated mechanisms, involving _implicits_ (see [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html) for more details on the topic).
 
 So, to let a type to belong to a type class, in Haskell you have simple to declare it in the type definition, using the `deriving` keyword.
 
@@ -143,7 +143,7 @@ data List a = Empty | Cons a (List a) deriving (Show, Read, Eq, Ord)
 
 Anyway, describing abstract behaviour, type classes are inherently abstract too. The way the abstraction is achieved is using type parameters. Usually, type classes declare some constraints on the type represented by the type parameter.
 
-The problem is that type classes can declare some very weird type parameters. Reasoning on the kind of types, allows us to understand which type can be used to fulfil the type parameter.
+The problem is that type classes can declare some strange type parameters. Reasoning on the kind of types, allows us to understand which type can be used to fulfil the type parameter.
 
 Let's do a simple example. As we said, the type needed by the `Functor` type class has kind `* -> *`, which means that the type class requests types that take only one parameter. Such kind of types are similar to the `List`, `Maybe` (`Option` in Scala, and `Optional` in Java), `Set` types. 
 
@@ -159,7 +159,7 @@ instance Functor (Either a) where
 
 ## Conclusions
 
-Our journey through an edulcorated extract of type theory has finished. We saw many different concepts along the way. Many of these should be more detailed, but a post would not have been enough. Clearly, you need kinds only when you have to manage Higher Kinded Types in Scala or Haskell (or in any programming language that provides a version of such types). Kinds help you to understand which type can be a member of a type class. Long story short :)
+Our journey through an edulcorated extract of type theory has finished. We saw many different concepts along the way. Many of these should be more detailed, but a post would not have been enough. You need kinds only when you have to manage Higher Kinded Types in Scala or Haskell (or in any programming language that provides a version of such types). Kinds help you to understand which type can be a member of a type class. Long story short :)
 
 ## References
 
