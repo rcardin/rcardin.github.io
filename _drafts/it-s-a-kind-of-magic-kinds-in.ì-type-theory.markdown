@@ -69,11 +69,11 @@ In functional programming languages, in which functions are first-order citizens
 
 ### Type constructors
 
-As we previously said, there can be types that are _parametric_. _Generic types_ uses _type parameters_ to exploit this feature. So, we can define a type using a type parameter such as `List[T]`, where `T` can be instantiated with any concret type we want.
+As we previously said, there can be types that are _parametric_. _Generic types_ uses _type parameters_ to exploit this feature. So, we can define a type using a type parameter such as `List[T]`, where `T` can be instantiated with any concrete type we want.
 
-Using type parameters is an attempt to justify the fact that, let's say, `List[Int]` are very similar to `List[String]`. It is nothing more than a way to generify and abstract over types.
+Using type parameters is an attempt to justify the fact that, let's say, `List[Int]` is very similar to `List[String]`. It is nothing more than a way to generify and abstract over types.
 
-So, in the ssme way (value) constructors take as input a list of values to generate new values, _type constructors_ take as input a type to create new types. `List[T]`, `Map[K, V]`, `Option[T]`, and so on are all classified as type constructors. In Java, we call them _generics_. In C++, they call them _templates_.
+So, in the same way (value) constructors take as input a list of values to generate new values, _type constructors_ take as input a type to create new types. `List[T]`, `Map[K, V]`, `Option[T]`, and so on are all classified as type constructors. In Java, we call them _generics_. In C++, they call them _templates_.
 
 Now, we have two different "kinds" of types: The former is represented by concrete types; The latter by type constructors. We have just said that we need to define the type of a type :O
 
@@ -81,9 +81,9 @@ Now, we have two different "kinds" of types: The former is represented by concre
 
 _Kinds_ are the types of types, more or less. To be more formal, a kind is actually more of an arity specifier. We use the character `*` to refer to kinds.
 
-`*` is the kind of simple and concrete types. A concrete type is a type that doesn't take any type parameters.
+`*` is the kind of simple and concrete types. A concrete type is a type that doesn't take any type of parameters.
 
-What about type constructors? Let's take a step back. A (value) constructor is nothing more that a function that takes a tuple of values in input and returns a new value.
+What about type constructors? Let's take a step back. A (value) constructor is nothing more than a function that takes a tuple of values in input and returns a new value.
 
 {% highlight scala %}
 class Person(name: String, surname: String) = {
@@ -93,7 +93,7 @@ class Person(name: String, surname: String) = {
 
 The above is nothing more than a function of type `(String, String) => Person`
 
-Now, lift this concept to type constructors: values are now represented by types, and (value) constructors by type constructors. Then, a type constractor is a function that takes in input a tuple of types and produce a new type.
+Now, lift this concept to type constructors: values are now represented by types, and (value) constructors by type constructors. Then, a type constructor is a function that takes in input a tuple of types and produces a new type.
 
 Returning to our `Functor` type class, we have the following.
 
@@ -102,9 +102,9 @@ class Functor f where
     fmap :: (a -> b) -> f a -> f b 
 {% endhighlight %}
 
-By the definition, `f` receives a concrete type in input, and produces a concrete type. So, `Functor`, as `List`, `Option` and so on, has kind `* -> *`. In other words, it is a function that takes a concrete type in input and produce a concrete type. `Map[K, V]` has kind `* -> * -> *`, because it needs two concrete types in input to produce a concrete type.
+By the definition, `f` receives a concrete type as input, and produces a concrete type. So, `Functor`, as `List`, `Option` and so on, has kind `* -> *`. In other words, it is a function that takes a concrete type in input and produces a concrete type. `Map[K, V]` has kind `* -> * -> *`, because it needs two concrete types in input to produce a concrete type.
 
-The fact that type constructors are similar to some kind of function, is underlyned by the use of _currying_ to model situations, in which more than one parameter takes place.
+The fact that type constructors are similar to some kind of function, is underlined by the use of _currying_ to model situations, in which more than one parameter takes place.
 
 In Haskell, you can ask the kind of a type to the compiler, using the function `:k`.
 
@@ -117,15 +117,15 @@ But, a question should arise into your mind: What the hell are kinds useful for?
 
 ### Typeclasses
 
-A typeclass is a concept that not all the programming languages have. For example, it is present in Haskell, and (in some way) Scala, but not in Java.
+A type class is a concept that not all the programming languages have. For example, it is present in Haskell, and (in some way) Scala, but not in Java.
 
-> A typeclass defines some behaviour, and then types that can behave in that way are made instances of that typeclass. So when we say that a type is an instance of a typeclass, we mean that we can use the functions that the typeclass defines with that type.
+> A type class defines some behaviour, and the types that can behave in that way are made instances of that type class. So when we say that a type is an instance of a type class, we mean that we can use the functions that the type class defines with that type.
 
-A typeclass is very similar to the concept of `interface` in Java. In Scala it is obtained using a `trait`. In Haskell, there is a dedicated construct that is the `class` construct. In Haskell, there are typeclasses for a lot of features that a type could have: the `Eq` typeclass marks all the type that be checked for equality; The `Ord` typeclass marks all the types that can be compared; The `Show` typeclass is used by the type that can be pretty printed in the standard output.
+A type class is very similar to the concept of `interface` in Java. In Scala, it is obtained using a `trait`. In Haskell, there is a dedicated construct that is the `class` construct. In Haskell, there are type classes for a lot of features that a type could have: the `Eq` type class marks all the type that be checked for equality; The `Ord` type class marks all the types that can be compared; The `Show` type class is used by the type that can be pretty-printed in the standard output.
 
-Our `Functor` that we defined earlier is in fact a typeclass. The `fmap` function defines the behaviour of the typeclass.
+Our `Functor` that we defined earlier is, in fact, a type class. The `fmap` function defines the behaviour of the type of class.
 
-Typeclasses are not native citizens of Scala, but they can be simulated quite well. The example below declares the typeclass `Show`.
+Typeclasses are not native citizens of Scala, but they can be simulated quite well. The example below declares the type class `Show`.
 
 {% highlight scala %}
 trait Show[A] {
@@ -133,21 +133,21 @@ trait Show[A] {
 }
 {% endhighlight %}
 
-While in Haskell typeclasses have a native support, so the compiler recognize them and generate automatically the binary code associated with them, in Scala you need to revamp some intricated mechanisms, involving _implicits_ (see [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html) for more details on the topic).
+While in Haskell type classes have native support, so the compiler recognizes them and generates automatically the binary code associated with them, in Scala you need to revamp some intricated mechanisms, involving _implicits_ (see [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html) for more details on the topic).
 
-So, to let a type to belong to a typeclass, in Haskell you have simple to declare it in the type definition, using the `deriving` keyword.
+So, to let a type to belong to a type class, in Haskell you have simple to declare it in the type definition, using the `deriving` keyword.
 
 {% highlight haskell %}
 data List a = Empty | Cons a (List a) deriving (Show, Read, Eq, Ord) 
 {% endhighlight %}
 
-Anyway, Describing an abstract behaviour, typeclasses are inherently abstract too. The way the abstraction is achieved is using type parameters. Usually, typeclasses declare some contraints on the type represented by the type parameter.
+Anyway, describing abstract behaviour, type classes are inherently abstract too. The way the abstraction is achieved is using type parameters. Usually, type classes declare some constraints on the type represented by the type parameter.
 
-The problem is that typeclasses can declare some very weird type parameters. Reasoning on the kind of types, allows us to understand which type can be used to fulfill the type parameter.
+The problem is that type classes can declare some very weird type parameters. Reasoning on the kind of types, allows us to understand which type can be used to fulfil the type parameter.
 
-Let's do a simple example. As we said, the type needed by the `Functor` typeclass has kind `* -> *`, which means that the typeclass requests types that take only one parameter. Such kind of types are similar to the `List`, `Maybe` (`Option` in Scala, and `Optional` in Java), `Set` types. 
+Let's do a simple example. As we said, the type needed by the `Functor` type class has kind `* -> *`, which means that the type class requests types that take only one parameter. Such kind of types are similar to the `List`, `Maybe` (`Option` in Scala, and `Optional` in Java), `Set` types. 
 
-What if we want apply such typeclass to the `Either` type. Both in Haskell and Scala, this type is defined as `Either[L, R]`, defining two type parameters, respectively _left_ and _right_. For the definition we gave of kind, `Either` has kind `* -> * -> *`. The kind of `Either` and of the type requested by the `Functor` class are not compatible, so we need to _partially apply_ `Either` type, to obtain a new type having kind `* -> *`.
+What if we want to apply such type class to the `Either` type. Both in Haskell and Scala, this type is defined as `Either[L, R]`, defining two type parameters, respectively _left_ and _right_. For the definition we gave of a kind, `Either` has kind `* -> * -> *`. The kind of `Either` and of the type requested by the `Functor` class are not compatible, so we need to _partially apply_ `Either` type, to obtain a new type having kind `* -> *`.
 
 For sake of completeness (and for those of you that know Haskell syntax), the partial application to make `Either` a member of `Functor` results in something like the following. Here, we mapped the case of the _right_ type parameter.
 
@@ -159,7 +159,7 @@ instance Functor (Either a) where
 
 ## Conclusions
 
-Our journey through an edulcorated extract of type theory has finished. We saw many different concepts along the way. Many of these should be more detailed, but a post would not have been enough. Clearly, you need kinds only when you have to manage Higher kinded types in Scala or Haskell (or in any programming language that provides a version of such types). Kinds help you to understand which type can be member of a typeclass. Long story short :)
+Our journey through an edulcorated extract of type theory has finished. We saw many different concepts along the way. Many of these should be more detailed, but a post would not have been enough. Clearly, you need kinds only when you have to manage Higher Kinded Types in Scala or Haskell (or in any programming language that provides a version of such types). Kinds help you to understand which type can be a member of a type class. Long story short :)
 
 ## References
 
