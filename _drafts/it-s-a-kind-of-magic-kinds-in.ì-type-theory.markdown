@@ -25,11 +25,11 @@ during my journey through kinds in my Haskell travelling.
 ## The beginning of all the sadness
 
 To make things simple, we start from the Java programming language. In Java, you can define a class 
-(a type), which take as input parameter another type. It is called a _generic class_. For example, think to the `List<T>` type. There is a _type parameter_ `T` that one should provide to the compiler when dealing with a `List` to obtain concrete and usable type. Then, we have `List<Integer>`, `List<String>`, `List<Optional<Double>>`, and so on.
+(a type), which take as input parameter another type. It is called a _generic class_. For example, think to the `List<T>` type. There is a _type parameter_ `T` that one should provide to the compiler when dealing with a `List` to obtain concrete and usable types. Then, we have `List<Integer>`, `List<String>`, `List<Optional<Double>>`, and so on.
 
-What about if we provide not a concrete type aa the value of the type parameter? What about `List<List>`, for example? Well, the Java compiler transforms this type into the more safer `List<List<Object>>`, warning you that you are using `List` in a non-generic way. And yes, `List<Object>` is an awful concrete type.
+What about if we provide not a concrete type as the value of the type parameter? What about `List<List>`, for example? Well, the Java compiler transforms this type into the more safer `List<List<Object>>`, warning you that you are using `List` in a non-generic way. And yes, `List<Object>` is an awful concrete type.
 
-So, it seems that the Java type system allows filling type parameters only with concrete types. Fair enough. What about the Scala programming language? Well, Scala introduces in the game a feature that is called **Higher Kinded Types (HKT)**. HKTs allows us to define things like the following.
+So, it seems that the Java type system allows filling type parameters only with concrete types. Fair enough. What about the Scala programming language? Well, Scala introduces in the game a feature that is called **Higher Kinded Types (HKT)**. HKTs allow us to define things like the following.
 
 {% highlight scala %}
 trait Functor[F[_]] {
@@ -37,7 +37,7 @@ trait Functor[F[_]] {
 }
 {% endhighlight %}
 
-What does that strange symbol, `F[_]`, mean? It means that `Functor` is a generic type, which type parameter can be filled with any other generic type that accepts one and only one type parameter, i.e. `List[T]`, `Option[T]`, and so on. Differently, Scala accepts both concrete types and types that remain generic, that is whose type parameters are not bound. If you think about it, it's like partial application in function, in which not all the parameters are given at one time.
+What does that strange symbol, `F[_]`, mean? It means that `Functor` is _something_ (a type class, indeed), which type parameter can be filled with any other generic type that accepts one and only one type parameter, i.e. `List[T]`, `Option[T]`, and so on.
 
 The Scala vision of types comes from how the type system of Haskell was thought. Also in Haskell, you can define a _functor_.
 
@@ -55,7 +55,7 @@ However, first, we need to specify the small bricks we need to build the road th
 ## Types, and other stuff
 ### Values
 
-Starting from the beginning, we found _values_. Values are the information or data that our programs evaluate. Examples of values are things like `1`, `"hello"`, `true`, `3.14`, and so on. Each value in a program belongs to a type. A value can be assigned to a name, that is called a _variable_.
+Starting from the beginning, we found _values_. Values are the information or data that our programs evaluate. Examples of values are things like `1`, `"hello"`, `true`, `3.14`, and so on. Each value in a program belongs to a _type_. A value can be assigned to a name, that is called a _variable_.
 
 ### Types
 
@@ -63,15 +63,15 @@ _Types_ give information to our program about how to treat values at runtime. In
 
 > So, a type is a compile-time constraint on the values an expression can be at runtime.
 
-In statically typed programming languages, the definition of types for values is made at compile time. You must give to each value (or variable) a type during you art writing your code. In dynamically typed programming languages, the type of value is determined at runtime, that is during the execution of the program. 
+In statically typed programming languages, the definition of types for values is made at compile time. You must give to each value (or variable) a type while you are writing your code. In dynamically typed programming languages, the type of values is determined at runtime, that is during the execution of the program. 
 
 In functional programming languages, in which functions are first-order citizens, each function has an associated type too. For example, the function `sum`, that takes two integers and returns their sum, has type `(Int, Int) => Int` in Scala, or `Int -> Int -> Int` in Haskell.
 
 ### Type constructors
 
-As we previously said, there can be types that are _parametric_. _Generic types_ uses _type parameters_ to exploit this feature. So, we can define a type using a type parameter such as `List[T]`, where `T` can be instantiated with any concrete type we want.
+As we previously said, there can be "types" that are _parametric_. _Generic types_ uses _type parameters_ to exploit this feature. So, we can define a "type" using a type parameter such as `List[T]`, where `T` can be instantiated with any concrete type we want.
 
-Using type parameters is an attempt to justify the fact that, let's say, `List[Int]` is very similar to `List[String]`. It is nothing more than a way to generify and abstract over types.
+Using type parameters is an attempt to justify the fact that, let's say, the behaviour of a `List[Int]` is very similar to the behaviour of a `List[String]`. It is nothing more than a way to generify and abstract over types.
 
 So, in the same way (value) constructors take as input a list of values to generate new values, _type constructors_ take as input a type to create new types. `List[T]`, `Map[K, V]`, `Option[T]`, and so on are all classified as type constructors. In Java, we call them _generics_. In C++, they call them _templates_.
 
