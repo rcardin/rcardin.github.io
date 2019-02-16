@@ -75,11 +75,11 @@ Using type parameters is an attempt to justify the fact that, let's say, the beh
 
 So, in the same way (value) constructors take as input a list of values to generate new values, _type constructors_ take as input a type to create new types. `List[T]`, `Map[K, V]`, `Option[T]`, and so on are all classified as type constructors. In Java, we call them _generics_. In C++, they call them _templates_.
 
-Now, we have two different "kinds" of types: The former is represented by concrete types; The latter by type constructors. We have just said that we need to define the type of a type :O
+Now, we have two different "kinds" of objects dealing with types: The former is represented by concrete types; The latter by type constructors. We have just said that we need to define the type of a type :O
 
 ## Some Kind (of monsters)
 
-_Kinds_ are the types of types, more or less. A kind is more of an arity specifier. We use the character `*` to refer to kinds.
+_Kinds_ are the types of objects that are related to types, more or less. A kind is more of an _arity_ specifier. In their simplest form, we use the character `*` to refer to kinds.
 
 `*` is the kind of simple and concrete types. A concrete type is a type that doesn't take any parameters.
 
@@ -93,24 +93,17 @@ class Person(name: String, surname: String) = {
 
 The above is nothing more than a function of type `(String, String) => Person`
 
-Now, lift this concept to type constructors: values are now represented by types, and (value) constructors by type constructors. Then, a type constructor is a function that takes in input a tuple of types and produces a new type.
+Now, lift this concept to type constructors: Values are now represented by types, and (value) constructors by type constructors. Then, a type constructor is a function that takes in input a tuple of types and produces a new type.
 
-Returning to our `Functor` type class, we have the following.
-
-{% highlight haskell %}
-class Functor f where  
-    fmap :: (a -> b) -> f a -> f b 
-{% endhighlight %}
-
-By definition, `f` receives a concrete type as input, and produces a concrete type. So, `Functor`, as `List`, `Option` and so on, has kind `* -> *`. In other words, it is a function that takes a concrete type in input and produces a concrete type. `Map[K, V]` has kind `* -> * -> *`, because it needs two concrete types in input to produce a concrete type.
+Think about a list. It's definition is `List[T]`. So, it takes a type in input to produce a concrete type. It is similar to a function having only one parameter. `List`, `Option` and so on, has kind `* -> *`. `Map[K, V]` has kind `* -> * -> *`, because it needs two concrete types in input to produce a concrete type.
 
 The fact that type constructors are similar to functions is underlined by the use of _currying_ to model situations, in which more than one parameter takes place.
 
 In Haskell, you can ask the kind of a type to the compiler, using the function `:k`.
 
 {% highlight shell %}
-ghci> :k Functor  
-Functor :: * -> *  
+ghci> :k List  
+List :: * -> *  
 {% endhighlight %}
 
 However, a question should arise into your mind: What the hell are kinds useful for? The answer is _typeclasses_.
