@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "It's a Kind of Magic: Kinds in Type Theory"
-date:   2019-02-15 13:45:21
+date:   2019-02-17 21:15:21
 comments: true
 categories: functional programming types
 tags:
@@ -108,17 +108,17 @@ List :: * -> *
 
 However, a question should arise into your mind: What the hell are kinds useful for? The answer is _typeclasses_.
 
-### Typeclasses
+### Type Classes
 
 A type class is a concept that not all the programming languages have. For example, it is present in Haskell, and (in some way) Scala, but not in Java.
 
 > A type class defines some behaviour, and the types that can behave in that way are made instances of that type class. So when we say that a type is an instance of a type class, we mean that we can use the functions that the type class defines with that type.
 
-A type class is very similar to the concept of `interface` in Java. In Scala, it is obtained using a `trait`. In Haskell, there is a dedicated construct that is the `class` construct. In Haskell, there are type classes for a lot of features that a type could have: the `Eq` type class marks all the type that be checked for equality; The `Ord` type class marks all the types that can be compared; The `Show` type class is used by the type that can be pretty-printed in the standard output.
+A type class is very similar to the concept of `interface` in Java. In Scala, it is obtained using a `trait`. In Haskell, there is a dedicated construct that is the `class` construct. In Haskell, there are type classes for a lot of features that a type could have: The `Eq` type class marks all the types that be checked for equality; The `Ord` type class marks all the types that can be compared; The `Show` type class is used by the types that can be pretty-printed in the standard output.
 
 Our `Functor` that we defined earlier is, in fact, a type class. The `fmap` function defines the behaviour of the type of class.
 
-Typeclasses are not native citizens of Scala, but they can be simulated quite well. The example below declares the type class `Show`.
+Type classes are not native citizens of Scala, but they can be simulated quite well. The example below declares the type class `Show`.
 
 {% highlight scala %}
 trait Show[A] {
@@ -128,19 +128,27 @@ trait Show[A] {
 
 While in Haskell type classes have native support, so the compiler recognises them and generates automatically the binary code associated with them, in Scala you need to revamp some intricated mechanisms, involving _implicits_ (see [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html) for more details on the topic).
 
-So, to let a type to belong to a type class, in Haskell you have simple to declare it in the type definition, using the `deriving` keyword.
+So, to let a type to belong to a type class contained in the standard library, in Haskell you have simple to declare it in the type definition, using the `deriving` keyword.
 
 {% highlight haskell %}
 data List a = Empty | Cons a (List a) deriving (Show, Read, Eq, Ord) 
 {% endhighlight %}
 
+In general, to make a type to belong to a type class you have to provide the implementation of the methods (behaviours) of the type class. The following code shows a possible implementation of the `Functor` type class by the `Maybe` type (`Option` in Scala). As you can see, there are dedicated constructs of the language, as `instance` and `where`, to support type classes.
+
+{% highlight haskell %}
+instance Functor Maybe where  
+    fmap f (Just x) = Just (f x)  
+    fmap f Nothing = Nothing 
+{% endhighlight %}
+
 Anyway, describing abstract behaviour, type classes are inherently abstract too. The way the abstraction is achieved is using type parameters. Usually, type classes declare some constraints on the type represented by the type parameter.
 
-The problem is that type classes can declare some strange type parameters. Reasoning on the kind of types, allows us to understand which type can be used to fulfil the type parameter.
+The problem is that type classes can declare some strange type parameters. **Reasoning on the kind of types, allows us to understand which type can be used to fulfil the type parameter.**
 
-Let's do a simple example. As we said, the type needed by the `Functor` type class has kind `* -> *`, which means that the type class requests types that take only one parameter. Such kind of types are similar to the `List`, `Maybe` (`Option` in Scala, and `Optional` in Java), `Set` types. 
+Let's do a simple example. Looking back at the `Functor` type class definition, the type `f` must have a kind `* -> *`, which means that the type class requests types that take only one parameter. The function `fmap` applies `f` to a type `a` and a type `b`, which are concrete types in absence of any other indication. As previously said, Such kind of objects are similar to the `List`, `Maybe` (`Option` in Scala, and `Optional` in Java), `Set` type constructors. 
 
-What if we want to apply such type class to the `Either` type. Both in Haskell and Scala, this type is defined as `Either[L, R]`, defining two type parameters, respectively _left_ and _right_. For the definition we gave of a kind, `Either` has kind `* -> * -> *`. The kind of `Either` and of the type requested by the `Functor` class are not compatible, so we need to _partially apply_ `Either` type, to obtain a new type having kind `* -> *`.
+What if we want to apply such type class to the `Either` type constructor? Both in Haskell and Scala, it is defined as `Either[L, R]`, defining two type parameters, respectively _left_ and _right_. For the definition we gave of a kind, `Either` has kind `* -> * -> *`. The kind of `Either` and of the type parameter requested by the `Functor` class are not compatible, so we need to _partially apply_ `Either` type, to obtain a new type having kind `* -> *`.
 
 For sake of completeness (and for those of you that know Haskell syntax), the partial application to make `Either` a member of `Functor` results in something like the following. Here, we mapped the case of the _right_ type parameter.
 
@@ -150,14 +158,24 @@ instance Functor (Either a) where
     fmap f (Left x) = Left x  
 {% endhighlight %}
 
+In conclusion, Kinds let us know how to use type classes, and type constructors, to obtain concrete type, sharing their behaviour.
+
 ## Conclusions
 
-Our journey through an edulcorated extract of type theory has finished. We saw many different concepts along the way. Many of these should be more detailed, but a post would not have been enough. You need kinds only when you have to manage Higher Kinded Types in Scala or Haskell (or in any programming language that provides a version of such types). Kinds help you to understand which type can be a member of a type class. Long story short :)
+Our journey through an edulcorated extract of type theory has finished. We saw many different concepts along the way. Many of these should be more detailed, but a post would not have been enough. We should have understood that we need kinds only when we have to manage Higher Kinded Types in Scala or Haskell (or in any programming language that provides a version of such types). 
+
+Kinds help you to understand which type can be a member of a type class. Long story short :)
+
+Sorry for the long, and boring post. Here there is a _lambda potato_.
+
+![My sweet lambda-potato](/assets/2019-02-18/lambda-potato.jpg)
 
 ## References
 
 - [Scala: Types of a higher kind](https://www.atlassian.com/blog/archives/scala-types-of-a-higher-kind)
 - [Making Our Own Types and Typeclasses](http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass)
+- [Functors, Applicative Functors and Monoids](http://learnyouahaskell.com/functors-applicative-functors-and-monoids)
 - [Kind (type theory)](https://en.wikipedia.org/wiki/Kind_(type_theory))
 - [Correct terminology in type theory: types, type constructors, kinds/sorts and values](https://softwareengineering.stackexchange.com/questions/255878/correct-terminology-in-type-theory-types-type-constructors-kinds-sorts-and-va)
 - [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html)
+- [Can type constructors be considered as types in functional programming languages?](https://stackoverflow.com/questions/54620961/can-type-constructors-be-considered-as-types-in-functional-programming-languages)
