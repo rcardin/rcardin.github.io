@@ -16,6 +16,7 @@ social-title: "It's a Kind of Magic: Kinds in Type Theory"
 social-tags: "functional, Programming, types, Scala, Haskell"
 reddit-link: "https://www.reddit.com/r/programming/comments/as87mv/its_a_kind_of_magic_kinds_in_type_theory/"
 dzone-link: "https://dzone.com/articles/its-a-kind-of-magic-kinds-in-type-theory"
+dev-link: "https://dev.to/riccardo_cardin/its-a-kind-of-magic-kinds-in-type-theory-8ll"
 math: false
 ---
 
