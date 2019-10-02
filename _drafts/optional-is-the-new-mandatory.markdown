@@ -84,6 +84,53 @@ val longName: String = maybeUser match {
 
 Using pattern matching is a little more verbouse than using the next approach I am going to show you but it is still more elegant than checking the existence of a value using the `isDefined` method.
 
+### Using the option type as a list
+The suggested approach by the Scala community is to use the `Option` type just like if it was a list. This approach takes advantage of the fact that the `Option` type is indeed a _monad_ (also in this case, explaining what a monad is in functional programming is behind the scope of this post).
+
+The `Option` type, as lists, exposes a lot of useful methods to transform e manage the option internal type, without even the need to extract it. Among the others, such methods are the `map`, `flatMap` and `filter` functions.
+
+The `map` method allows you to transform the value owned by an option object, if any.
+
+{% highlight scala %}
+val maybeUser: Option[User] = repository.findById("some id")
+val longName: Option[String] = maybeUser.map(user => user.name + user.surname)
+{% endhighlight %}
+
+The `flatMap` method allows you to compose functions that in turn return an object of type `Option`.
+
+{% highlight scala %}
+val maybeUser: Option[User] = repository.findById("some id")
+// Using a simple map function, we obtain an Option[Option[String]]...uhh, ugly!
+val gender: Option[String] = maybeUser.flatMap(user => user.gender)
+{% endhighlight %}
+
+Finally, the `filter` method allows you to discard any value that does not fulfill a given predicate.
+
+{% highlight scala %}
+val maybeUser: Option[User] = repository.findById("some id")
+val maybeNotARiccardo: Option[User] = maybeUser.filter(user => user.name != "Riccardo")
+{% endhighlight %}
+
+All the above methods, if invoked on a `None` object, return `None` automatically, preserving any method call concatenation.
+
+Note that we can combine the use of the `map`, `flatMap` and `filter` method using _for-comprehension_, giving to our  code a look more like Haskell. 
+
+{% highlight scala %}
+val maybeUser: Option[User] = repository.findById("some id")
+val maybeNotARiccardo: Option[User] = maybeUser.filter(user => user.name != "Riccardo")
+val maybeTheGenderOfANoRiccardo: Option[String] = maybeNotARiccardo.flatMap(user => user.gender)
+{% endhighlight %}
+
+Using _for-comprehension_ construct, the above code can be rewritten using a simple `for...yield` expression.
+
+{% highlight scala %}
+val maybeTheGenderOfANoRiccardo: Option[String] =
+  for {
+    user <- repository.findById("some id")
+    gender <- user.gender if user.name != "Riccardo")
+  } yield (gender)
+{% endhighlight %}
+
 ## References
 - [Null References: The Billion Dollar Mistake](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)
 - [The Neophyte's Guide to Scala Part 5: The Option type](https://danielwestheide.com/blog/the-neophytes-guide-to-scala-part-5-the-option-type/)
