@@ -26,8 +26,8 @@ Let's start from a concrete example. Think about a repository that manages users
 How can we represent the concept of _nothing_? It is common to use the _null reference_ to accomplish this task.
 
 {% highlight scala %}
-val user = repository.findById("some id")
-val longName = user.name + user.surname
+val maybeUser = repository.findById("some id")
+val longName = maybeUser.name + maybeUser.surname
 {% endhighlight %}
 
 The problem is not in returning a null reference itself. The problem is using a reference containing a `null`. The above code, written in Scala, rises a `NullPointerException` during the access of the methods `name` and `surname`, if the `user` reference is equal to `null`.
@@ -57,10 +57,10 @@ Using the `Option` type, our previous method changes its signature in `def findB
 One of the possible choices is to try to get the value out of the option. The API of the `Option` type lists the methods `isDefined` and `get`. The first check if a option contains a value, and the second allows you to extract that value. The usage pattern raising from the use of the above methods is the following.
 
 {% highlight scala %}
-val user: Option[User] = repository.findById("some id")
+val maybeUser: Option[User] = repository.findById("some id")
 var longName: String;
-if (user.isDefined) {
-  longName = user.get.name + user.get.surname
+if (maybeUser.isDefined) {
+  longName = maybeUser.get.name + maybeUser.get.surname
 }
 {% endhighlight %}
 
@@ -69,8 +69,8 @@ Despite the use of a `var` reference, the above pattern is to avoid. If you call
 For this reason, the Scala `Option` type provides a variant of the `get` method, which is `getOrElse`. This method allows you to provide a default value to return in case of an empty option. Imagine that our `User` type provides a `gender: Options[String]` method, which eventually returns the gender of a user. Using `getOrElse` it possible to safely use the following pattern.
 
 {% highlight scala %}
-val user: User = // Retrieving a user
-val gender: String = user.gender.getOrElse("Not specified")
+val maybeUser: User = // Retrieving a user
+val gender: String = maybeUser.gender.getOrElse("Not specified")
 {% endhighlight %}
 
 ### Using pattern matching
