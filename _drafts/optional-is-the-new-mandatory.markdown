@@ -217,7 +217,11 @@ As you can see, the type of the last `maybeTheGenderOfANoRiccardo` variable is n
 
 ## Conclusions
 
-TODO
+In this post we analyzed a modern solution to deal with the `null` value and in general the absence of a information. We started to see how the Scala programming language defines `Option[T]` type, listining the best pratice of its use. Then, we saw how the good old Java approaches to the problem, the `Optional<T>` type, concluding that it is very similar to the solution proposed in Scala.
+
+Finally, we looked at a differente solution, the one proposed by Kotlin. Kotlin does not have any optional type, because it tries to handle the nullability of references at compile-time. Althought this approach is very elegant and as powerfull as the approaches proposed in Scala and Java, it badly compose with the other constructs used in functional programming. For this reason, Kotlin has its own library for functional structures, such as the optional type, which is [ARROW](https://arrow-kt.io/).
+
+**Bonus**: Are you planning to use an option value as a parameter for a method? Please, don't do that ([Why should Java 8's Optional not be used in arguments](https://stackoverflow.com/questions/31922866/why-should-java-8s-optional-not-be-used-in-arguments)).
 
 ## References
 - [Null References: The Billion Dollar Mistake](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)
