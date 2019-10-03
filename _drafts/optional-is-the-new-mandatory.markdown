@@ -49,6 +49,8 @@ Basically, the `Option[T]` type is just like a list that can be empty or can con
 
 `Option` is indeed an [Algebraic Data Type](https://nrinaudo.github.io/scala-best-practices/definitions/adt.html) but the definition of such concept is behind the scope of this post.
 
+To built a new instance of an `Option` class it is possible to use the factory method `Option(value: T)`, declared in the `Option` `object`. The factory method will properly create a new `Option` instance: If `value` is equal to `null`, then the `None` object is returned, `Some(value)` otherwise.
+
 Using the `Option` type, our previous method changes its signature in `def findById(id: String): Option[User]`. Ok, interesting. But how can I use the user value contained inside the option type? There are many ways to do that. Let's look at them.
 
 ### Getting the value out of the option type
@@ -131,6 +133,48 @@ val maybeTheGenderOfANoRiccardo: Option[String] =
   } yield (gender)
 {% endhighlight %}
 
+Last but not least, if you need to apply some _side-effects_ if a value is present in an option object, you can use the `foreach` method. This function cycles on the single value of the option, if present, and executes a procedure.
+
+{% highlight scala %}
+val maybeUser: Option[User] = repository.findById("some id")
+maybeUser.foreach(user => println(s"$user.name $user.surname"))
+{% endhighlight %}
+
+## Option type in other languages
+The option type is not present only in Scala. It is widely used in many programming languages that aims to have a functional approach to development.
+
+### Java
+Since Java 8, the `Optional<T>` type was introduced in the mainstream JVM language. It is very similar to its Scala cousine.
+
+Also the Java API defines different factory methods to build a new instance of `Optional`: `Optional.of` which throws an exception if the given value is `null`, and `Optional.ofNullable`, that returns an `Optional.empty` in case of `null` value. 
+
+A small difference if the behaviour of the `map` method. If the function used by `map` returns a `null` value, the method interprets this as the `Optional.empty` value. The `map` method behaves like the `flatMap` method, in this particular case.
+
+{% highlight java %}
+Optional<User> maybeUser = repository.findById("some id");
+Optional<String> maybeUserName = maybeUser.map(user -> {
+    if ("Riccardo".equals(user.getName()) {
+        return user.getName();
+    } else {
+        return null;
+    }
+});
+{% endhighlight %}
+
+The above code returns an `Optional.empty` value if the name of the user is equal to the `String` `"Riccardo"`.
+
+Another interesting method of the Java `Optional` type is `orElseThrow`. This method allows us to choose which exception to rise in case of an empty optional object.
+
+It worth reporting the answer that Brian Goetz gave to the StackOverflow question, [Should Java 8 getters return optional type?](https://stackoverflow.com/questions/26327957/should-java-8-getters-return-optional-type).
+
+> NEVER call `Optional.get` unless you can prove it will never be `null`; instead use one of the safe methods like `orElse` or `ifPresent`. In retrospect, we should have called get something like `getOrElseThrowNoSuchElementException` or something that made it far clearer that this was a highly dangerous method that undermined the whole purpose of Optional in the first place. Lesson learned.
+
+### Kotlin
+The Kotlin programming languages does not have a built-in support to something that is similar to the Scala `Option` type or to the Java `Optional` type. The reason why is mainly that the language support _compile-time_ null checking.
+
+
+
 ## References
 - [Null References: The Billion Dollar Mistake](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)
 - [The Neophyte's Guide to Scala Part 5: The Option type](https://danielwestheide.com/blog/the-neophytes-guide-to-scala-part-5-the-option-type/)
+- [Should Java 8 getters return optional type?](https://stackoverflow.com/questions/26327957/should-java-8-getters-return-optional-type)
