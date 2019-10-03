@@ -172,9 +172,55 @@ It worth reporting the answer that Brian Goetz gave to the StackOverflow questio
 ### Kotlin
 The Kotlin programming languages does not have a built-in support to something that is similar to the Scala `Option` type or to the Java `Optional` type. The reason why is mainly that the language support _compile-time_ null checking.
 
+In Kotlin every type has two variants. Continuing our previous example, Kotlin defines both the `User`, and the `User?` type. A reference of the first type cannot be `null`, whereas an instance of the `User?` type can hold also the `null` value. To make the things work, any non-nullable type is a child type of the corresponding nullable type.
 
+In other words, Kotlin attempts to solve the problem by forcing you to handle null references. Kotlin forces you to handle the exception or to take full responsibility. For example, you can't use the deferencing operator, the `.` (dot), if you are managing _nullable_ type. The following code won't even compile.
+
+{% highlight kotlin %}
+val maybeUser: User? = repository.findById("some id")
+val longName = maybeUser.name + maybeUser.name
+{% endhighlight %}
+
+Kotlin tries to prevent `NullPointerException` for you. The _safe call_ operator, `.?` must be used in this case. It checks if the refence is `null`, and if it is not, it calls the method on it, propagates the `null` value otherwise.
+
+{% highlight kotlin %}
+val maybeUser: User? = repository.findById("some id")
+val longName: String? = maybeUser.?name + maybeUser.?name
+{% endhighlight %}
+
+The power of the _safe call_ operator shines with chained methods calls. In this case, it also reminds very strictly the use of the methods `map` and `flatMap` defined in the `Option` type.
+
+{% highlight kotlin %}
+val maybeGender: String? = 
+  repository.findById("some id").?gender
+{% endhighlight %}
+
+The above method is equal to the following Java counterpart.
+
+{% highlight java %}
+String maybeGender = 
+    repository.findById("some id")
+              .flatMap(user -> user.getGender())
+              .getOrElse(null);
+{% endhighlight %}
+
+If you don't mind about NPEs, you can always use the `!!.` operator, that does not perform any check on reference nullability.
+
+Finally, also Kotlin defines the same behaviour of the `orElse` method in Scala or Java for nullable types, using the _Elvis operator_, `?:`. If you we want to return a special value of the gender if something is `null` during the gender resolution process, we can proceed as the following code shows.
+
+{% highlight kotlin %}
+val maybeTheGender: String = 
+  repository.findById("some id").?gender ?: "Not defined"
+{% endhighlight %}
+
+As you can see, the type of the last `maybeTheGenderOfANoRiccardo` variable is not _nullable_ anymore, because the _elvis operator_ eliminates the possibility for the reference to be `null`.
+
+## Conclusions
+
+TODO
 
 ## References
 - [Null References: The Billion Dollar Mistake](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)
 - [The Neophyte's Guide to Scala Part 5: The Option type](https://danielwestheide.com/blog/the-neophytes-guide-to-scala-part-5-the-option-type/)
 - [Should Java 8 getters return optional type?](https://stackoverflow.com/questions/26327957/should-java-8-getters-return-optional-type)
+- [Chapter 2: Functional programming in Kotlin: An overview. The Joy of Kotlin, Pierre Yves Saumont, 2019, Manning Publications](https://www.manning.com/books/the-joy-of-kotlin)
