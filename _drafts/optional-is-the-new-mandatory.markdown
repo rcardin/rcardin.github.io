@@ -1,19 +1,17 @@
 ---
 layout: post
 title:  "Optional Is the New Mandatory"
-date:   2019-10-03 14:45:12
+date:   2019-10-036 14:15:12
 comments: true
 categories: functional programming types
 tags:
     - functional
     - programming
-    - monads
     - jvm
-    - optional
 summary: "Since the beginning of the 'computer programming era', developers had searched for a solution for one of the biggest mistake made in computer science, the invention of the null reference. Since functional programming became mainstream, a solution to this problem seems to arise, the use of the optional type."
 social-share: true
 social-title: "Optional Is the New Mandatory"
-social-tags: "functional, Programming, Java, Scala, Haskell"
+social-tags: "functional, Programming, Java, Scala, Kotlin"
 math: false
 ---
 
@@ -141,12 +139,13 @@ maybeUser.foreach(user => println(s"$user.name $user.surname"))
 {% endhighlight %}
 
 ## Option type in other languages
-The option type is not present only in Scala. It is widely used in many programming languages that aims to have a functional approach to development.
+
+The `Option` type is not present only in Scala. Many programming languages widely use it.
 
 ### Java
-Since Java 8, the `Optional<T>` type was introduced in the mainstream JVM language. It is very similar to its Scala cousine.
+Since Java 8, the language introduced the `Optional<T>` type in the mainstream JVM language. It is very similar to its Scala cousin.
 
-Also the Java API defines different factory methods to build a new instance of `Optional`: `Optional.of` which throws an exception if the given value is `null`, and `Optional.ofNullable`, that returns an `Optional.empty` in case of `null` value. 
+Also, the Java API defines different factory methods to build a new instance of `Optional`: `Optional.of` which throws an exception if the given value is `null`, and `Optional.ofNullable`, that returns an `Optional.empty` in case of `null` value. 
 
 A small difference if the behaviour of the `map` method. If the function used by `map` returns a `null` value, the method interprets this as the `Optional.empty` value. The `map` method behaves like the `flatMap` method, in this particular case.
 
@@ -163,25 +162,25 @@ Optional<String> maybeUserName = maybeUser.map(user -> {
 
 The above code returns an `Optional.empty` value if the name of the user is equal to the `String` `"Riccardo"`.
 
-Another interesting method of the Java `Optional` type is `orElseThrow`. This method allows us to choose which exception to rise in case of an empty optional object.
+Another interesting method of the Java `Optional` type is `orElseThrow`. This method allows us to choose which exception to rising in case of an empty `Optional` object.
 
 It worth reporting the answer that Brian Goetz gave to the StackOverflow question, [Should Java 8 getters return optional type?](https://stackoverflow.com/questions/26327957/should-java-8-getters-return-optional-type).
 
 > NEVER call `Optional.get` unless you can prove it will never be `null`; instead use one of the safe methods like `orElse` or `ifPresent`. In retrospect, we should have called get something like `getOrElseThrowNoSuchElementException` or something that made it far clearer that this was a highly dangerous method that undermined the whole purpose of Optional in the first place. Lesson learned.
 
 ### Kotlin
-The Kotlin programming languages does not have a built-in support to something that is similar to the Scala `Option` type or to the Java `Optional` type. The reason why is mainly that the language support _compile-time_ null checking.
+The Kotlin programming language does not have built-in support for something similar to the Scala `Option` type or the Java `Optional` type. The reason why is mainly that the language support _compile-time_ null checking.
 
-In Kotlin every type has two variants. Continuing our previous example, Kotlin defines both the `User`, and the `User?` type. A reference of the first type cannot be `null`, whereas an instance of the `User?` type can hold also the `null` value. To make the things work, any non-nullable type is a child type of the corresponding nullable type.
+In Kotlin every type has two variants. Continuing our previous example, Kotlin defines both the `User`, and the `User?` type. A reference of the first type cannot be `null`, whereas an instance of the `User?` type can also hold the `null` value. Any non-nullable type is a child type of the corresponding nullable type.
 
-In other words, Kotlin attempts to solve the problem by forcing you to handle null references. Kotlin forces you to handle the exception or to take full responsibility. For example, you can't use the deferencing operator, the `.` (dot), if you are managing _nullable_ type. The following code won't even compile.
+In other words, Kotlin attempts to solve the problem by forcing you to handle null references. Kotlin forces you to handle the exception or to take full responsibility. For example, you can't use the dereferencing operator, the `.` (dot), if you are managing _nullable_ type. The following code won't even compile.
 
 {% highlight kotlin %}
 val maybeUser: User? = repository.findById("some id")
 val longName = maybeUser.name + maybeUser.name
 {% endhighlight %}
 
-Kotlin tries to prevent `NullPointerException` for you. The _safe call_ operator, `.?` must be used in this case. It checks if the refence is `null`, and if it is not, it calls the method on it, propagates the `null` value otherwise.
+Kotlin tries to prevent `NullPointerException` for you. The _safe call_ operator, `.?` must be used in this case. It checks if the reference is `null`, and if it is not, it calls the method on it, propagates the `null` value otherwise.
 
 {% highlight kotlin %}
 val maybeUser: User? = repository.findById("some id")
@@ -206,7 +205,7 @@ String maybeGender =
 
 If you don't mind about NPEs, you can always use the `!!.` operator, that does not perform any check on reference nullability.
 
-Finally, also Kotlin defines the same behaviour of the `orElse` method in Scala or Java for nullable types, using the _Elvis operator_, `?:`. If you we want to return a special value of the gender if something is `null` during the gender resolution process, we can proceed as the following code shows.
+Finally, also Kotlin defines the same behaviour of the `orElse` method in Scala or Java for nullable types, using the _Elvis operator_, `?:`. If we want to return a particular value of the gender if something is `null` during the gender resolution process, we can proceed as the following code shows.
 
 {% highlight kotlin %}
 val maybeTheGender: String = 
@@ -217,9 +216,9 @@ As you can see, the type of the last `maybeTheGenderOfANoRiccardo` variable is n
 
 ## Conclusions
 
-In this post we analyzed a modern solution to deal with the `null` value and in general the absence of a information. We started to see how the Scala programming language defines `Option[T]` type, listining the best pratice of its use. Then, we saw how the good old Java approaches to the problem, the `Optional<T>` type, concluding that it is very similar to the solution proposed in Scala.
+In this post, we analyzed a modern solution to deal with the `null` value and in general, the absence of information. We started to see how the Scala programming language defines `Option[T]` type, listing the best practice of its use. Then, we saw how the good old Java approaches to the problem, the `Optional<T>` type, concluding that it is very similar to the solution proposed in Scala.
 
-Finally, we looked at a differente solution, the one proposed by Kotlin. Kotlin does not have any optional type, because it tries to handle the nullability of references at compile-time. Althought this approach is very elegant and as powerfull as the approaches proposed in Scala and Java, it badly compose with the other constructs used in functional programming. For this reason, Kotlin has its own library for functional structures, such as the optional type, which is [ARROW](https://arrow-kt.io/).
+Finally, we looked at a different solution, the one proposed by Kotlin. Kotlin does not have any optional type, because it tries to handle the nullability of references at compile-time. Although this approach is exquisite and as powerful as the approaches proposed in Scala and Java, it poorly composes with the other constructs used in functional programming. For this reason, Kotlin has its library for functional structures, such as the optional type, which is [ARROW](https://arrow-kt.io/).
 
 **Bonus**: Are you planning to use an option value as a parameter for a method? Please, don't do that ([Why should Java 8's Optional not be used in arguments](https://stackoverflow.com/questions/31922866/why-should-java-8s-optional-not-be-used-in-arguments)).
 
