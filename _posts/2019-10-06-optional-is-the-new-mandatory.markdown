@@ -12,6 +12,7 @@ summary: "Since the beginning of the 'computer programming era', developers had 
 social-share: true
 social-title: "Optional Is the New Mandatory"
 social-tags: "functional, Programming, Java, Scala, Kotlin"
+reddit-link: "https://www.reddit.com/r/programming/comments/de2mq7/optional_is_the_new_mandatory/"
 math: false
 ---
 
