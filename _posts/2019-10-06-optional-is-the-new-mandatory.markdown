@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Optional Is the New Mandatory"
-date:   2019-10-06 12:15:12
+date:   2019-10-06 14:15:12
 comments: true
 categories: functional programming types
 tags:
