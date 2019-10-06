@@ -181,18 +181,18 @@ val maybeUser: User? = repository.findById("some id")
 val longName = maybeUser.name + maybeUser.name
 {% endhighlight %}
 
-Kotlin tries to prevent `NullPointerException` for you. The _safe call_ operator, `.?` must be used in this case. It checks if the reference is `null`, and if it is not, it calls the method on it, propagates the `null` value otherwise.
+Kotlin tries to prevent `NullPointerException` for you. The _safe call_ operator, `?.` must be used in this case. It checks if the reference is `null`, and if it is not, it calls the method on it, propagates the `null` value otherwise.
 
 {% highlight kotlin %}
 val maybeUser: User? = repository.findById("some id")
-val longName: String? = maybeUser.?name + maybeUser.?name
+val longName: String? = maybeUser?.name + maybeUser?.name
 {% endhighlight %}
 
 The power of the _safe call_ operator shines with chained methods calls. In this case, it also reminds very strictly the use of the methods `map` and `flatMap` defined in the `Option` type.
 
 {% highlight kotlin %}
 val maybeGender: String? = 
-  repository.findById("some id").?gender
+  repository.findById("some id")?.gender
 {% endhighlight %}
 
 The above method is equal to the following Java counterpart.
