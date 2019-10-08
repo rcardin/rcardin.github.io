@@ -152,8 +152,8 @@ A small difference if the behaviour of the `map` method. If the function used by
 
 {% highlight java %}
 Optional<User> maybeUser = repository.findById("some id");
-Optional<String> maybeUserName = maybeUser.map(user -> {
-    if ("Riccardo".equals(user.getName()) {
+Optional<String> maybeUserNameOtherThanRiccardo = maybeUser.map(user -> {
+    if (!"Riccardo".equals(user.getName()) {
         return user.getName();
     } else {
         return null;
@@ -161,7 +161,15 @@ Optional<String> maybeUserName = maybeUser.map(user -> {
 });
 {% endhighlight %}
 
-The above code returns an `Optional.empty` value if the name of the user is equal to the `String` `"Riccardo"`.
+The above code returns an `Optional.empty` value if the name of the user is equal to the `String` `"Riccardo"`. However, as [some Reddit user pointed out](https://www.reddit.com/r/programming/comments/de2mq7/optional_is_the_new_mandatory/f2tn2sw?utm_source=share&utm_medium=web2x), the above approach is no recommended in Java. Use the following code instead.
+
+{% highlight java %}
+
+Optional<String> maybeUserNameOtherThanRiccardo = 
+    repository.findById("some id")
+              .map(User::getName)
+              .filter(not("Riccardo"::equals));
+{% endhighlight %}
 
 Another interesting method of the Java `Optional` type is `orElseThrow`. This method allows us to choose which exception to rising in case of an empty `Optional` object.
 
