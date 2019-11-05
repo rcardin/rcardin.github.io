@@ -14,6 +14,7 @@ social-title: "Optional Is the New Mandatory"
 social-tags: "functional, Programming, Java, Scala, Kotlin"
 reddit-link: "https://www.reddit.com/r/programming/comments/de2mq7/optional_is_the_new_mandatory/"
 dev-link: "https://dev.to/riccardo_cardin/optional-is-the-new-mandatory-c9m"
+dzone-link: "https://dzone.com/articles/optional-is-the-new-mandatory"
 math: false
 ---
 
