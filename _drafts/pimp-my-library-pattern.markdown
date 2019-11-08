@@ -20,6 +20,20 @@ Which is the main problem you have as a developer when you use libraries that yo
 
 ## The problem
 
+Let's begin with a very extreme example. Imagine you want to add a method `Integer` type in Java that allows you to transate an int into an instance of the `java.time.Period` class. For whom that don't know this class, a `Period` represents a period of time, using days, months, years, and so on.
 
+All that we want to achive is having something like the following.
+
+{% highlight java %}
+final Period days = Integer.valueOf(42).days();
+{% endhighlight %}
+
+In more evolved languages, such like Scala or Kotlin, the above statement would look like the following.
+
+{% highlight scala %}
+val days = 42.days;
+{% endhighlight %}
+
+In Java you have no such many possibility to achieve the goal. 
 
 ## References
