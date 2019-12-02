@@ -34,6 +34,27 @@ In more evolved languages, such like Scala or Kotlin, the above statement would 
 val days = 42.days;
 {% endhighlight %}
 
-In Java you have no such many possibility to achieve the goal. 
+In Java you have no such many possibility to achieve the goal. Basically, since we cannot nor we want to modify directly the `Integer` type, and [we do not want to use inheritance on a concrete type](http://rcardin.github.io/design/programming/oop/fp/2018/07/27/the-secret-life-of-objects-part-2.html), the only
+left possibility is to implement a method somewhere that receive in input an `Integer` and returns a `Period`.
+
+{% highlight java %}
+class Integer2Period {
+    private Integer integer;
+    Period days() {
+        // Returns a period representation of the attribute integer
+    }
+}
+var days = new Integer2Period(42).days();
+{% endhighlight %}
+
+Meh. We used a _wrapper_, or some variance of the Object Adapter Pattern but we are very far from the objective we originally had.
+
+Let's see how modern JVM languages, such us Kotlin, Scala and Groovy give an answer to this problem.
+
+## Kotlin
+
+## Scala
+
+## Groovy
 
 ## References
