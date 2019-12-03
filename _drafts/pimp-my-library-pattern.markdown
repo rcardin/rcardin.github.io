@@ -41,7 +41,7 @@ left possibility is to implement a method somewhere that receive in input an `In
 class Integer2Period {
     private Integer integer;
     Period days() {
-        // Returns a period representation of the attribute integer
+        return Period.ofDays(integer);
     }
 }
 var days = new Integer2Period(42).days();
@@ -51,10 +51,41 @@ Meh. We used a _wrapper_, or some variance of the Object Adapter Pattern but we 
 
 Let's see how modern JVM languages, such us Kotlin, Scala and Groovy give an answer to this problem.
 
-## Kotlin
-
 ## Scala
+
+Scala was the language that first introduced the _Pimp My Library_ pattern. The pattern was introduced by the Scala language's dad, Martin Odersky, in his article [Pimp my Library](https://www.artima.com/weblogs/viewpost.jsp?thread=179766), in the far 2006. 
+
+The pattern allows to extend a type adding methods to it without using any form of inheritance. It is possible to add any method to any type both in the standard library, or in any external types. This is exactly what we are searching for, since we want to add a method to the `Int` type without extending from it.
+
+The implementation of the pattern in the Scala language is based on the use of _implicit conversions_. First of all, we need to declare an `implicit` class that allows the compiler to convert our basic type into a new type that add the method we want to have. In our case, the basic type is the `Int` type.
+
+{% highlight scala %}
+package object tutorial { 
+  implicit class ExtendedInt(val integer: Int) extends AnyVal {
+    def days = Period.ofDays(integer)
+  }
+}
+{% endhighlight %}
+
+Inside the package `tutorial`, or in any package, explicitly importing the package `tutorial`, we can use the method defined in the type `ExtendedInt` as it was defined for the `Int` type.
+
+{% highlight scala %}
+val days = 42.days;
+{% endhighlight %}
+
+The tricks that make the magic are two: 
+
+1. Using a package object, the `ExtendedInt` type will be automatically imported by the compiler in all the files that belong from it.
+2. The class `ExtendedInt` is declared as `implicit`.
+
+
+The pattern is extensively used in the definition of the standard library.
+
+## Kotlin
 
 ## Groovy
 
 ## References
+
+- [Pimp my Library (M. Odersky)](https://www.artima.com/weblogs/viewpost.jsp?thread=179766)
+- [Pimp My Library (D. Sfregola)](https://danielasfregola.com/2015/06/08/pimp-my-library/)
