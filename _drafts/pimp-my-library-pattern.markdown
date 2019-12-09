@@ -12,7 +12,7 @@ tags:
 summary: "Which is the main problem you have as a developer when you use libraries that you don't own? You can't change them. If something is missing in the public API of a library, there is no chance to extend it. Using some good old object-oriented programming, you can overcome this problem writing a lot of boilerplate code. In the JVM ecosystem, modern programming languages, such as Scala, Kotlin or Groovy, try to give a solution to library extension, the Pimp My Library Pattern."
 social-share: true
 social-title: "The Pimp My Library Pattern"
-social-tags: "functional, Programming, Java, Scala, Kotlin, Groovy"
+social-tags: "functional, Programming, Java, Scala, Kotlin"
 math: false
 ---
 
@@ -107,7 +107,31 @@ class IntegerUtilKt {
 }
 {% endhighlight %}
 
-## Groovy
+It's very similar to the solution we gave for the Java language.
+
+The translation that the Kotlin compiler performs on extension functions, allow us to call them also on nullable types. In fact, no method is call directly on the receiver object, which is pass as the first parameter to a static method.
+
+So, extension functions and the Kotlin type system allow us to declare something like the following.
+
+{% highlight kotlin %}
+fun String?.isNullOrBlank(): Boolean = this == null || this.isBlank()
+{% endhighlight %}
+
+You can safely use the above method in _if-statements_, to controll if a nullable object contains a `null` reference or not.
+
+{% highlight kotlin %}
+val possiblyEmptyString: String? = // Obtaining the string reference
+if (possiblyEmptyString.isNullOrBlank()) { // No NullPointerException!!!
+    // Do something smart
+}
+{% endhighlight %}
+
+Awsome.
+
+## Conclusions
+Sometimes a library contains almost all that you need, but it lacks of some feature that you desire. Extension using the regular object-oriented mechanisms is not a possibility in such cases. Many JVM-based languages gives you the possibility to achieve the goal to add the methods you need to library as if they were originally developed inside the library itself. The _Pimp my library_ pattern is the mechanism to make the magic happen. Scala uses _implicit objects_ and conventions to implement such pattern, whereas Kotlin has a more idiomatic approach that integrates very well with the Kotlin type system with respect to the handling of null references. 
+
+Where are you Java? Will you ever join the party?
 
 ## References
 
