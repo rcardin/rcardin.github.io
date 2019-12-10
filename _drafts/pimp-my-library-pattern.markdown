@@ -129,7 +129,10 @@ if (possiblyEmptyString.isNullOrBlank()) { // No NullPointerException!!!
 Awsome.
 
 ## Conclusions
-Sometimes a library contains almost all that you need, but it lacks of some feature that you desire. Extension using the regular object-oriented mechanisms is not a possibility in such cases. Many JVM-based languages gives you the possibility to achieve the goal to add the methods you need to library as if they were originally developed inside the library itself. The _Pimp my library_ pattern is the mechanism to make the magic happen. Scala uses _implicit objects_ and conventions to implement such pattern, whereas Kotlin has a more idiomatic approach that integrates very well with the Kotlin type system with respect to the handling of null references. 
+
+Sometimes a library contains almost all that you need, but it lacks of some feature that you desire. Extension using the regular object-oriented mechanisms is not a possibility in such cases. Many JVM-based languages gives you the possibility to achieve the goal to add the methods you need to library as if they were originally developed inside the library itself. The _Pimp my library_ pattern is the mechanism to make the magic happen. Scala uses _implicit objects_ and conventions to implement such pattern, whereas Kotlin has a more idiomatic approach that integrates very well with the Kotlin type system with respect to the handling of null references.
+
+As an extra conclusion, let's say that also Groovy implements the pattern, using [Extensions](https://www.baeldung.com/groovy-metaprogramming#extensions) and [Categories](https://www.baeldung.com/groovy-categories).
 
 Where are you Java? Will you ever join the party?
 
@@ -139,3 +142,5 @@ Where are you Java? Will you ever join the party?
 - [Pimp My Library (D. Sfregola)](https://danielasfregola.com/2015/06/08/pimp-my-library/)
 - [Chapter 3: Defining and calling function. Kotlin in Action, Dmitry Jemerov and Svetlana Isakova, 2017,
 Manning Publications](https://www.manning.com/books/kotlin-in-action)
+- [Groovy Extensions](https://www.baeldung.com/groovy-metaprogramming#extensions)
+- [Groovy Categories](https://www.baeldung.com/groovy-categories)
