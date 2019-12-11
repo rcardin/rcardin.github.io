@@ -9,33 +9,32 @@ tags:
     - programming
     - design
     - patterns
-summary: "Which is the main problem you have as a developer when you use libraries that you don't own? You can't change them. If something is missing in the public API of a library, there is no chance to extend it. Using some good old object-oriented programming, you can overcome this problem writing a lot of boilerplate code. In the JVM ecosystem, modern programming languages, such as Scala, Kotlin or Groovy, try to give a solution to library extension, the Pimp My Library Pattern."
+summary: "Which is the main problem you have as a developer when you use libraries that you don't own? You can't change them. If something is missing in the public API of a library, there is no chance to extend it. Using some excellent old object-oriented programming, you can overcome this problem by writing much boilerplate code. In the JVM ecosystem, modern programming languages, such as Scala, Kotlin or Groovy, try to give a solution to library extension, the Pimp My Library Pattern."
 social-share: true
 social-title: "The Pimp My Library Pattern"
 social-tags: "functional, Programming, Java, Scala, Kotlin"
 math: false
 ---
 
-Which is the main problem you have as a developer when you use libraries that you don't own? You can't change them. If something is missing in the public API of a library, there is no chance to extend it. Using some good old object-oriented programming, you can overcome this problem writing a lot of boilerplate code. In the JVM ecosystem, modern programming languages, such as Scala, Kotlin or Groovy, try to give a solution to library extension, the Pimp My Library Pattern. Let's go, and see what I am talking about.
+Which is the main problem you have as a developer when you use libraries that you don't own? You can't change them. If something is missing in the public API of a library, there is no chance to extend it. Using some excellent old object-oriented programming, you can overcome this problem by writing much boilerplate code. In the JVM ecosystem, modern programming languages, such as Scala, Kotlin or Groovy, try to give a solution to library extension, the Pimp My Library Pattern. Let's go, and see what I am talking.
 
 ## The problem
 
-Let's begin with a very extreme example. Imagine you want to add a method `Integer` type in Java that allows you to transate an int into an instance of the `java.time.Period` class. For whom that don't know this class, a `Period` represents a period of time, using days, months, years, and so on.
+Let's begin with a very extreme example. Imagine you want to add a method `Integer` type in Java that allows you to translate an int into an instance of the `java.time.Period` class. For whom that don't know this class, a `Period` represents a time, using days, months, years.
 
-All that we want to achive is having something like the following.
+All that we want to achieve is having something like the following.
 
 {% highlight java %}
 final Period days = Integer.valueOf(42).days();
 {% endhighlight %}
 
-In more evolved languages, such like Scala or Kotlin, the above statement would look like the following.
+In more evolved languages, such as Scala or Kotlin, the above statement would look like the following.
 
 {% highlight scala %}
 val days = 42.days;
 {% endhighlight %}
 
-In Java you have no such many possibility to achieve the goal. Basically, since we cannot nor we want to modify directly the `Integer` type, and [we do not want to use inheritance on a concrete type](http://rcardin.github.io/design/programming/oop/fp/2018/07/27/the-secret-life-of-objects-part-2.html), the only
-left possibility is to implement a method somewhere that receive in input an `Integer` and returns a `Period`.
+In Java, you have no many such possibilities to achieve the goal. Since we cannot nor we want to modify directly the `Integer` type, and [we do not want to use inheritance on a concrete type](http://rcardin.github.io/design/programming/oop/fp/2018/07/27/the-secret-life-of-objects-part-2.html), the only remaining possibility is to implement a method somewhere that receives in input an `Integer` and returns a `Period`.
 
 {% highlight java %}
 class Integer2Period {
@@ -47,9 +46,9 @@ class Integer2Period {
 var days = new Integer2Period(42).days();
 {% endhighlight %}
 
-Meh. We used a _wrapper_, or some variance of the Object Adapter Pattern but we are very far from the objective we originally had.
+Meh. We used a _wrapper_ or some variance of the Object Adapter Pattern, but we are very far from the objective we originally had.
 
-Let's see how modern JVM languages, such us Kotlin, Scala and Groovy give an answer to this problem.
+Let's see how modern JVM languages, such as Kotlin, Scala and Groovy answer this problem.
 
 ## Scala
 
