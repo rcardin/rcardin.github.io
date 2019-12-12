@@ -54,9 +54,9 @@ Let's see how modern JVM languages, such as Kotlin, Scala and Groovy answer this
 
 Scala was the language that first introduced the _Pimp My Library_ pattern. The pattern was introduced by the Scala language's dad, Martin Odersky, in his article [Pimp my Library](https://www.artima.com/weblogs/viewpost.jsp?thread=179766), in the far 2006. 
 
-The pattern allows to extend a type adding methods to it without using any form of inheritance. It is possible to add any method to any type both in the standard library, or in any external types. This is exactly what we are searching for, since we want to add a method to the `Int` type without extending from it.
+The pattern allows extending a type adding methods to it without using any form of inheritance. Using the pattern, we can add a method to the `Int` type without extending from it.
 
-The implementation of the pattern in the Scala language is based on the use of _implicit conversions_. First of all, we need to declare an `implicit` class that allows the compiler to convert our basic type into a new type that add the method we want to have. In our case, the basic type is the `Int` type.
+The Scala language implements the pattern through _implicit conversions_. First of all, we need to declare an `implicit` class that allows the compiler to convert our primary type into a new type that adds the method we want to have. In our case, the primary type is the `Int` type.
 
 {% highlight scala %}
 package object extension { 
@@ -66,7 +66,7 @@ package object extension {
 }
 {% endhighlight %}
 
-Inside the package `extension`, or in any package, explicitly importing the package `extension`, we can use the method defined in the type `ExtendedInt` as it was defined for the `Int` type.
+Inside the package `extension`, or in any package, explicitly importing the package `extension`, we can use the method defined in the type `ExtendedInt` as a method defined for the `Int` type.
 
 {% highlight scala %}
 val days = 42.days;
@@ -74,15 +74,15 @@ val days = 42.days;
 
 The tricks that make the magic are two: 
 
-1. Using a package object, the `ExtendedInt` type will be automatically imported by the compiler in all the files that belong from it.
+1. The declaration of the implicit type inside a package object forces the compiler to automatically import the `ExtendedInt` type in all the files that belong from it.
 2. The class `ExtendedInt` is declared as `implicit`.
 3. The class `ExtendedInt` is a subclass of the type `AnyVal`. From Scala 2.10, extending from `AnyVal` allows the compiler to perform some code optimisations. It's called _Custom Value Classes_.
 
-The pattern is extensively used in the definition of the standard library. All the type defined with the suffix `Ops` implement the pattern. Have a look at the [`StringOps`](https://www.scala-lang.org/api/2.12.2/scala/collection/immutable/StringOps.html) type for an example.
+The standard library extensively uses the pattern. All the type defined with the suffix `Ops` implement the pattern. Have a look at the [`StringOps`](https://www.scala-lang.org/api/2.12.2/scala/collection/immutable/StringOps.html) type for an example.
 
 ## Kotlin
 
-Also the newbie JVM-based language, Kotlin, has its own implementation of the _Pimp my library_ pattern. In Kotlin gergon, the pattern implementation it's called _Extension functions_. The pattern was introduced in the language with the fact in mind that the majority of library a Kotlin developer could use were writtern in Java. So, these libraries were not designed to work using Kotlin idioms, nor the they would never be translated in Kotlin.
+Also, the newbie JVM-based language, Kotlin, has its implementation of the _Pimp my library_ pattern. In Kotlin slang, the pattern implementation it's called _Extension functions_. The pattern was introduced in the language to contrast the fact that the majority of the libraries a Kotlin developer could use are in Java, and not in Kotlin.
 
 The syntax needed to declare an _extension function_ is less verbose than the syntax used in the Scala language ( :O ).
 
@@ -92,7 +92,7 @@ fun Integer.days(): Period = Period.ofDays(this)
 
 In our example, the `Integer` type is also called the _receiver type_. Whereas, the `this` reference on the right of the assignment symbol is called the _receiver object_. The `this` reference refers to the integer instance on which the extension method is called. To preserve encapsulation, you can access only to the public methods of the receiver object.
 
-The compiler does not import the extension methods by default. As any other Kotlin entity, you need to explicitly import them before the use.
+The compiler does not import the extension methods by default. As any other Kotlin entity, you need to import them before using explicitly.
 
 Under the hood, the compiler translates every extension method in a `static` method having the receiver object as its first parameter. The name of the enclosing class is equal to the name of the file that declares the extension function.
 
@@ -108,7 +108,7 @@ class IntegerUtilKt {
 
 It's very similar to the solution we gave for the Java language.
 
-The translation that the Kotlin compiler performs on extension functions, allow us to call them also on nullable types. In fact, no method is call directly on the receiver object, which is pass as the first parameter to a static method.
+The translation that the Kotlin compiler performs on extension functions allows us to call them also on nullable types. No method is called directly on the receiver object passed as the first parameter to a static method.
 
 So, extension functions and the Kotlin type system allow us to declare something like the following.
 
@@ -116,7 +116,7 @@ So, extension functions and the Kotlin type system allow us to declare something
 fun String?.isNullOrBlank(): Boolean = this == null || this.isBlank()
 {% endhighlight %}
 
-You can safely use the above method in _if-statements_, to controll if a nullable object contains a `null` reference or not.
+You can safely use the above method in _if-statements_, to control if a nullable object contains a `null` reference or not.
 
 {% highlight kotlin %}
 val possiblyEmptyString: String? = // Obtaining the string reference
@@ -125,13 +125,13 @@ if (possiblyEmptyString.isNullOrBlank()) { // No NullPointerException!!!
 }
 {% endhighlight %}
 
-Awsome.
+Awesome
 
 ## Conclusions
 
-Sometimes a library contains almost all that you need, but it lacks of some feature that you desire. Extension using the regular object-oriented mechanisms is not a possibility in such cases. Many JVM-based languages gives you the possibility to achieve the goal to add the methods you need to library as if they were originally developed inside the library itself. The _Pimp my library_ pattern is the mechanism to make the magic happen. Scala uses _implicit objects_ and conventions to implement such pattern, whereas Kotlin has a more idiomatic approach that integrates very well with the Kotlin type system with respect to the handling of null references.
+Sometimes a library contains almost all that you need, but it lacks some feature that you desire. Extension using the regular object-oriented mechanisms is not a possibility in such cases. Many JVM-based languages give you the possibility to achieve the goal to add the methods you need to an existing library without modifying it. The _Pimp my library_ pattern is the mechanism to make the magic happen. Scala uses _implicit objects_ and conventions to implement such a pattern. In contrast, Kotlin has a more natural approach that integrates very well with the Kotlin type system concerning the handling of null references.
 
-As an extra conclusion, let's say that also Groovy implements the pattern, using [Extensions](https://www.baeldung.com/groovy-metaprogramming#extensions) and [Categories](https://www.baeldung.com/groovy-categories).
+Moreover, let's say that also Groovy implements the pattern, using [Extensions](https://www.baeldung.com/groovy-metaprogramming#extensions) and [Categories](https://www.baeldung.com/groovy-categories).
 
 Where are you Java? Will you ever join the party?
 
