@@ -142,15 +142,19 @@ if (possiblyEmptyString.isNullOrBlank()) { // No NullPointerException!!!
 }
 {% endhighlight %}
 
-Awesome
+Awesome. Kotlin continues to surprise me every day.
 
 ## Conclusions
 
-Sometimes a library contains almost all that you need, but it lacks some feature that you desire. Extension using the regular object-oriented mechanisms is not a possibility in such cases. Many JVM-based languages give you the possibility to achieve the goal to add the methods you need to an existing library without modifying it. The _Pimp my library_ pattern is the mechanism to make the magic happen. Scala uses _implicit objects_ and conventions to implement such a pattern. In contrast, Kotlin has a more natural approach that integrates very well with the Kotlin type system concerning the handling of null references.
+Sometimes a library contains almost all that you need, but it lacks some feature that you desire. Extension using the regular object-oriented mechanisms is not a possibility in such cases. Many JVM-based languages give you the possibility to achieve the goal to add the methods you need to an existing library without modifying it. 
+
+The _Pimp my library_ pattern is the mechanism to make the magic happen. Scala uses _implicit objects_ and conventions to implement such a pattern. In contrast, Kotlin has a more natural approach that integrates very well with the Kotlin type system concerning the handling of null references.
 
 Moreover, let's say that also Groovy implements the pattern, using [Extensions](https://www.baeldung.com/groovy-metaprogramming#extensions) and [Categories](https://www.baeldung.com/groovy-categories).
 
 Where are you Java? Will you ever join the party?
+
+---
 
 If you want, download the code of the Scala example from my repository on GitHub: [pimp-my-library](https://github.com/rcardin/pimp-my-library).
 
