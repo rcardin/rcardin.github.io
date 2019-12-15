@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Pimp My Library Pattern"
-date:   2019-11-20 14:15:12
+date:   2019-12-15 14:15:12
 comments: true
 categories: jvm programming design-pattern
 tags:
