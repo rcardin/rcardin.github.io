@@ -152,6 +152,8 @@ Moreover, let's say that also Groovy implements the pattern, using [Extensions](
 
 Where are you Java? Will you ever join the party?
 
+If you want, download the code of the Scala example from my repository on GitHub: [pimp-my-library](https://github.com/rcardin/pimp-my-library).
+
 ## References
 
 - [Pimp my Library (M. Odersky)](https://www.artima.com/weblogs/viewpost.jsp?thread=179766)
