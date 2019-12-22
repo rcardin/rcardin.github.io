@@ -97,6 +97,24 @@ The method `int integer()` is a getter of a private attribute and the constructo
 
 The standard library extensively uses the pattern. All the type defined with the suffix `Ops` implement the pattern. Have a look at the [`StringOps`](https://www.scala-lang.org/api/2.12.2/scala/collection/immutable/StringOps.html) type for an example.
 
+### Dotty (Scala 3)
+
+In the new version of Scala, Dotty or Scala 3, the possibility to extend a class with a new method becomes idiomatic. _Extension methods_ are methods that have a parameter clause in front of the defined identifier. 
+
+{% highlight scala %}
+def (integer: Int) days = Period.ofDays(integer)
+{% endhighlight %}
+
+You don't need to use `implicit` classes anymore. The resulting code is easier to understand than in the previous version of Scala.
+
+Extension methods translate to methods where the leading parameter section is moved to after the defined identifier. So, the definition of days above translates to the plain method, and can also be invoked as such:
+
+{% highlight scala %}
+val period = days(42)
+{% endhighlight %}
+
+In Dotty, extension methods have a lot of other interesting properties that are beyond the scope of this post. If you are interested in them, please refer to Dotty documentation, [Extension Methods](https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html).
+
 ## Kotlin
 
 Also, the newbie JVM-based language, Kotlin, has its implementation of the _Pimp my library_ pattern. In Kotlin slang, the pattern implementation it's called _Extension functions_. The pattern was introduced in the language to contrast the fact that the majority of the libraries a Kotlin developer could use are in Java, and not in Kotlin.
@@ -166,3 +184,4 @@ If you want, download the code of the Scala example from my repository on GitHub
 Manning Publications](https://www.manning.com/books/kotlin-in-action)
 - [Groovy Extensions](https://www.baeldung.com/groovy-metaprogramming#extensions)
 - [Groovy Categories](https://www.baeldung.com/groovy-categories)
+- [Extension Methods](https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html)
