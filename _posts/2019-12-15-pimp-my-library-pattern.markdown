@@ -13,6 +13,8 @@ summary: "Which is the main problem you have as a developer when you use librari
 social-share: true
 social-title: "The Pimp My Library Pattern"
 social-tags: "functional, Programming, Java, Scala, Kotlin"
+reddit-link: "https://www.reddit.com/r/programming/comments/eaz7xq/the_pimp_my_library_pattern/"
+dev-link: "https://dev.to/riccardo_cardin/the-pimp-my-library-pattern-8bl"
 math: false
 ---
 
