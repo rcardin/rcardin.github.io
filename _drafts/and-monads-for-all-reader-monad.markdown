@@ -29,5 +29,28 @@ trait StockRepository {
 }
 {% endhighlight %}
 
+The repository implements what we can call _persistence logic_.
 
+Then, we have a type that uses the `StockRepository` to give to its clients some _business logic_ built upon the above _persistence logic_. Let's call it `Stocks`. Imagine that we want to give access to the three functions of the repository, plus a fourth function that invest money in the stock that has the lowest quotation.
+
+1) `findAll()`
+2) `sell(stock: String, quantity: Double)`
+3) `buy(stock: String, amount: Double)`
+4) `investInStockWithMinValue(amount: Double)`
+
+So, `Stocks` has a dependency upon `StockRepository`. How can we express such fact in the code? We don't want to use the _constructor injection_ mechanism or anything related to it. We want to stay _functional_.
+
+## Dependency management within functions
+
+An option is to pass a reference of the repository to each function that need to access to its methods.
+
+{% highlight scala %}
+object Stocks {
+  def findAll(repo: StockRepository): Map[String, Double] = repo.findAll()
+  def sell(stock: String, quantity: Double, repo: StockRepository): Double = 
+    repo.sell(stock, quantity)
+  def buy(stock: String, amount: Double, repo: StockRepository): Double = 
+    repo.buy(stock, amount)
+}
+{% endhighlight %}
 
