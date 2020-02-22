@@ -42,6 +42,8 @@ So, `Stocks` has a dependency upon `StockRepository`. How can we express such fa
 
 ## Dependency management within functions
 
+### The trivial solution
+
 An option is to pass a reference of the repository to each function that need to access to its methods.
 
 {% highlight scala %}
@@ -54,3 +56,20 @@ object Stocks {
 }
 {% endhighlight %}
 
+This trick does its dirty work but it pollutes the signature of each function that need some external dependency. Our example has only one dependency but in real life programs dependency are often more than one.
+
+### Using currying to isolate dependencies
+
+The _currying_ process can help us to make things a little better. Imagine to isolate the dependency parameters using a curried verions of the previous functions.
+
+{% highlight scala %}
+object Stocks {
+  def findAll()(repo: StockRepository): Map[String, Double] = repo.findAll()
+  def sell(stock: String, quantity: Double)(repo: StockRepository): Double = 
+    repo.sell(stock, quantity)
+  def buy(stock: String, amount: Double)(repo: StockRepository): Double = 
+    repo.buy(stock, amount)
+}
+{% endhighlight %}
+
+As you know, the currying process allows us to _partially applied_ a function, obtaining as a result of the partial application a new function with less inputs.
