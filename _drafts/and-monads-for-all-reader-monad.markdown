@@ -90,12 +90,24 @@ If we apply the currying reasoning to the functions of the `Stocks` module, we o
 
 {% highlight scala %}
 object Stocks {
-  def findAll(): (StockRepository) => Map[String, Double] = repo => repo.findAll()
-  def sell(stock: String, quantity: Double): (StockRepository) => Double = 
+  def findAll(): StockRepository => Map[String, Double] = repo => repo.findAll()
+  def sell(stock: String, quantity: Double): StockRepository => Double = 
     repo => repo.sell(stock, quantity)
-  def buy(stock: String, amount: Double): (StockRepository) => Double = 
+  def buy(stock: String, amount: Double): StockRepository => Double = 
     repo => repo.buy(stock, amount)
 }
 {% endhighlight %}
 
-We remove the ugly `StockRepository` parameter from the signature of our function! Yuppi yuppi ya! However, it is very difficult to compose functions with the last signature we had :(
+We remove the ugly `StockRepository` parameter from the signature of our function! Yuppi yuppi ya! However, it is very difficult to compose functions with the last signature we had :( Imagine that we want to implement the function `investInStockWithMinValue` using the function we developed so far. A possible implementation is the following.
+
+{% highlight scala %}
+def investInStockWithMinValue(amount: Double): StockRepository => Unit =
+  (repo: StockRepository) => {
+    val investment = Stocks.findAll()
+      .andThen(s => s.minBy(_._2))
+      .andThen{ case (stock, _) => stock }
+      .andThen(s => Stocks.buy(s, amount)(repo))
+  }
+{% endhighlight %}
+
+It is not simple to follow what is going on. The use of the function `andThen` does not help the reader to understand the main workflow of the function, because it is not semantically focused on the operation it is carrying on. Moreover, in the last line, there is a very ugly function application, `Stocks.buy(s, amount)(repo)` that waste our code with a detail that is not related to the business logic but only to the implementation.
