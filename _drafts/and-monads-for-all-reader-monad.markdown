@@ -72,4 +72,30 @@ object Stocks {
 }
 {% endhighlight %}
 
-As you know, the currying process allows us to _partially applied_ a function, obtaining as a result of the partial application a new function with less inputs.
+As you know, the currying process allows us to _partially applied_ a function, obtaining as the result of the partial application a new function with less inputs. 
+
+> In mathematics and computer science, currying is the technique of translating the evaluation of a function that takes multiple arguments into evaluating a sequence of functions, each with a single argument.
+
+Let's take an example.
+
+Let the function `def add(a: Int, b: Int): Int = a + b` that adds to integers. If we apply currying to the function `add` we obtain the following new function.
+
+% highlight scala %}
+`def add(a: Int) = (b: Int) =>  a + b`
+{% endhighlight %}
+
+The return type of the function `add` is not anymore a simple `Int` but now it is a function from `Int => Int`.
+
+If we apply the currying reasoning to the functions of the `Stocks` module, we obtain the following definition.
+
+{% highlight scala %}
+object Stocks {
+  def findAll(): (StockRepository) => Map[String, Double] = repo => repo.findAll()
+  def sell(stock: String, quantity: Double): (StockRepository) => Double = 
+    repo => repo.sell(stock, quantity)
+  def buy(stock: String, amount: Double): (StockRepository) => Double = 
+    repo => repo.buy(stock, amount)
+}
+{% endhighlight %}
+
+We remove the ugly `StockRepository` parameter from the signature of our function! Yuppi yuppi ya! However, it is very difficult to compose functions with the last signature we had :(
