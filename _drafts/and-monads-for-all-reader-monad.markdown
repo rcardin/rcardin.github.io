@@ -111,3 +111,23 @@ def investInStockWithMinValue(amount: Double): StockRepository => Unit =
 {% endhighlight %}
 
 It is not simple to follow what is going on. The use of the function `andThen` does not help the reader to understand the main workflow of the function, because it is not semantically focused on the operation it is carrying on. Moreover, in the last line, there is a very ugly function application, `Stocks.buy(s, amount)(repo)` that waste our code with a detail that is not related to the business logic but only to the implementation.
+
+We can do better that this. Much better.
+
+## The Reader monad
+
+What if we encapsulate the curried function inside a data structure that can simplify both the syntax of our code and the composition over functions? This is exactly the idea behind the _Reader Monad_.
+
+We have our function, let's say `f: From => To`, where `From` and `To` are respectively the starting type (domain) and the arriving type (codomain) of the function. As we just said, we put a data structure around our function.
+
+{% highlight scala %}
+case class Reader[From, To](f: From => To) { /* ... */ }
+{% endhighlight %}
+
+We want to apply in some way the function enclosed inside our data structure. We add the application function.
+
+{% highlight scala %}
+def apply(input: From): To = f(input)
+{% endhighlight %}
+
+Another action we want to do is the capability to _lift_ a value of type `To` in a `Reader[From, To]`. In other words, we want to be able to create from a value of type `To` a function that receive a value of type `From` and returns value of type `To`.
