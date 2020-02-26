@@ -130,4 +130,47 @@ We want to apply in some way the function enclosed inside our data structure. We
 def apply(input: From): To = f(input)
 {% endhighlight %}
 
-Another action we want to do is the capability to _lift_ a value of type `To` in a `Reader[From, To]`. In other words, we want to be able to create from a value of type `To` a function that receive a value of type `From` and returns value of type `To`.
+In order to improve the readability of our code, we want to have a function different from `andThen` to compose a the function `f`. Given a function `g: To => NewTo`, we need a function to compose `g` with `f` inside a `Reader`. This function is called `map`.
+
+{% highlight scala %}
+def map[NewTo](transformation: To => NewTo): Reader[From, NewTo] =
+  Reader(c => transformation(f(c)))
+{% endhighlight %}
+
+The `flatMap` function composes `f` with functions `z: To => Reader[From, NewTo]`. This function is equal to the last application of the `andThen` method in our previous example.
+
+{% highlight scala %}
+def flatMap[NewTo](transformation: To => Reader[From, NewTo]): Reader[From, NewTo] =
+  Reader(c => transformation(f(c))(c))
+{% endhighlight %}
+
+In other words, the `flatMap` function serves to compose two function share the same dependency. In our example, using a `flatMap` we can compose...TODO
+
+Finally, we need an action to _lift_ a value of type `To` in a `Reader[From, To]`. In other words, we want to be able to create from a value of type `To` a function that receive a value of type `From` and returns value of type `To`. This function is not a member of the `Reader` monad itself. It is more like a _factory method_.
+
+{% highlight scala %}
+def pure[From, To](a: To): Reader[From, To] = Reader((c: From) => a)
+{% endhighlight %}
+
+The whole `Reader` type is something similar to the following.
+
+{% highlight scala %}
+object ReaderMonad {
+  case class Reader[From, To](f: From => To) {
+    def apply(input: From): To =
+      f(input)
+
+    def map[NewTo](transformation: To => NewTo): Reader[From, NewTo] =
+      Reader(c => transformation(f(c)))
+
+    def flatMap[NewTo](transformation: To => Reader[From, NewTo]): Reader[From, NewTo] =
+      Reader(c => transformation(f(c))(c))
+  }
+  def pure[From, To](a: To): Reader[From, To] = Reader((c: From) => a)
+}
+{% endhighlight %}
+
+It happens that the type `Reader` satisfies the minimum property needed to be a _monad_. Being a _monad_ we can use it in a fashion way to simplify our code.
+
+## Finally, using the monad
+
