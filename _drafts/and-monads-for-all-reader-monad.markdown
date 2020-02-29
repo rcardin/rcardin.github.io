@@ -144,7 +144,27 @@ def flatMap[NewTo](transformation: To => Reader[From, NewTo]): Reader[From, NewT
   Reader(c => transformation(f(c))(c))
 {% endhighlight %}
 
-In other words, the `flatMap` function serves to compose two function share the same dependency. In our example, using a `flatMap` we can compose...TODO
+In other words, the `flatMap` function serves to compose two function sharing the same dependency. In our example, using a `flatMap` we can compose the functions `findAll` and `buy` both sharing the dependency among a `StockRepository`. Using a simple `map` we would obtain the nesting of a `Reader` into another `Reader`.
+
+{% highlight scala %}
+val quantity: Reader[StockRepository, Reader[StockRepository, Double]] = 
+  Stocks.findAll()
+    .map { stocks => 
+      val minStock = stocks.minBy(_._2)
+      Stocks.buy(minStock, 1000.0D)
+    }
+{% endhighlight %}
+
+Quite annoying. Using a `flatMap`, instead, we can _flatten_ the result type and everything goes ok. The function application in the `flatMap` definition does the trick.
+
+{% highlight scala %}
+val quantity: Reader[StockRepository, Double] = 
+  Stocks.findAll()
+    .flatMap { stocks => 
+      val minStock = stocks.minBy(_._2)
+      Stocks.buy(minStock, 1000.0D)
+    }
+{% endhighlight %}
 
 Finally, we need an action to _lift_ a value of type `To` in a `Reader[From, To]`. In other words, we want to be able to create from a value of type `To` a function that receive a value of type `From` and returns value of type `To`. This function is not a member of the `Reader` monad itself. It is more like a _factory method_.
 
