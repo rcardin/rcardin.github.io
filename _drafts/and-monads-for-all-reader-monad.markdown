@@ -190,7 +190,11 @@ object ReaderMonad {
 }
 {% endhighlight %}
 
-It happens that the type `Reader` satisfies the minimum property needed to be a _monad_. Being a _monad_ we can use it in a fashion way to simplify our code.
+It happens that the type `Reader` satisfies with its functions `apply`, `map` and `flatMap` the minimum properties needed to be a _monad_. The description of the _monad laws_ is behind the scope of this post. 
+
+Moreover, because of the presence of the function `map` and `flatMap` we can use the type `Reader` in a fashion way to simplify our code.
 
 ## Finally, using the monad
+
+It's time to return to our previous `investInStockWithMinValue` function.
 
