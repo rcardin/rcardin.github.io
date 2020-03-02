@@ -196,5 +196,56 @@ Moreover, because of the presence of the function `map` and `flatMap` we can use
 
 ## Finally, using the monad
 
-It's time to return to our previous `investInStockWithMinValue` function.
+First of all, we change the `Stocks` type with the `Reader` monad.
 
+{% highlight scala %}
+object Stocks {
+  def findAll(): Reader[StockRepository, Map[String, Double]] = Reader {
+    repo => repo.findAll()
+  }
+  def sell(stock: String, quantity: Double): Reader[StockRepository, Double] = Reader {
+    repo => repo.sell(stock, quantity)
+  }
+  def buy(stock: String, amount: Double): Reader[StockRepository, Double] = Reader {
+    repo => repo.buy(stock, amount)
+  }
+}
+{% endhighlight %}
+
+As you can see, every direct dependency was removed and substituted with the `Reader[StockRepository, _]` type.
+Now, it's time to return to our previous `investInStockWithMinValue` function. Using the methods we defined on the monad, we can rewrite the function as follows.
+
+{% highlight scala %}
+def investInStockWithMinValue(amount: Double): Reader[StockRepository, Double] = 
+  Stocks.findAll()
+    .map(stocks => stocks.minBy(_._2))
+    .map { case (stock, _) => stock }
+    .flatMap(stock => Stocks.buy(stock, amount))
+{% endhighlight %}
+
+Using the syntactic sugar available from the Scala language, we can rewrite the above code use a _for-comprehension_ statement.
+
+{% highlight scala %}
+def investInStockWithMinValueUsingForComprehension(amount: Double): Reader[StockRepository, Unit] =
+  for {
+    stocks <- Stocks.findAll()
+    minStock <- ReaderMonad.pure(stocks.minBy(_._2)._1)
+    _ <- Stocks.buy(minStock, amount)
+  } yield ()
+{% endhighlight %}
+
+I love the _for-comprehension_ construct, because it is so visual and self explanatory :)
+
+The only question that was left behind is who is responsible of resolving the dependencies declared through the `Reader` monad. The answer is simple, that is the main method.
+
+{% highlight scala %}
+def main(args: Array[String]): Unit = {
+  val stockRepo = new StockRepository {
+    override def findAll(): Map[String, Double] = Map("AMZN" -> 1631.17, "GOOG" -> 1036.05, "TSLA" -> 346.00)
+    override def sell(stock: String, quantity: Double): Double = quantity * findAll()(stock)
+    override def buy(stock: String, amount: Double): Double = findAll()(stock) / amount
+  }
+}
+
+investInStockWithMinValueUsingForComprehension(1000.0D).apply(stockRepo)
+{% endhighlight %}  
