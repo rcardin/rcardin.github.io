@@ -236,7 +236,7 @@ def investInStockWithMinValueUsingForComprehension(amount: Double): Reader[Stock
 
 I love the _for-comprehension_ construct, because it is so visual and self explanatory :)
 
-The only question that was left behind is who is responsible of resolving the dependencies declared through the `Reader` monad. The answer is simple, that is the main method.
+The only question that was left behind is who is responsible of resolving the dependencies declared through the `Reader` monad. The answer is simple, that is the `main` method.
 
 {% highlight scala %}
 def main(args: Array[String]): Unit = {
@@ -248,4 +248,45 @@ def main(args: Array[String]): Unit = {
 }
 
 investInStockWithMinValueUsingForComprehension(1000.0D).apply(stockRepo)
-{% endhighlight %}  
+{% endhighlight %}
+
+### What if I have more than one dependency?
+
+Vey often, we have functions that depend by more than one single dependency. For example, think that you want to add a rate change service to the functions of the `Stock` type. Using `RateChangeService`, it is possible to buy and sell in a currency that is different from dollars.
+
+{% highlight scala %}
+def buy(stock: String, amount: Double, currency: String)(repo: StockRepository, changer: RateChangeService) = {
+  val dollarAmount = changer.changeToDollar(amount, currency)
+  repo.buy(stock, dollarAmount)
+}
+{% endhighlight %}
+
+The Reader monad we just analyzed handles only one dependency at time. Should we try away all the good types we developed until now? No, we shouldn't. If you depend from more than on type, you can create a new container type, something similar to a _context_.
+
+{% highlight scala %}
+case class Context(val repo: StockRepository, val changer: RateChangeService)
+{% endhighlight %}
+
+In this way we reduce our function to depend on a single type again, our `Context` type. Ball, game, set.
+
+{% highlight scala %}
+def buy(stock: String, amount: Double): Reader[Context, Double] = Reader {
+    ctx => {
+      val dollarAmount = ctx.changer.changeToDollar(amount, currency)
+      ctx.repo.buy(stock, amount)
+    }
+}
+{% endhighlight %}
+
+## Conclusions
+
+In this post we analyzed how dependencies can be declared in functions. We begin from the simpliest possible solution and we composed step by step a more elegant and practice solution that is called the `Reader` monad. Finally, we shown how the monad can simplify the code through the use of the _for-comprehension_ construct.
+
+The code of the `Reader` monad is available on my GitHub, [reader-monad](https://github.com/rcardin/reader-monad). I developed also a version of the monad in Kotlin, for the lovers of this emergent programming language, [reader-monad-kotlin](https://github.com/rcardin/reader-monad-kotlin).
+
+## Rerefences
+
+- [Reader datatype](http://eed3si9n.com/herding-cats/Reader.html)
+- [Rúnar Óli Bjarnason: Dead-Simple Dependency Injection](http://functionaltalks.org/2013/06/17/runar-oli-bjarnason-dead-simple-dependency-injection/)
+- [Tooling the Reader Monad](https://coderwall.com/p/ye_s_w/tooling-the-reader-monad)
+- [Scala cannot infer parameter type in Reader monad implementation](https://stackoverflow.com/questions/60120795/scala-cannot-infer-parameter-type-in-reader-monad-implementation)
