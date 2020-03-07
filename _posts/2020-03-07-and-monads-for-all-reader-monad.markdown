@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "...And Monads for (Almost) All: The Reader Monad"
-date:   2020-02-25 21:09:53
+date:   2020-03-07 12:50:53
 comments: true
 categories: design programming fp monad
 tags:
@@ -56,11 +56,11 @@ object Stocks {
 }
 {% endhighlight %}
 
-This trick does its dirty work but it pollutes the signature of each function that need some external dependency. Our example has only one dependency but in real life programs dependency are often more than one.
+This trick does its dirty job, but it pollutes the signature of each function that needs some external dependency. Our example has only one dependency, but in real life, dependencies are often more than one.
 
 ### Using currying to isolate dependencies
 
-The _currying_ process can help us to make things a little better. Imagine to isolate the dependency parameters using a curried verions of the previous functions.
+The _currying_ process can help us to make things a little better. Imagine isolating the dependency parameters using a curried version of the previous functions.
 
 {% highlight scala %}
 object Stocks {
@@ -72,7 +72,7 @@ object Stocks {
 }
 {% endhighlight %}
 
-As you know, the currying process allows us to _partially applied_ a function, obtaining as the result of the partial application a new function with less inputs. 
+As you know, the currying process allows us to _partially applied_ a function, obtaining as the result of the partial application a new function with fewer inputs. 
 
 > In mathematics and computer science, currying is the technique of translating the evaluation of a function that takes multiple arguments into evaluating a sequence of functions, each with a single argument.
 
@@ -84,7 +84,7 @@ Let the function `def add(a: Int, b: Int): Int = a + b` that adds to integers. I
 `def add(a: Int) = (b: Int) =>  a + b`
 {% endhighlight %}
 
-The return type of the function `add` is not anymore a simple `Int` but now it is a function from `Int => Int`.
+The return type of the function `add` is not anymore a pure `Int` but now it is a function from `Int => Int`.
 
 If we apply the currying reasoning to the functions of the `Stocks` module, we obtain the following definition.
 
@@ -98,7 +98,7 @@ object Stocks {
 }
 {% endhighlight %}
 
-We remove the ugly `StockRepository` parameter from the signature of our function! Yuppi yuppi ya! However, it is very difficult to compose functions with the last signature we had :( Imagine that we want to implement the function `investInStockWithMinValue` using the function we developed so far. A possible implementation is the following.
+We remove the ugly `StockRepository` parameter from the signature of our function! Yuppi yuppi ya! However, it is complicated to compose functions with the last signature we had :( Imagine that we want to implement the function `investInStockWithMinValue` using the function we developed so far. A possible implementation is the following.
 
 {% highlight scala %}
 def investInStockWithMinValue(amount: Double): StockRepository => Unit =
@@ -112,11 +112,11 @@ def investInStockWithMinValue(amount: Double): StockRepository => Unit =
 
 It is not simple to follow what is going on. The use of the function `andThen` does not help the reader to understand the main workflow of the function, because it is not semantically focused on the operation it is carrying on. Moreover, in the last line, there is a very ugly function application, `Stocks.buy(s, amount)(repo)` that waste our code with a detail that is not related to the business logic but only to the implementation.
 
-We can do better that this. Much better.
+We can do better than this. Much better.
 
 ## The Reader monad
 
-What if we encapsulate the curried function inside a data structure that can simplify both the syntax of our code and the composition over functions? This is exactly the idea behind the _Reader Monad_.
+What if we encapsulate the curried function inside a data structure? Using such an approach is precisely the idea behind the _Reader Monad_.
 
 We have our function, let's say `f: From => To`, where `From` and `To` are respectively the starting type (domain) and the arriving type (codomain) of the function. As we just said, we put a data structure around our function.
 
@@ -130,7 +130,7 @@ We want to apply in some way the function enclosed inside our data structure. We
 def apply(input: From): To = f(input)
 {% endhighlight %}
 
-In order to improve the readability of our code, we want to have a function different from `andThen` to compose a the function `f`. Given a function `g: To => NewTo`, we need a function to compose `g` with `f` inside a `Reader`. This function is called `map`.
+To improve the readability of our code, we want to have a function different from `andThen` to compose a function `f`. Given a function `g: To => NewTo`, we need a function to compose `g` with `f` inside a `Reader`. This function is called `map`.
 
 {% highlight scala %}
 def map[NewTo](transformation: To => NewTo): Reader[From, NewTo] =
@@ -144,7 +144,7 @@ def flatMap[NewTo](transformation: To => Reader[From, NewTo]): Reader[From, NewT
   Reader(c => transformation(f(c))(c))
 {% endhighlight %}
 
-In other words, the `flatMap` function serves to compose two function sharing the same dependency. In our example, using a `flatMap` we can compose the functions `findAll` and `buy` both sharing the dependency among a `StockRepository`. Using a simple `map` we would obtain the nesting of a `Reader` into another `Reader`.
+In other words, the `flatMap` function serves to compose two functions sharing the same dependency. In our example, using a `flatMap`, we can compose the functions `findAll` and `buy` both sharing the dependency among a `StockRepository`. Using a simple `map`, we would obtain the nesting of a `Reader` into another `Reader`.
 
 {% highlight scala %}
 val quantity: Reader[StockRepository, Reader[StockRepository, Double]] = 
@@ -155,7 +155,7 @@ val quantity: Reader[StockRepository, Reader[StockRepository, Double]] =
     }
 {% endhighlight %}
 
-Quite annoying. Using a `flatMap`, instead, we can _flatten_ the result type and everything goes ok. The function application in the `flatMap` definition does the trick.
+Quite annoying. Using a `flatMap`, instead, we can _flatten_ the result type, and everything goes ok. The function application in the `flatMap` definition does the trick.
 
 {% highlight scala %}
 val quantity: Reader[StockRepository, Double] = 
@@ -166,7 +166,7 @@ val quantity: Reader[StockRepository, Double] =
     }
 {% endhighlight %}
 
-Finally, we need an action to _lift_ a value of type `To` in a `Reader[From, To]`. In other words, we want to be able to create from a value of type `To` a function that receive a value of type `From` and returns value of type `To`. This function is not a member of the `Reader` monad itself. It is more like a _factory method_.
+Finally, we need an action to _lift_ a value of type `To` in a `Reader[From, To]`. In other words, we want to be able to create from a value of type `To` a function that receives a value of type `From` and returns a value of type `To`. This function is not a member of the `Reader` monad itself. It is more like a _factory method_.
 
 {% highlight scala %}
 def pure[From, To](a: To): Reader[From, To] = Reader((c: From) => a)
@@ -192,7 +192,7 @@ object ReaderMonad {
 
 It happens that the type `Reader` satisfies with its functions `apply`, `map` and `flatMap` the minimum properties needed to be a _monad_. The description of the _monad laws_ is behind the scope of this post. 
 
-Moreover, because of the presence of the function `map` and `flatMap` we can use the type `Reader` in a fashion way to simplify our code.
+Moreover, because of the presence of the function `map` and `flatMap`, we can use the type `Reader` in a fashion way to simplify our code.
 
 ## Finally, using the monad
 
@@ -234,9 +234,9 @@ def investInStockWithMinValueUsingForComprehension(amount: Double): Reader[Stock
   } yield ()
 {% endhighlight %}
 
-I love the _for-comprehension_ construct, because it is so visual and self explanatory :)
+I love the _for-comprehension_ construct because it is self-explanatory :)
 
-The only question that was left behind is who is responsible of resolving the dependencies declared through the `Reader` monad. The answer is simple, that is the `main` method.
+Who is responsible for resolving the dependencies, declared through the `Reader` monad? The answer is simple, that is the `main` method.
 
 {% highlight scala %}
 def main(args: Array[String]): Unit = {
@@ -252,7 +252,7 @@ investInStockWithMinValueUsingForComprehension(1000.0D).apply(stockRepo)
 
 ### What if I have more than one dependency?
 
-Vey often, we have functions that depend by more than one single dependency. For example, think that you want to add a rate change service to the functions of the `Stock` type. Using `RateChangeService`, it is possible to buy and sell in a currency that is different from dollars.
+Very often, we have functions that depend by more than one single dependency. For example, think that you want to add a rate change service to the functions of the `Stock` type. Using `RateChangeService`, it is possible to buy and sell in a currency that is different from dollars.
 
 {% highlight scala %}
 def buy(stock: String, amount: Double, currency: String)(repo: StockRepository, changer: RateChangeService) = {
@@ -261,13 +261,13 @@ def buy(stock: String, amount: Double, currency: String)(repo: StockRepository, 
 }
 {% endhighlight %}
 
-The Reader monad we just analyzed handles only one dependency at time. Should we try away all the good types we developed until now? No, we shouldn't. If you depend from more than on type, you can create a new container type, something similar to a _context_.
+The Reader monad we just analyzed handles only one dependency at time. Should we try away all the suitable types we developed until now? No, we shouldn't. If you depend on more than one type, you can create a new container type, something similar to a _context_.
 
 {% highlight scala %}
 case class Context(val repo: StockRepository, val changer: RateChangeService)
 {% endhighlight %}
 
-In this way we reduce our function to depend on a single type again, our `Context` type. Ball, game, set.
+In this way, we reduce our function to depend on a single type again, our `Context` type. Ball, game, set.
 
 {% highlight scala %}
 def buy(stock: String, amount: Double): Reader[Context, Double] = Reader {
@@ -280,9 +280,9 @@ def buy(stock: String, amount: Double): Reader[Context, Double] = Reader {
 
 ## Conclusions
 
-In this post we analyzed how dependencies can be declared in functions. We begin from the simpliest possible solution and we composed step by step a more elegant and practice solution that is called the `Reader` monad. Finally, we shown how the monad can simplify the code through the use of the _for-comprehension_ construct.
+In this post, we analyzed how to declare dependencies in functions. We begin from the simplest possible solution, and we composed step by step a more elegant and practice solution that is called the `Reader` monad. Finally, we showed how the monad could simplify the code through the use of the _for-comprehension_ construct.
 
-The code of the `Reader` monad is available on my GitHub, [reader-monad](https://github.com/rcardin/reader-monad). I developed also a version of the monad in Kotlin, for the lovers of this emergent programming language, [reader-monad-kotlin](https://github.com/rcardin/reader-monad-kotlin).
+The code of the `Reader` monad is available on my GitHub, [reader-monad](https://github.com/rcardin/reader-monad). I also developed a version of the monad in Kotlin, for the lovers of this emergent programming language, [reader-monad-kotlin](https://github.com/rcardin/reader-monad-kotlin).
 
 ## Rerefences
 
