@@ -12,6 +12,7 @@ social-share: true
 social-title: "To Trait, or not to Trait?"
 social-tags: "Scala, Programming"
 math: false
+reddit-link: "https://www.reddit.com/r/programming/comments/fvdhoi/to_trait_or_not_to_trait/"
 ---
 
 Developers coming from object-oriented languages such as Java or C# know very well the difference between abstract classes and interfaces. The Scala programming language introduced a third contestant in the match: Traits.
