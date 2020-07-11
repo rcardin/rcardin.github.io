@@ -13,6 +13,7 @@ layout: default
           {{ post.content | number_of_words | divided_by: 180 }}
         {% endcapture %}
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        {% if post.baeldung != true %}
         <span class="post-meta">
           &nbsp;&nbsp;
           <i class="far fa-clock"></i>
@@ -22,8 +23,16 @@ layout: default
             1
           {% endif %} min. to read
         </span>
+        {% endif %}
         <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+            {% if post.baeldung == true %}
+            <span style="font-size: 0.8em; color: #00cc66;">
+              <i class="fas fa-leaf"></i>
+            </span>
+            {% endif %}
+            {{ post.title }}
+          </a>
         </h2>
         {% if post.summary != null %}
         <article class="post-content">
