@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Cake Pattern"
-date:   2020-07-19 14:32:03
+date:   2020-07-23 14:32:03
 comments: true
 categories: scala programming
 tags:
