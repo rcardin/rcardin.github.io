@@ -13,7 +13,7 @@ layout: default
           {{ post.content | number_of_words | divided_by: 180 }}
         {% endcapture %}
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-        {% if post.baeldung == null %}
+        {% if post.baeldung == null and post.rockthejvm == null %}
         <span class="post-meta">
           &nbsp;&nbsp;
           <i class="far fa-clock"></i>
