@@ -54,6 +54,8 @@ layout: default
             {{post.summary}}
             {% if post.baeldung != null and content == "" %}
             <a href="{{ post.baeldung }}" target="_blank">[continue...]</a>
+            {% elsif post.rockthejvm != null and content == "" %}
+            <a href="{{ post.rockthejvm }}" target="_blank">[continue...]</a>
             {% else %}
             <a href="{{ post.url | prepend: site.baseurl }}">[continue...]</a>
             {% endif %}
