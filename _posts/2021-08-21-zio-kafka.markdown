@@ -1,0 +1,17 @@
+---
+layout: post
+title: "ZIO Kafka: A Practical Streaming Tutorial"
+date:   2021-08-21 08:23:11
+comments: true
+categories: scala zio kafka
+tags:
+    - scala
+    - zio
+    - kafka
+summary: "Apache Kafka has prove itself to be a reliable, scalable and efficient communication system between distributed application components. In this article, we'll learn to use ZIO to interact with it."
+social-share: true
+social-title: "ZIO Kafka: A Practical Streaming Tutorial"
+social-tags: "Scala, Zio, Kafka"
+math: false
+rockthejvm: https://blog.rockthejvm.com/zio-kafka/
+---
