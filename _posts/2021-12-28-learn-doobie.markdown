@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Learn Doobie for the Greater Good"
-date:   2021-10-21 16:32:21
+date:   2021-12-28 16:32:21
 comments: true
 categories: scala postgres doobie cats
 tags:
