@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: "A Scala project with Akka, Cats and Cassandra"
