@@ -14,3 +14,4 @@ social-title: "Functional Error Handling in Kotlin, Part 2: Result and Either"
 social-tags: "kotlin, programming, arrow"
 math: false
 rockthejvm: https://blog.rockthejvm.com/functional-error-handling-in-kotlin-part-2/
+---
