@@ -1,17 +1,17 @@
 ---
 layout: post
-title: "Raise Your Tests: Testing Functional Kotlin with Arrow and Raise"
-date:   2024-08-24 11:50:49
+title: "Project Loom: Structured Concurrency in Java"
+date:   2024-11-18 17:12:30
 comments: true
-categories: kotlin arrow testing
+categories: java threads concurrency
 tags:
-    - kotlin
-    - arrow
-    - testing
-summary: "A wide-randing guide to testing your functional Kotlin code with Arrow and the Raise DSL. "
+    - java
+    - threads
+    - concurrency
+summary: "In this article, we will explore the concept of structured concurrency and how Project Loom simplifies writing concurrent code in Java"
 social-share: true
-social-title: "Raise Your Tests: Testing Functional Kotlin with Arrow and Raise"
-social-tags: "kotlin, arrow, testing"
+social-title: "Project Loom: Structured Concurrency in Java"
+social-tags: "Java, Threads, Concurrency"
 math: false
-rockthejvm: https://blog.rockthejvm.com/testing-raise/
+rockthejvm: https://rockthejvm.com/articles/structured-concurrency-in-java
 ---
