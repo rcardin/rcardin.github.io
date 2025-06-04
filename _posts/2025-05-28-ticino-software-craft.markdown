@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "My Talk at Scalar Conference 2025"
+title:  "My Talk at Ticino Software Craft in May 2025"
 date:   2025-05-28 19:32:31
 comments: true
 categories: programming fp effect-system scala
@@ -10,7 +10,7 @@ tags:
     - effect-system
 summary: "The Ticino Software Craft Meetup gave me the opportunity to give a talk about my library YAES, which is an effect system for Scala."
 social-share: true
-social-title: "My Talk at Scalar Conference 2025"
+social-title: "My Talk at Ticino Software Craft in May 2025"
 social-tags: "Scala, Programming, Effect System, Functional Programming"
 math: false
 ---
