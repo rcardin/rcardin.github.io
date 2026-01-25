@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "My Talk at Scala Days 2025"
+date:   2025-01-25 09:01:21
+comments: true
+categories: programming fp effect-system scala
+tags:
+    - scala
+    - fp
+    - effect-system
+summary: "I had the pleasure of giving a talk at the Scala Days 2025 in Lausanne. The talk was titled 'Yo Dawg, Heard You Want To FlatMap Your Direct-Style'"
+social-share: true
+social-title: "My Talk at Scala Days 2025"
+social-tags: "Scala, Programming, Effect System, Functional Programming"
+math: false
+---
+
+I had the pleasure of giving a talk at the Scala Days 2025 in Lausanne. The talk was titled "Yo Dawg, Heard You Want To FlatMap Your Direct-Style". I talked about the challenges of using direct-style programming in Scala and how we can leverage the power of effect systems to make our code more expressive and easier to reason about. The talk was well-received, and I had a great time interacting with the audience and answering their questions.
+
+You can find the slides 📊 for the talk [here](https://github.com/rcardin/scala-days-2025). Here is the video recording:
+
+[![Watch the video](https://img.youtube.com/vi/3b5WeB-zpeE/maxresdefault.jpg)](https://youtu.be/3b5WeB-zpeE)
+
+The talk was an introduction to the concepts behind my library called [YAES](https://github.com/rcardin/yaes). Please leave a star ⭐ if you like it! I am looking for contributors to help me improve the library and add new features. If you're interested, please reach out to me on GitHub or X.
