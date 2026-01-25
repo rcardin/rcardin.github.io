@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hold My Beer - Apache Kafka and More"
+title:  "🎬 Hold My Beer - Apache Kafka and More"
 date:   2021-01-11 11:34:11
 comments: true
 categories: kafka kotlin scala spark
