@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "My Talk at Scala Days 2025"
-date:   2025-01-25 09:01:21
+date:   2026-01-25 09:01:21
 comments: true
 categories: programming fp effect-system scala
 tags:
