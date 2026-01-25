@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "My Talk at Ticino Software Craft in May 2025"
+title:  "🎬 My Talk at Ticino Software Craft in May 2025"
 date:   2025-05-28 19:32:31
 comments: true
 categories: programming fp effect-system scala
