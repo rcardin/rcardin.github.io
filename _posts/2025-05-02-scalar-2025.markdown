@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "🎬 My Talk at Scalar Conference 2025"
+title:  "🎬 Scalar Conference 2025"
 date:   2025-05-02 09:50:53
 comments: true
 categories: programming fp effect-system scala
