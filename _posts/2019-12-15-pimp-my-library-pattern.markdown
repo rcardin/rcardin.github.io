@@ -6,9 +6,8 @@ comments: true
 categories: jvm programming design-pattern
 tags:
     - jvm
-    - programming
     - design
-    - patterns
+    - design
 summary: "Which is the main problem you have as a developer when you use libraries that you don't own? You can't change them. If something is missing in the public API of a library, there is no chance to extend it. Using some excellent old object-oriented programming, you can overcome this problem by writing much boilerplate code. In the JVM ecosystem, modern programming languages, such as Scala, Kotlin or Groovy, try to give a solution to library extension, the Pimp My Library Pattern."
 social-share: true
 social-title: "The Pimp My Library Pattern"

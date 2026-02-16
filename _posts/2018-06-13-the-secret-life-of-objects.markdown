@@ -6,7 +6,6 @@ comments: true
 categories: design programming oop fp
 tags:
     - design
-    - programming
     - oop
 summary: "I've been in the software development world for a while, and if I understood a single thing is that programming is not a simple affair. Also, object-oriented programming is even less accessible. Last week I came across a blog post -Goodbye, Object Oriented Programming-. After having read it, I fully understand how easily object-oriented programming can be misunderstood at many levels. I am not saying that I have the last answer to the million dollar question, but I will try to give a different perspective of my understanding of object-oriented programming."
 social-share: true

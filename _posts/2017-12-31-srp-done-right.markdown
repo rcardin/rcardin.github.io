@@ -7,7 +7,6 @@ categories: solid srp programming
 tags:
     - solid
     - srp
-    - programming
 summary: "I am a big fan of SOLID programming principles by Robert C. Martin. In particular, I thought that the Single-Responsibility Principle was one of the most powerful among these principles, yet one of the most misleading. Its definition does not give any rigorous detail on how to apply it. Every developer has left to his own experiences and knowledge to define what a responsibility is. Well, maybe I found a way to standardize the application of this principle during the development process. Let me explain how."
 social-share: true
 social-title: "Single Responsibility Principle done right"

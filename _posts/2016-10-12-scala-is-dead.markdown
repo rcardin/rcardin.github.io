@@ -7,7 +7,6 @@ categories: scala java programming
 tags:
     - scala
     - java
-    - programming
 summary: "Recently I came across yet another post about the adoption of Scala in the IT world nowadays. The article is 
           'The Rise and Fall of Scala' on DZone. In that post the author describes the reasons of the failure of the 
           Scala language in becoming the next big general purpose programming language. But, are we sure that authors of

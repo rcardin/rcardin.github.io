@@ -6,8 +6,7 @@ comments: true
 categories: design programming fp monad
 tags:
     - design
-    - programming
-    - fp
+    - functional-programming
 summary: "I have already written of dependency injection mechanisms in modern programming languages. I wrote about the Cake Pattern and how to use Scala self types to resolve the problem of dependency injection. Then, I showed how to use Scala implicits to implement a dependency injection mechanism. Now its time to speak about how functional programming tries to solve the dependency management issue, using the Reader Monad."
 social-share: true
 social-title: "...And Monads for (Almost) All: The Reader Monad"

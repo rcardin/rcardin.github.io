@@ -6,7 +6,6 @@ comments: true
 categories: scala programming
 tags:
     - scala
-    - programming
 summary: "In imperative programming languages, we use loops such as for-loop and while-loop to iterate over collections. The Scala programming language introduced a new kind of loop: the for-comprehension. Its use goes far beyond simply looping over collections, helping us to deal with the complexity of the syntax when using a functional approach to programming."
 social-share: true
 social-title: "A Comprehensive Guide to For-Comprehension in Scala"

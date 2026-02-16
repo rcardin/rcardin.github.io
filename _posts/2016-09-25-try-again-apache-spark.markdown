@@ -8,7 +8,6 @@ tags:
     - big-data
     - apache-spark
     - scala
-    - programming
 summary: "It's been more than a year since I've started working on my first Big Data project. In this project we chose Apache 
           Spark as batch processing framework. Using Apache Spark throws you in a functional, distributed and asynchronous 
           programming world. While you have not to worry about the distributed adjective, because Spark hides you every problem

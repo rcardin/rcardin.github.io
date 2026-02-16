@@ -5,8 +5,7 @@ date:   2019-02-17 21:15:21
 comments: true
 categories: functional programming types
 tags:
-    - functional
-    - programming
+    - functional-programming
     - types
 summary: "I am not an expert of functional programming, nor type theory. I am currently trying to enter the world of Haskell after I mess around the Scala world for a while. When I read about Kinds,
 I remember I was surprised, and a little bit scared. Is it possible that types have types? So

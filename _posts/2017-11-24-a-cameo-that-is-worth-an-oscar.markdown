@@ -5,7 +5,7 @@ date:   2017-11-24 07:45:21
 comments: true
 categories: akka scala design-pattern
 tags:
-    - design pattern
+    - design
     - akka
     - scala
 summary: "Rarely, during my life as a developer, I found pre-packaged solutions that fit my problem so well. Design patterns are an abstraction of both problems and solutions. So, they often need some kind of customization on the specific problem. While I was developing my concrete instance of Actorbase specification, I came across the Cameo pattern. It enlighted my way and my vision about how to use Actors profitably. Let's see how and why."

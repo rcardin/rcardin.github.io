@@ -6,7 +6,6 @@ comments: true
 categories: machine-learning artificial-intelligence
 tags:
     - machine-learning
-    - ai
 summary: "Looking at the last Google and Apple conventions it was clear to all: if in the past years the main buzzwords in the information technology field were IoT and Big Data, the catch'em all word of this year is without any doubts Machine Learning. What does this word exactly means? Are we talking about artificial intelligence? Somebody is trying to build a Skynet to ruin the world? Machines will steal my job in the future? Know your enemy, they said. So let's try to understand what Machine Learning really means."
 social-share: true
 social-title: "Machine Learning: A gentle introduction"

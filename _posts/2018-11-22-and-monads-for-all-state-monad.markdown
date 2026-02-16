@@ -6,8 +6,7 @@ comments: true
 categories: design programming fp monad
 tags:
     - design
-    - programming
-    - fp
+    - functional-programming
 summary: "This article starts a series on a topic that is very hot among the developers' community: functional programming. In details, we will focus on monads. The main aim of monads is to make simpler the composition of pure functions, that are mathematical functions that cannot have any side effect. We start with a classic: The State Monad. As its name suggests, using this object, we will be able to manage the state of a program effectively, without breaking one of the main principles of the paradigm, immutability."
 social-share: true
 social-title: "...And Monads for (Almost) All: The State Monad"

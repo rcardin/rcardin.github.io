@@ -5,7 +5,7 @@ date:   2014-08-28 22:47:00
 comments: true
 categories: design
 tags:
-    - design pattern
+    - design
     - dependency injection
     - scala
 summary: "We know it, managing dependencies between software components within a project of magnitude

@@ -6,7 +6,7 @@ comments: true
 categories: programming scala
 tags:
     - scala
-    - design pattern
+    - design
     - presentation
 summary: "I recently had an introductory talk on the Scala programming language. the aim of the talk was not to be a
 comprehensive presentation of the Scala programming language. The aim was to introduce the Scala language, putting a

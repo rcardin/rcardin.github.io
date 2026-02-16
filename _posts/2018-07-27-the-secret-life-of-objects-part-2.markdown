@@ -6,7 +6,6 @@ comments: true
 categories: design programming oop fp
 tags:
     - design
-    - programming
     - oop
 summary: "This post is the second part of a series of posts concerning the basic concepts of Object-Oriented Programming. This time, I focus on the concept of Inheritance. Whereas most people think that it is easy to understand, the inheritance is a piece of knowledge that is very difficult to master correctly. It subtends a lot of other object-oriented programming principles that are not always directly related to it. Moreover, it is directly related to one of the most potent forms of dependency between objects. So, let's get this party started."
 social-share: true

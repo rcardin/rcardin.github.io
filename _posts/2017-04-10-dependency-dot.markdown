@@ -5,7 +5,6 @@ date:   2017-04-10 08:43:54
 comments: true
 categories: programming oop software-engineering
 tags:
-    - programming
     - oop
     - software-engineering
 summary: "What does the concept of dependency mean in programming? Is it important in modern development process?

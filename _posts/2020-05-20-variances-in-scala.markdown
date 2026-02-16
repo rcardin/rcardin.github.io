@@ -6,7 +6,6 @@ comments: true
 categories: scala programming
 tags:
     - scala
-    - programming
 summary: "In this tutorial, we will be looking at Scala variances. Variance tells us if a type constructor (equivalent to a generic type in Java) is a subtype of another type constructor. We’ll also take a look at the three main types of variance – invariance, covariance, and contravariance – and how they differ."
 social-share: true
 social-title: "Variances in Scala"

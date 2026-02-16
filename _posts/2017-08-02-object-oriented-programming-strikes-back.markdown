@@ -6,8 +6,7 @@ comments: true
 categories: object-oriented functional programming
 tags:
     - oop
-    - fp
-    - programming
+    - functional-programming
 summary: "Recently I read the article \"Beginning to Doubt Object-Oriented Programming\" on DZone. It is not the first post that I find on a blog that praises functional programming with respect to object-oriented programming. For all of this posts, object-oriented programming is dead (more or less). I think that at the basis of all this posts there is a misunderstanding over what functional programming really is. Now it's time for me to give my two cents to the fight among different programming paradigms."
 social-share: true
 social-title: "Object Oriented Programming strikes back!"

@@ -5,8 +5,7 @@ date:   2015-07-26 19:26:00
 comments: true
 categories: programming
 tags:
-    - programming
-    - clean code
+    - clean-code
 summary: "When I was attending the course of Computer Science at the University they told me that I have to document my 
           code. In this way, the developers that would come after me could understand easily the code I had wrote.
           Writing good comments is an hard task, if it is possible at all. In this article I will try to explain you 

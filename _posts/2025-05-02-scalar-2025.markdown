@@ -6,7 +6,7 @@ comments: true
 categories: programming fp effect-system scala
 tags:
     - scala
-    - fp
+    - functional-programming
     - effect-system
 summary: "I had the pleasure of giving a talk at the Scalar Conference 2025 in Warsaw. The talk was titled 'Yo Dawg, Heard You Want To FlatMap Your Direct-Style'"
 social-share: true
