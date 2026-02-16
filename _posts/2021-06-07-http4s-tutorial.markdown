@@ -12,4 +12,5 @@ social-title: "Unleashing the Power of HTTP Apis: The Http4s Library "
 social-tags: "Scala, Http4s, Cats, Cats-Effect"
 math: false
 rockthejvm: https://blog.rockthejvm.com/http4s-tutorial/
+github-repo: https://github.com/rcardin/http4s-tutorial
 ---

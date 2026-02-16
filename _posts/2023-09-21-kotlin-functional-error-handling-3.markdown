@@ -14,4 +14,5 @@ social-title: "Functional Error Handling in Kotlin, Part 3: The Raise DSL"
 social-tags: "kotlin, programming, arrow"
 math: false
 rockthejvm: https://blog.rockthejvm.com/functional-error-handling-in-kotlin-part-3/
+github-repo: https://github.com/rcardin/functional-error-handling-in-kotlin
 ---

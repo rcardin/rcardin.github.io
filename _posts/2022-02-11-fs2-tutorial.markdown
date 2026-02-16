@@ -15,4 +15,5 @@ social-title: "FS2 Tutorial: More than Functional Streaming in Scala"
 social-tags: "Scala, FS2, Streams, Cats"
 math: false
 rockthejvm: https://blog.rockthejvm.com/fs2/
+github-repo: https://github.com/rcardin/fs2-playground
 ---

@@ -12,4 +12,5 @@ social-title: "Value Classes in Scala"
 social-tags: "Scala"
 math: false
 rockthejvm: https://blog.rockthejvm.com/value-classes/
+github-repo: https://github.com/rcardin/value-classes
 ---

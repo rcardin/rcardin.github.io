@@ -14,4 +14,5 @@ social-title: "Kotlin Coroutines - A Comprehensive Introduction"
 social-tags: "Kotlin, coroutines, Concurrency"
 math: false
 rockthejvm: https://blog.rockthejvm.com/kotlin-coroutines-101/
+github-repo: https://github.com/rcardin/kotlin-coroutines-playground
 ---

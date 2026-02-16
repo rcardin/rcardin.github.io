@@ -13,4 +13,5 @@ social-title: "ZIO: Introduction to Fibers"
 social-tags: "Scala, Zio"
 math: false
 rockthejvm: https://blog.rockthejvm.com/zio-fibers/
+github-repo: https://github.com/rcardin/zio-playground
 ---

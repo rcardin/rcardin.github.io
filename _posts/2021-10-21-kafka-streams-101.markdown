@@ -14,4 +14,5 @@ social-title: "Kafka Streams 101"
 social-tags: "Scala, Kafka, Kafka-Streams"
 math: false
 rockthejvm: https://blog.rockthejvm.com/kafka-streams/
+github-repo: https://github.com/rcardin/kafka-streams-playground
 ---

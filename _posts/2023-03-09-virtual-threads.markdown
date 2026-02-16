@@ -14,4 +14,5 @@ social-title: "The Ultimate Guide to Java Virtual Threads"
 social-tags: "Java, threads, Concurrency"
 math: false
 rockthejvm: https://blog.rockthejvm.com/ultimate-guide-to-java-virtual-threads/
+github-repo: https://github.com/rcardin/virtual-threads-playground
 ---

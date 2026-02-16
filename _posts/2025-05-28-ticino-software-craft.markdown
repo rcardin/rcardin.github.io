@@ -13,6 +13,7 @@ social-share: true
 social-title: "My Talk at Ticino Software Craft in May 2025"
 social-tags: "Scala, Programming, Effect System, Functional Programming"
 math: false
+github-repo: https://github.com/rcardin/ticino-software-craft-2025
 ---
 
 The Ticino Software Craft Meetup gave me the opportunity to give a talk about my library YAES, which is an effect system for Scala. We did an excursus on Effect Systems in Scala, starting from the monadic effects in Cats Effect, going through the ZIO effect system, and Jyo and finally arriving at YAES. 
