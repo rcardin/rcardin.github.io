@@ -14,4 +14,5 @@ social-title: "Raise Your Tests: Testing Functional Kotlin with Arrow and Raise"
 social-tags: "kotlin, arrow, testing"
 math: false
 rockthejvm: https://blog.rockthejvm.com/testing-raise/
+github-repo: https://github.com/rcardin/arrow-raise-testing
 ---

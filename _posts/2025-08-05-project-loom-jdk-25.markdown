@@ -15,4 +15,5 @@ social-title: "Project Loom: Structured Concurrency in JDK 25 - What's New"
 social-tags: "Java, JDK25, Threads, Concurrency"
 math: false
 rockthejvm: https://rockthejvm.com/articles/structured-concurrency-jdk-25
+github-repo: https://github.com/rcardin/structured-concurrency-jdk-25
 ---

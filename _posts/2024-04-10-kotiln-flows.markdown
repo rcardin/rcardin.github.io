@@ -14,4 +14,5 @@ social-title: "Kotlin Flows - The Ultimate Guide"
 social-tags: "kotlin, coroutines, concurrency"
 math: false
 rockthejvm: https://blog.rockthejvm.com/kotlin-flows/
+github-repo: https://github.com/rcardin/kotlin-flows-playground
 ---

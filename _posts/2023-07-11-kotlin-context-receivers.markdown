@@ -12,4 +12,5 @@ social-title: "Kotlin Context Receivers: A Comprehensive Guide "
 social-tags: "kotlin, programming"
 math: false
 rockthejvm: https://blog.rockthejvm.com/kotlin-context-receivers/
+github-repo: https://github.com/rcardin/kotlin-context-receivers-playground
 ---

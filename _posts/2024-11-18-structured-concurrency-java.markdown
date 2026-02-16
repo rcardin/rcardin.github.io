@@ -14,4 +14,5 @@ social-title: "Project Loom: Structured Concurrency in Java"
 social-tags: "Java, Threads, Concurrency"
 math: false
 rockthejvm: https://rockthejvm.com/articles/structured-concurrency-in-java
+github-repo: https://github.com/rcardin/virtual-threads-playground
 ---

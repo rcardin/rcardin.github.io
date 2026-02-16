@@ -15,4 +15,5 @@ social-title: "Learn Doobie for the Greater Good"
 social-tags: "Scala, Postgres, Doobie, Cats"
 math: false
 rockthejvm: https://blog.rockthejvm.com/doobie/
+github-repo: https://github.com/rcardin/doobie-playground
 ---
