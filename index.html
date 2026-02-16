@@ -4,7 +4,15 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+  <div class="hero">
+    <img class="hero__avatar" src="{{ site.baseurl }}/assets/profile.jpg" alt="Riccardo Cardin">
+    <div class="hero__text">
+      <h1 class="hero__name">Riccardo Cardin</h1>
+      <p class="hero__tagline">Software engineer, speaker, and functional programming enthusiast. Turning side effects into well-typed abstractions, one flatMap at a time.</p>
+    </div>
+  </div>
+
+  <h2 class="page-heading">Posts</h2>
 
   {% include filter-tabs.html %}
 
