@@ -1,0 +1,116 @@
+/**
+ * Search modal
+ */
+.search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+
+    &__backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+    }
+
+    &__content {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        background-color: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        margin: 0 16px;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    &__icon {
+        color: var(--text-muted);
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    &__input {
+        flex: 1;
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        font-family: $base-font-family;
+        color: var(--text-primary);
+
+        &::placeholder {
+            color: var(--text-muted);
+        }
+    }
+
+    &__kbd {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        font-family: $code-font-family;
+        flex-shrink: 0;
+    }
+
+    &__results {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 8px;
+    }
+}
+
+.search-result {
+    display: block;
+    padding: 12px;
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+
+    &:hover, &:focus {
+        background-color: var(--bg-surface);
+        text-decoration: none;
+        color: var(--text-primary);
+    }
+
+    &:visited {
+        color: var(--text-primary);
+    }
+
+    &__title {
+        font-weight: 500;
+        margin-bottom: 4px;
+    }
+
+    &__meta {
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+}
+
+.search-empty {
+    padding: 24px;
+    text-align: center;
+    color: var(--text-muted);
+}

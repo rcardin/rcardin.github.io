@@ -4,15 +4,17 @@ title: About
 permalink: /about/
 ---
 
-Hi all! My name is **Riccardo**. I am currently working as a solution developer of Java based
-applications (both backend and frontend) in financial domain, i.e. Banks and Assurances.
-I am also one of the two main lecturers of the [Software Engineering](http://www.math.unipd.it/~rcardin/sweb.html)
-course inside the Computer Science Bsc, hosted by [Dipartimento di Matematica](http://www.math.unipd.it/) of
-the [University of Padova](http://www.unipd.it/).
+<div class="about-header">
+  <img class="about-header__avatar" src="{{ site.baseurl }}/assets/profile.jpg" alt="Riccardo Cardin">
+</div>
 
-I am strongly interested in the application of design pattern and design best practices.
-I am trying to constantly increase my knowledge about software's design and development.
-My main programming skill is object oriented programming using Java. I am currently trying to
-master also functional programming, mainly using Scala and Java 8, and actors-driven development
-using Akka.
+Hi, I'm **Riccardo** — a software engineer, conference speaker, and university lecturer based in Italy.
+
+I work on JVM-based systems in the financial domain and lecture on [Software Engineering](http://www.math.unipd.it/~rcardin/sweb.html) at the [University of Padova](http://www.unipd.it/).
+
+I write about **Scala**, **Kotlin**, and **Java** — with a focus on functional programming, effect systems, design patterns, and concurrency. You'll find deep dives on topics like ZIO, Akka, Kotlin Coroutines, Arrow, virtual threads, and more.
+
+I also contribute articles to [Rock the JVM](https://blog.rockthejvm.com) and [Baeldung](https://www.baeldung.com), and speak at conferences like Scala Days and Scalar.
+
+Feel free to connect with me on any of the social links below.
 

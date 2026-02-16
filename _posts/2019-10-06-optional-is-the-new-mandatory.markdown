@@ -5,8 +5,7 @@ date:   2019-10-06 14:15:12
 comments: true
 categories: functional programming types
 tags:
-    - functional
-    - programming
+    - functional-programming
     - jvm
 summary: "Since the beginning of the 'computer programming era', developers had searched for a solution for one of the biggest mistake made in computer science, the invention of the null reference. Since functional programming became mainstream, a solution to this problem seems to arise, the use of the optional type."
 social-share: true

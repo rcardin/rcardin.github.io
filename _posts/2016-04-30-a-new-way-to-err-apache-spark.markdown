@@ -8,7 +8,6 @@ tags:
     - big-data
     - apache-spark
     - scala
-    - programming
 summary: "Apache Spark is a library that let you write code that will be executed in a distributed fashion as a simple single 
           threaded program. Spark will make the dirty job for you: it will distribute the code and the execution, manage remote
           objects for you, optimize the algorithm for you. However, be aware: there is no kind of magic behind Spark. If you

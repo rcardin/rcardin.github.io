@@ -1,0 +1,77 @@
+/**
+ * Responsive styles
+ */
+
+@include media-query($on-palm) {
+    // Filter tabs: horizontal scroll on mobile
+    .filter-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    // CTA buttons: full width on mobile
+    .cta-button {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .cta-section {
+        padding: 20px 16px;
+    }
+
+    // Search modal: full width, closer to top
+    .search-modal {
+        padding-top: 8vh;
+
+        &__content {
+            max-width: 100%;
+            margin: 0 8px;
+            border-radius: 8px;
+        }
+    }
+
+    // Post cards: tighter padding
+    .post-card {
+        padding: 16px;
+    }
+
+    // Search trigger: hide shortcut text
+    .search-trigger .search-shortcut {
+        display: none;
+    }
+
+    // Header: keep search + toggle visible outside hamburger
+    .site-nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    // Tag cloud: smaller gaps
+    .tag-cloud {
+        gap: 6px;
+    }
+
+    .tag-cloud__tag {
+        padding: 4px 10px;
+        font-size: 13px;
+    }
+}
+
+@include media-query($on-laptop) {
+    .page-heading {
+        font-size: 24px;
+    }
+
+    .post-card__title {
+        font-size: 20px;
+    }
+}

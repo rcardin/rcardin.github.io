@@ -8,7 +8,6 @@ tags:
     - design
     - java
     - scala
-    - programming
 summary: "'No Silver Bullet' wrote Brooks in the far away 1986. The history of software engineering proved him right, 
           there is no doubt. Through the past years, hundreds of theories, patterns, frameworks, technologies risen as 
           fast as they successively fallen. Dependency injection broke down the developer community from its definition.

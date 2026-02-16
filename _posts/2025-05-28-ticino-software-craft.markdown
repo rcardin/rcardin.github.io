@@ -6,7 +6,7 @@ comments: true
 categories: programming fp effect-system scala
 tags:
     - scala
-    - fp
+    - functional-programming
     - effect-system
 summary: "The Ticino Software Craft Meetup gave me the opportunity to give a talk about my library YAES, which is an effect system for Scala."
 social-share: true

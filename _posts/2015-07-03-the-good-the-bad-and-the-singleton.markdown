@@ -5,8 +5,7 @@ date:   2015-07-03 08:15:00
 comments: true
 categories: design programming
 tags:
-    - design pattern
-    - programming
+    - design
     - java
     - scala
 summary: "If you search for the word Singleton on Google, you will probably come up with a bunch of rants about the

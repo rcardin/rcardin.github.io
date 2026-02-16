@@ -5,7 +5,6 @@ date:   2015-09-09 22:04:00
 comments: true
 categories: programming thread-safety immutability java scala
 tags:
-    - programming
     - thread-safety
     - immutability
     - java

@@ -6,7 +6,6 @@ comments: true
 categories: scala programming
 tags:
     - scala
-    - programming
 summary: "Developers coming from object-oriented languages such as Java or C# know very well the difference between abstract classes and interfaces. The Scala programming language introduced a third contestant in the match: Traits."
 social-share: true
 social-title: "To Trait, or not to Trait?"

@@ -1,0 +1,40 @@
+---
+layout: default
+permalink: /tags/
+---
+
+<div class="home">
+  <h1 class="page-heading">Tags</h1>
+
+  <div class="tag-cloud">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags %}
+      <a class="tag-cloud__tag" href="#{{ tag[0] | slugify }}">
+        {{ tag[0] }}
+        <span class="tag-count">({{ tag[1].size }})</span>
+      </a>
+    {% endfor %}
+  </div>
+
+  {% for tag in sorted_tags %}
+    <div class="tag-section" id="{{ tag[0] | slugify }}">
+      <h2 class="tag-section__heading"># {{ tag[0] }}</h2>
+      {% for post in tag[1] %}
+        <div class="post-card" style="padding: 16px; margin-bottom: 8px;">
+          <div class="post-card__header">
+            <span class="post-card__date">{{ post.date | date: "%b %-d, %Y" }}</span>
+            {% if post.rockthejvm %}
+              <span class="badge badge--rockthejvm">Rock the JVM</span>
+            {% endif %}
+            {% if post.baeldung %}
+              <span class="badge badge--baeldung"><i class="fas fa-leaf"></i> Baeldung</span>
+            {% endif %}
+          </div>
+          <h3 class="post-card__title" style="font-size: 18px; margin-bottom: 0;">
+            <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+          </h3>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

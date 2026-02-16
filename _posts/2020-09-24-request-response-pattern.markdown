@@ -6,7 +6,6 @@ comments: true
 categories: scala programming akka
 tags:
     - scala
-    - programming
     - akka
 summary: "After having introduced the Tell Pattern, it’s time to make an overview of some interaction that is more frequent in real-world scenarios: the request-response pattern."
 social-share: true

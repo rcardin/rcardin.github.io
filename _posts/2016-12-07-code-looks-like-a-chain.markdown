@@ -6,7 +6,6 @@ comments: true
 categories: design programming java scala di
 tags:
     - design
-    - programming
     - java
     - scala
     - dependency injection

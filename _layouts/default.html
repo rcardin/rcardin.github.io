@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 
   {% include head.html %}
   {% include google_analytics.html %}
@@ -16,6 +16,12 @@
     </div>
 
     {% include footer.html %}
+
+    {% include search-modal.html %}
+
+    <script src="{{ site.baseurl }}/assets/js/lunr.min.js"></script>
+    <script src="{{ site.baseurl }}/assets/js/search.js"></script>
+    <script src="{{ site.baseurl }}/assets/js/theme-toggle.js"></script>
 
   </body>
 

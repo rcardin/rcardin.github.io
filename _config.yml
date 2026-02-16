@@ -1,10 +1,9 @@
 # Site settings
 title: Big ball of mud
 email: riccardo.cardin@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  My technical blog about software engineering, design patterns,
-  software design and development. Trying to make software world
-  a more beautiful world :)
+description: >
+  Writing about Scala, Kotlin, and the JVM — from functional programming
+  and effect systems to design patterns and concurrency.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://rcardin.github.io" # the base hostname & protocol for your site
 twitter_username: riccardo_cardin
@@ -15,3 +14,8 @@ reddit_username: rcardin
 
 # Build settings
 markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md

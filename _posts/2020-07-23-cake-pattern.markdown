@@ -6,7 +6,6 @@ comments: true
 categories: scala programming
 tags:
     - scala
-    - programming
 summary: "In our tutorial on Scala’s Self-Type Annotation, we saw how to use self-type annotations to declare dependencies among types. Now, it’s time to go further. Let’s talk about the Cake Pattern, an idiomatic implementation of the Dependency Injection pattern in Scala."
 social-share: true
 social-title: "The Cake Pattern"

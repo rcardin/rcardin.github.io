@@ -5,9 +5,8 @@ date:   2017-05-05 07:54:21
 comments: true
 categories: test design software-engineering programming
 tags:
-    - test
+    - testing
     - design
-    - programming
 summary: "Just a couple of days ago, I was surfing through the code base of the project I am actually working on
           when I found something that disgusted myself a lot. I smelled that something was wrong. Then, I
           checked unit tests associated to the class. Bingo, tests were not complete. Tests' incompleteness did

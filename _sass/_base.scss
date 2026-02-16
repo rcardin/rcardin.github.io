@@ -8,8 +8,6 @@ dl, dd, ol, ul, figure {
     padding: 0;
 }
 
-
-
 /**
  * Basic styling
  */
@@ -17,13 +15,12 @@ body {
     font-family: $base-font-family;
     font-size: $base-font-size;
     line-height: $base-line-height;
-    font-weight: 300;
-    color: $text-color;
-    background-color: $background-color;
+    font-weight: 400;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
     -webkit-text-size-adjust: 100%;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
@@ -35,8 +32,6 @@ ul, ol, dl, figure,
     margin-bottom: $spacing-unit / 2;
 }
 
-
-
 /**
  * Images
  */
@@ -44,8 +39,6 @@ img {
     max-width: 100%;
     vertical-align: middle;
 }
-
-
 
 /**
  * Figures
@@ -57,8 +50,6 @@ figure > img {
 figcaption {
     font-size: $small-font-size;
 }
-
-
 
 /**
  * Lists
@@ -74,42 +65,37 @@ li {
     }
 }
 
-
-
 /**
  * Headings
  */
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
+    font-weight: 600;
+    color: var(--text-primary);
 }
-
-
 
 /**
  * Links
  */
 a {
-    color: $brand-color;
+    color: var(--accent-primary);
     text-decoration: none;
 
     &:visited {
-        color: darken($brand-color, 15%);
+        color: var(--accent-primary);
     }
 
     &:hover {
-        color: $text-color;
+        color: var(--accent-hover);
         text-decoration: underline;
     }
 }
-
-
 
 /**
  * Blockquotes
  */
 blockquote {
-    color: $grey-color;
-    border-left: 4px solid $grey-color-light;
+    color: var(--text-secondary);
+    border-left: 4px solid var(--accent-mauve);
     padding-left: $spacing-unit / 2;
     font-size: 18px;
     letter-spacing: -1px;
@@ -120,42 +106,72 @@ blockquote {
     }
 }
 
-
-
 /**
  * Code formatting
  */
 pre,
 code {
-    font-size: 15px;
-    border: 1px solid $grey-color-light;
-    border-radius: 3px;
-    background-color: #eef;
+    font-family: $code-font-family;
+    font-size: 14px;
+    border: 1px solid var(--code-border);
+    border-radius: 6px;
+    background-color: var(--code-bg);
 }
 
 code {
-    padding: 1px 5px;
+    padding: 2px 6px;
+    color: var(--accent-peach);
 }
 
 pre {
-    padding: 8px 12px;
-    overflow-x: scroll;
+    padding: 12px 16px;
+    overflow-x: auto;
 
     > code {
         border: 0;
         padding-right: 0;
         padding-left: 0;
+        color: var(--text-primary);
     }
 }
 
+/**
+ * Horizontal rules
+ */
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: $spacing-unit 0;
+}
 
+/**
+ * Tables
+ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: $spacing-unit / 2;
+
+    th, td {
+        padding: 8px 12px;
+        border: 1px solid var(--border-color);
+    }
+
+    th {
+        background-color: var(--bg-surface);
+        font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+        background-color: var(--bg-secondary);
+    }
+}
 
 /**
  * Wrapper
  */
 .wrapper {
-    max-width: -webkit-calc(800px - (#{$spacing-unit} * 2));
-    max-width:         calc(800px - (#{$spacing-unit} * 2));
+    max-width: calc(800px - (#{$spacing-unit} * 2));
     margin-right: auto;
     margin-left: auto;
     padding-right: $spacing-unit;
@@ -163,20 +179,16 @@ pre {
     @extend %clearfix;
 
     @include media-query($on-laptop) {
-        max-width: -webkit-calc(800px - (#{$spacing-unit}));
-        max-width:         calc(800px - (#{$spacing-unit}));
+        max-width: calc(800px - #{$spacing-unit});
         padding-right: $spacing-unit / 2;
         padding-left: $spacing-unit / 2;
     }
 }
 
-
-
 /**
  * Clearfix
  */
 %clearfix {
-
     &:after {
         content: "";
         display: table;
@@ -184,13 +196,10 @@ pre {
     }
 }
 
-
-
 /**
  * Icons
  */
 .icon {
-
     > svg {
         display: inline-block;
         width: 16px;
@@ -198,8 +207,8 @@ pre {
         vertical-align: middle;
 
         path {
-            fill: $grey-color;
+            fill: var(--text-muted);
         }
     }
-    color: $grey-color;
+    color: var(--text-muted);
 }
