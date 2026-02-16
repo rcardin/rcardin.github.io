@@ -1,0 +1,60 @@
+{% assign content_stripped = post.content | strip_newlines | strip %}
+{% assign is_talk = false %}
+{% if post.title contains "🎬" %}
+  {% assign is_talk = true %}
+{% endif %}
+
+{% assign is_external = false %}
+{% if post.rockthejvm != null and content_stripped == "" %}
+  {% assign is_external = true %}
+{% elsif post.baeldung != null and content_stripped == "" %}
+  {% assign is_external = true %}
+{% endif %}
+
+{% if is_talk %}
+  {% assign card_type = "talk" %}
+{% elsif is_external or post.rockthejvm != null or post.baeldung != null %}
+  {% assign card_type = "external" %}
+{% else %}
+  {% assign card_type = "blog" %}
+{% endif %}
+
+<div class="post-card" data-type="{{ card_type }}">
+  <div class="post-card__header">
+    <span class="post-card__date">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+    {% unless is_external or is_talk %}
+      {% assign read_time = post.content | number_of_words | divided_by: 180 %}
+      {% if read_time == 0 %}{% assign read_time = 1 %}{% endif %}
+      <span class="post-card__read-time">
+        <i class="far fa-clock"></i> {{ read_time }} min read
+      </span>
+    {% endunless %}
+
+    {% if post.rockthejvm %}
+      <span class="badge badge--rockthejvm"><img class="badge__logo" src="https://rockthejvm.com/_astro/rock-the-jvm.C5EPcnXf.svg" alt="Rock the JVM" width="14" height="14"/> Rock the JVM</span>
+    {% endif %}
+    {% if post.baeldung %}
+      <span class="badge badge--baeldung"><i class="fas fa-leaf"></i> Baeldung</span>
+    {% endif %}
+    {% if is_talk %}
+      <span class="badge badge--talk"><i class="fas fa-video"></i> Talk</span>
+    {% endif %}
+  </div>
+
+  <h2 class="post-card__title">
+    <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+  </h2>
+
+  {% if post.summary %}
+    <p class="post-card__summary">{{ post.summary }}</p>
+  {% endif %}
+
+  {% if post.tags.size > 0 %}
+    <div class="post-card__tags">
+      {% for tag in post.tags %}
+        <a class="tag" href="{{ site.baseurl }}/tags#{{ tag | slugify }}">{{ tag }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

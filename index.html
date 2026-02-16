@@ -6,65 +6,14 @@ layout: default
 
   <h1 class="page-heading">Posts</h1>
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        {% capture read_time %}
-          {{ post.content | number_of_words | divided_by: 180 }}
-        {% endcapture %}
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-        {% if post.baeldung == null and post.rockthejvm == null %}
-        <span class="post-meta">
-          &nbsp;&nbsp;
-          <i class="far fa-clock"></i>
-          {% if read_time != '0' %}
-            {{ read_time }}
-          {% else %}
-            1
-          {% endif %} min. to read
-        </span>
-        {% endif %}
-        <h2>
-          {% assign content = post.content | strip_newlines %}
-          {% if post.baeldung != null and content == "" %}
-          <a class="post-link" href="{{ post.baeldung }}" target="_blank">
-            <span style="font-size: 0.8em; color: #00cc66;">
-              <i class="fas fa-leaf"></i>
-            </span>
-            {{ post.title }}
-          </a>
-          {% elsif post.rockthejvm != null and content == "" %}
-          <a class="post-link" href="{{ post.rockthejvm }}" target="_blank">
-            <img src="https://rockthejvm.com/_astro/rock-the-jvm.C5EPcnXf.svg" width="25em" height="25em"/>
-            {{ post.title }}
-          </a>
-          {% else %}
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
-            {% if post.baeldung != null %}
-            <span style="font-size: 0.8em; color: #00cc66;">
-              <i class="fas fa-leaf"></i>
-            </span>
-            {% endif %}
-            {{ post.title }}
-          </a>
-          {% endif %}
-        </h2>
-        {% if post.summary != null %}
-        <article class="post-content">
-            {{post.summary}}
-            {% if post.baeldung != null and content == "" %}
-            <a href="{{ post.baeldung }}" target="_blank">[continue...]</a>
-            {% elsif post.rockthejvm != null and content == "" %}
-            <a href="{{ post.rockthejvm }}" target="_blank">[continue...]</a>
-            {% else %}
-            <a href="{{ post.url | prepend: site.baseurl }}">[continue...]</a>
-            {% endif %}
-        </article>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+  {% include filter-tabs.html %}
+
+  {% for post in site.posts %}
+    {% include post-card.html post=post %}
+  {% endfor %}
 
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 
 </div>
+
+<script src="{{ site.baseurl }}/assets/js/filter.js"></script>

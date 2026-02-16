@@ -1,11 +1,37 @@
 ---
 layout: default
 ---
+{% assign content_stripped = content | strip_newlines | strip %}
+{% assign is_rockthejvm_external = false %}
+{% assign is_baeldung_external = false %}
+
+{% if page.rockthejvm and content_stripped == "" %}
+  {% assign is_rockthejvm_external = true %}
+{% endif %}
+
+{% if page.baeldung %}
+  {% assign baeldung_str = page.baeldung | append: "" %}
+  {% if baeldung_str != "true" and content_stripped == "" %}
+    {% assign is_baeldung_external = true %}
+  {% endif %}
+{% endif %}
+
 <div class="post">
   <script type="text/javascript" async
           src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG">
   </script>
   <header class="post-header">
+    {% if page.rockthejvm %}
+      <div class="post-platform-badge">
+        <span class="badge badge--rockthejvm"><img class="badge__logo" src="https://rockthejvm.com/_astro/rock-the-jvm.C5EPcnXf.svg" alt="Rock the JVM" width="14" height="14"/> Rock the JVM</span>
+      </div>
+    {% endif %}
+    {% if page.baeldung %}
+      <div class="post-platform-badge">
+        <span class="badge badge--baeldung"><i class="fas fa-leaf"></i> Baeldung</span>
+      </div>
+    {% endif %}
+
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}
       {% if page.dzone-link or page.medium-link or page.reddit-link %}
@@ -27,13 +53,33 @@ layout: default
     </p>
     <p>
       {% for tag in page.tags %}
-        <code>{{ tag }}</code>
+        <a class="tag" href="{{ site.baseurl }}/tags#{{ tag | slugify }}">{{ tag }}</a>
       {% endfor %}
     </p>
   </header>
 
   <article class="post-content">
-    {{ content }}
+    {% if is_rockthejvm_external or is_baeldung_external %}
+      {% if page.summary %}
+        <p>{{ page.summary }}</p>
+      {% endif %}
+
+      <div class="cta-section">
+        {% if is_rockthejvm_external %}
+          <p>This article was originally published on <strong>Rock the JVM</strong>.</p>
+          <a href="{{ page.rockthejvm }}" class="cta-button cta-button--rockthejvm" target="_blank" rel="noopener">
+            Read on Rock the JVM <i class="fas fa-external-link-alt"></i>
+          </a>
+        {% elsif is_baeldung_external %}
+          <p>This article was originally published on <strong>Baeldung</strong>.</p>
+          <a href="{{ page.baeldung }}" class="cta-button cta-button--baeldung" target="_blank" rel="noopener">
+            Read on Baeldung <i class="fas fa-external-link-alt"></i>
+          </a>
+        {% endif %}
+      </div>
+    {% else %}
+      {{ content }}
+    {% endif %}
   </article>
 
   <footer>

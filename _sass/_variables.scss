@@ -1,0 +1,98 @@
+// ============================================================
+// SCSS Variables (used at compile time)
+// ============================================================
+
+$base-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+$code-font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+$base-font-size:   16px;
+$small-font-size:  $base-font-size * 0.875;
+$base-line-height: 1.6;
+
+$spacing-unit:     30px;
+
+$on-palm:          600px;
+$on-laptop:        800px;
+$on-desktop:       1100px;
+
+@mixin media-query($device) {
+    @media screen and (max-width: $device) {
+        @content;
+    }
+}
+
+// ============================================================
+// CSS Custom Properties — Dark Theme (default)
+// ============================================================
+
+:root,
+[data-theme="dark"] {
+    // Catppuccin Mocha-inspired palette
+    --bg-primary:      #1e1e2e;
+    --bg-secondary:    #181825;
+    --bg-surface:      #313244;
+    --bg-hover:        #45475a;
+
+    --text-primary:    #cdd6f4;
+    --text-secondary:  #a6adc8;
+    --text-muted:      #6c7086;
+
+    --accent-primary:  #89b4fa;
+    --accent-hover:    #b4d0fb;
+    --accent-green:    #a6e3a1;
+    --accent-peach:    #fab387;
+    --accent-mauve:    #cba6f7;
+    --accent-red:      #f38ba8;
+    --accent-yellow:   #f9e2af;
+    --accent-teal:     #94e2d5;
+
+    --border-color:    #45475a;
+    --border-subtle:   #313244;
+
+    --code-bg:         #11111b;
+    --code-border:     #313244;
+
+    --shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md:       0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg:       0 8px 24px rgba(0, 0, 0, 0.5);
+
+    --header-bg:       #181825;
+    --footer-bg:       #181825;
+}
+
+// ============================================================
+// CSS Custom Properties — Light Theme
+// ============================================================
+
+[data-theme="light"] {
+    // Catppuccin Latte-inspired palette
+    --bg-primary:      #eff1f5;
+    --bg-secondary:    #e6e9ef;
+    --bg-surface:      #ccd0da;
+    --bg-hover:        #bcc0cc;
+
+    --text-primary:    #4c4f69;
+    --text-secondary:  #5c5f77;
+    --text-muted:      #8c8fa1;
+
+    --accent-primary:  #1e66f5;
+    --accent-hover:    #2a6ef6;
+    --accent-green:    #40a02b;
+    --accent-peach:    #fe640b;
+    --accent-mauve:    #8839ef;
+    --accent-red:      #d20f39;
+    --accent-yellow:   #df8e1d;
+    --accent-teal:     #179299;
+
+    --border-color:    #bcc0cc;
+    --border-subtle:   #ccd0da;
+
+    --code-bg:         #e6e9ef;
+    --code-border:     #ccd0da;
+
+    --shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md:       0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg:       0 8px 24px rgba(0, 0, 0, 0.12);
+
+    --header-bg:       #e6e9ef;
+    --footer-bg:       #e6e9ef;
+}

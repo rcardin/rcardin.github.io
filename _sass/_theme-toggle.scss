@@ -1,0 +1,36 @@
+/**
+ * Theme toggle button
+ */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+        color: var(--accent-primary);
+        border-color: var(--accent-primary);
+        background-color: var(--bg-surface);
+    }
+
+    .icon-moon,
+    .icon-sun {
+        width: 18px;
+        height: 18px;
+    }
+
+    // Dark mode: show sun icon (to switch to light)
+    .icon-sun { display: none; }
+    .icon-moon { display: block; }
+}
+
+[data-theme="light"] .theme-toggle {
+    .icon-sun { display: block; }
+    .icon-moon { display: none; }
+}

@@ -15,3 +15,8 @@ reddit_username: rcardin
 
 # Build settings
 markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
