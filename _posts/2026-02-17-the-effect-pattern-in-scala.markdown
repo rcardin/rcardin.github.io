@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Effect Pattern and Effect Systems in Scala"
-date:   2026-02-17 09:52:56
+date:   2026-02-17 05:52:56
 comments: true
 categories: scala functional-programming effect-systems
 tags:
