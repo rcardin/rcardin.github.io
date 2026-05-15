@@ -14,6 +14,7 @@ reddit_username: rcardin
 
 # Build settings
 markdown: kramdown
+future: true
 
 exclude:
   - Gemfile
