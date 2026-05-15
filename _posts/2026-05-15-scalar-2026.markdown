@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "🎬 Scalar Conference 2026"
+date:   2026-05-15 11:52:53
+comments: true
+categories: programming scala kotlin java concurrency continuations coroutines
+tags:
+    - scala
+    - kotlin
+    - java
+summary: "I had the pleasure of giving a talk at the Scalar Conference 2026 in Warsaw. The talk was titled 'The Concurrency Triangle: Scala Fibers, Java Virtual Threads, and Kotlin Coroutines'"
+social-share: true
+social-title: "My Talk at Scalar Conference 2026"
+social-tags: "Scala, Kotlin, Java, Concurrency"
+math: false
+github-repo: https://github.com/rcardin/scalar-2026
+---
+
+I had the pleasure of giving a talk at the Scalar Conference 2026 in Warsaw. The talk was titled "The Concurrency Triangle: Scala Fibers, Java Virtual Threads, and Kotlin Coroutines". I discussed about how continuations and coroutines are implemented in Scala, Java, and Kotlin. I also compared the different approaches taken by each language and highlighted their strengths and weaknesses. The talk was well-received, and I had a great time interacting with the audience and answering their questions.
+
+You can find the slides 📊 for the talk [here](https://github.com/rcardin/scalar-2026) and the video recording 📹 [here](https://www.youtube.com/watch?v=2TA-6YplrKA). Please leave a star ⭐ if you like it! If you're interested, please reach out to me on GitHub or X.
+
+[![Watch the video](https://img.youtube.com/vi/2TA-6YplrKA/maxresdefault.jpg)](https://youtu.be/2TA-6YplrKA)
