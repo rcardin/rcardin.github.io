@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "🎬 Scala Days Conference 2026: Shopping for a Scala Framework"
+date:   2026-10-25 9:11:40
+comments: true
+categories: programming scala framework
+tags:
+    - scala
+    - framework
+summary: "I had the pleasure of giving a talk at the Scala Days Conference 2026 in Berlin. The talk, co-hosted with Daniel Ciocîrlan introduced our new shiny Scala framework called Eezo"
+social-share: true
+social-title: "Scala Days 2026: Shopping for a Scala Framework"
+social-tags: "Scala, Web, Framework"
+math: false
+---
+
+We presented a new Scala framework that picks ideas from Django, Spring, Rails, and a few others, and integrates them in a way only Scala can.
+
+We aim to show that building and deploying powerful applications can and should be easy in Scala, and not just for experts.
+
+You can find the video recording 📹 [here](https://www.youtube.com/watch?v=IOsSpHu3eKE). The Eezo framework is available on [GitHub](https://eezo.io/). Please leave a star ⭐ if you like it!
+
+[![Watch the video](https://img.youtube.com/vi/IOsSpHu3eKE/maxresdefault.jpg)](https://youtu.be/IOsSpHu3eKE)
