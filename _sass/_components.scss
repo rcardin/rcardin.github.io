@@ -74,6 +74,16 @@
         box-shadow: var(--shadow-md);
     }
 
+    display: flow-root;
+
+    &__image {
+        float: right;
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        margin: 0 0 8px 16px;
+    }
+
     &__header {
         display: flex;
         align-items: center;

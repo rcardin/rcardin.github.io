@@ -20,6 +20,9 @@
 {% endif %}
 
 <div class="post-card" data-type="{{ card_type }}">
+  {% if post.card-image %}
+    <img class="post-card__image" src="{{ post.card-image | prepend: site.baseurl }}" alt="{{ post.card-image-alt | default: '' }}" loading="lazy"/>
+  {% endif %}
   <div class="post-card__header">
     <span class="post-card__date">{{ post.date | date: "%b %-d, %Y" }}</span>
 
